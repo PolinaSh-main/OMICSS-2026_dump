@@ -1,0 +1,138 @@
+Aug-07 12:27:22.779 [main] DEBUG nextflow.cli.Launcher - $> nextflow run main.nf -resume
+Aug-07 12:27:22.982 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 23.10.0
+Aug-07 12:27:23.056 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; embedded=false; plugins-dir=/mnt/home/polina.shevyakova/.nextflow/plugins; core-plugins: nf-amazon@2.1.4,nf-azure@1.3.2,nf-cloudcache@0.3.0,nf-codecommit@0.1.5,nf-console@1.0.6,nf-ga4gh@1.1.0,nf-google@1.8.3,nf-tower@1.6.3,nf-wave@1.0.0
+Aug-07 12:27:23.118 [main] INFO  o.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+Aug-07 12:27:23.119 [main] INFO  o.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+Aug-07 12:27:23.123 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.4.1 in 'deployment' mode
+Aug-07 12:27:23.174 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+Aug-07 12:27:23.259 [main] DEBUG nextflow.config.ConfigBuilder - Found config local: /mnt/nas0/user/polina.shevyakova/single_cell_pipeline/nextflow.config
+Aug-07 12:27:23.261 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /mnt/nas0/user/polina.shevyakova/single_cell_pipeline/nextflow.config
+Aug-07 12:27:23.358 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `standard`
+Aug-07 12:27:25.158 [main] DEBUG nextflow.cli.CmdRun - Applied DSL=2 from script declararion
+Aug-07 12:27:25.183 [main] INFO  nextflow.cli.CmdRun - Launching `main.nf` [extravagant_woese] DSL2 - revision: dcdfcb806e
+Aug-07 12:27:25.183 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
+Aug-07 12:27:25.183 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins resolved requirement=[]
+Aug-07 12:27:25.196 [main] DEBUG n.secret.LocalSecretsProvider - Secrets store: /mnt/home/polina.shevyakova/.nextflow/secrets/store.json
+Aug-07 12:27:25.200 [main] DEBUG nextflow.secret.SecretsLoader - Discovered secrets providers: [nextflow.secret.LocalSecretsProvider@7a583586] - activable => nextflow.secret.LocalSecretsProvider@7a583586
+Aug-07 12:27:25.366 [main] DEBUG nextflow.Session - Session UUID: 7b59da9c-7c93-4cd0-a55c-f5c9077ecbcb
+Aug-07 12:27:25.366 [main] DEBUG nextflow.Session - Run name: extravagant_woese
+Aug-07 12:27:25.367 [main] DEBUG nextflow.Session - Executor pool size: 2
+Aug-07 12:27:25.374 [main] DEBUG nextflow.file.FilePorter - File porter settings maxRetries=3; maxTransfers=50; pollTimeout=null
+Aug-07 12:27:25.379 [main] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'FileTransfer' minSize=10; maxSize=10; workQueue=LinkedBlockingQueue[10000]; allowCoreThreadTimeout=false
+Aug-07 12:27:25.461 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 23.10.0 build 5889
+  Created: 15-10-2023 15:07 UTC 
+  System: Linux 6.5.0-14-generic
+  Runtime: Groovy 3.0.19 on OpenJDK 64-Bit Server VM 19.0.2+7-Ubuntu-0ubuntu322.04
+  Encoding: UTF-8 (UTF-8)
+  Process: 434454@ssh-01.local.abi.am [172.20.200.17]
+  CPUs: 1 - Mem: 1 GB (200.8 MB) - Swap: 0 (0)
+Aug-07 12:27:25.497 [main] DEBUG nextflow.Session - Work-dir: /mnt/nas0/user/polina.shevyakova/single_cell_pipeline/work [nfs]
+Aug-07 12:27:25.497 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /mnt/nas0/user/polina.shevyakova/single_cell_pipeline/bin
+Aug-07 12:27:25.509 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
+Aug-07 12:27:25.564 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
+Aug-07 12:27:25.673 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
+Aug-07 12:27:25.804 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 2; maxThreads: 1000
+Aug-07 12:27:25.997 [main] DEBUG nextflow.Session - Session start
+Aug-07 12:27:26.005 [main] DEBUG nextflow.trace.TraceFileObserver - Workflow started -- trace file: /mnt/nas0/user/polina.shevyakova/single_cell_pipeline/results/pipeline_info/trace.tsv
+Aug-07 12:27:27.982 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Aug-07 12:27:28.306 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:QC` matches process QC
+Aug-07 12:27:28.362 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: slurm
+Aug-07 12:27:28.362 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'slurm'
+Aug-07 12:27:28.372 [main] DEBUG nextflow.executor.Executor - [warm up] executor > slurm
+Aug-07 12:27:28.390 [main] DEBUG n.processor.TaskPollingMonitor - Creating task monitor for executor 'slurm' > capacity: 100; pollInterval: 5s; dumpInterval: 5m 
+Aug-07 12:27:28.394 [main] DEBUG n.processor.TaskPollingMonitor - >>> barrier register (monitor: slurm)
+Aug-07 12:27:28.398 [main] DEBUG n.executor.AbstractGridExecutor - Creating executor 'slurm' > queue-stat-interval: 1m
+Aug-07 12:27:28.605 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:DOUBLETS` matches process DOUBLETS
+Aug-07 12:27:28.607 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: slurm
+Aug-07 12:27:28.607 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'slurm'
+Aug-07 12:27:28.691 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:MERGE` matches process MERGE
+Aug-07 12:27:28.693 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: slurm
+Aug-07 12:27:28.693 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'slurm'
+Aug-07 12:27:28.755 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:NORMALIZE` matches process NORMALIZE
+Aug-07 12:27:28.755 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: slurm
+Aug-07 12:27:28.756 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'slurm'
+Aug-07 12:27:28.763 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:HARMONY` matches process HARMONY
+Aug-07 12:27:28.763 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: slurm
+Aug-07 12:27:28.763 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'slurm'
+Aug-07 12:27:28.766 [main] DEBUG nextflow.Session - Workflow process names [dsl2]: QC, MERGE, HARMONY, DOUBLETS, NORMALIZE
+Aug-07 12:27:28.770 [main] DEBUG nextflow.Session - Igniting dataflow network (6)
+Aug-07 12:27:28.771 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > QC
+Aug-07 12:27:28.784 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > DOUBLETS
+Aug-07 12:27:28.784 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > MERGE
+Aug-07 12:27:28.790 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > NORMALIZE
+Aug-07 12:27:28.856 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > HARMONY
+Aug-07 12:27:28.857 [main] DEBUG nextflow.script.ScriptRunner - Parsed script files:
+  Script_cd368af19f5f978a: /mnt/nas0/user/polina.shevyakova/single_cell_pipeline/main.nf
+Aug-07 12:27:28.857 [main] DEBUG nextflow.script.ScriptRunner - > Awaiting termination 
+Aug-07 12:27:28.857 [main] DEBUG nextflow.Session - Session await
+Aug-07 12:27:29.381 [Actor Thread 3] INFO  nextflow.processor.TaskProcessor - [a4/5bbaa8] Cached process > QC (stim)
+Aug-07 12:27:29.383 [Actor Thread 1] INFO  nextflow.processor.TaskProcessor - [3f/0412c1] Cached process > QC (control)
+Aug-07 12:27:29.504 [Actor Thread 3] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'PublishDir' minSize=10; maxSize=10; workQueue=LinkedBlockingQueue[10000]; allowCoreThreadTimeout=false
+Aug-07 12:27:30.209 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process DOUBLETS (control) > jobId: 4947; workDir: /mnt/nas0/user/polina.shevyakova/single_cell_pipeline/work/d5/edcf332fac5478a342548bb1623fc7
+Aug-07 12:27:30.210 [Task submitter] INFO  nextflow.Session - [d5/edcf33] Submitted process > DOUBLETS (control)
+Aug-07 12:27:30.381 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process DOUBLETS (stim) > jobId: 4948; workDir: /mnt/nas0/user/polina.shevyakova/single_cell_pipeline/work/af/77091376a001f6edf051fbab5185f0
+Aug-07 12:27:30.381 [Task submitter] INFO  nextflow.Session - [af/770913] Submitted process > DOUBLETS (stim)
+Aug-07 12:30:33.411 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[jobId: 4947; id: 3; name: DOUBLETS (control); status: COMPLETED; exit: 0; error: -; workDir: /mnt/nas0/user/polina.shevyakova/single_cell_pipeline/work/d5/edcf332fac5478a342548bb1623fc7 started: 1786105683402; exited: 2026-08-07T12:29:45.29588Z; ]
+Aug-07 12:30:33.437 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[jobId: 4948; id: 4; name: DOUBLETS (stim); status: COMPLETED; exit: 0; error: -; workDir: /mnt/nas0/user/polina.shevyakova/single_cell_pipeline/work/af/77091376a001f6edf051fbab5185f0 started: 1786105683407; exited: 2026-08-07T12:30:16.983741Z; ]
+Aug-07 12:30:33.611 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process MERGE (merge) > jobId: 4949; workDir: /mnt/nas0/user/polina.shevyakova/single_cell_pipeline/work/5c/8653e80229ade711d22bbc2fbbbf87
+Aug-07 12:30:33.611 [Task submitter] INFO  nextflow.Session - [5c/8653e8] Submitted process > MERGE (merge)
+Aug-07 12:30:38.415 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[jobId: 4949; id: 5; name: MERGE (merge); status: COMPLETED; exit: 1; error: -; workDir: /mnt/nas0/user/polina.shevyakova/single_cell_pipeline/work/5c/8653e80229ade711d22bbc2fbbbf87 started: 1786105838410; exited: 2026-08-07T12:30:36.594658Z; ]
+Aug-07 12:30:38.421 [Task monitor] DEBUG nextflow.processor.TaskProcessor - Handling unexpected condition for
+  task: name=MERGE (merge); work-dir=/mnt/nas0/user/polina.shevyakova/single_cell_pipeline/work/5c/8653e80229ade711d22bbc2fbbbf87
+  error [nextflow.exception.ProcessFailedException]: Process `MERGE (merge)` terminated with an error exit status (1)
+Aug-07 12:30:38.469 [Task monitor] ERROR nextflow.processor.TaskProcessor - Error executing process > 'MERGE (merge)'
+
+Caused by:
+  Process `MERGE (merge)` terminated with an error exit status (1)
+
+Command executed:
+
+  /mnt/nas0/user/polina.shevyakova/single_cell_pipeline/.venv/bin/python         /mnt/nas0/user/polina.shevyakova/single_cell_pipeline/scripts/merge.py         --inputs control_doublet_filtered.h5ad stim_doublet_filtered.h5ad         --output merged.h5ad
+
+Command exit status:
+  1
+
+Command output:
+  Reading control_doublet_filtered.h5ad
+  Reading stim_doublet_filtered.h5ad
+  Merging
+
+Command error:
+  /mnt/nas0/user/polina.shevyakova/single_cell_pipeline/.venv/lib/python3.10/site-packages/anndata/_core/anndata.py:1758: UserWarning: Variable names are not unique. To make them unique, call `.var_names_make_unique`.
+    utils.warn_names_duplicates("var")
+  /mnt/nas0/user/polina.shevyakova/single_cell_pipeline/.venv/lib/python3.10/site-packages/anndata/_core/anndata.py:1758: UserWarning: Variable names are not unique. To make them unique, call `.var_names_make_unique`.
+    utils.warn_names_duplicates("var")
+  /mnt/nas0/user/polina.shevyakova/single_cell_pipeline/scripts/merge.py:47: FutureWarning: Series.__getitem__ treating keys as positions is deprecated. In a future version, integer keys will always be treated as labels (consistent with DataFrame behavior). To access a value by position, use `ser.iloc[pos]`
+    x.obs["condition"][0]
+  Traceback (most recent call last):
+    File "/mnt/nas0/user/polina.shevyakova/single_cell_pipeline/scripts/merge.py", line 67, in <module>
+      main()
+    File "/mnt/nas0/user/polina.shevyakova/single_cell_pipeline/scripts/merge.py", line 42, in main
+      merged = ad.concat(
+    File "/mnt/nas0/user/polina.shevyakova/single_cell_pipeline/.venv/lib/python3.10/site-packages/anndata/_core/merge.py", line 1343, in concat
+      reindexers = [
+    File "/mnt/nas0/user/polina.shevyakova/single_cell_pipeline/.venv/lib/python3.10/site-packages/anndata/_core/merge.py", line 1344, in <listcomp>
+      gen_reindexer(alt_indices, axis_indices(a, axis=alt_axis)) for a in adatas
+    File "/mnt/nas0/user/polina.shevyakova/single_cell_pipeline/.venv/lib/python3.10/site-packages/anndata/_core/merge.py", line 762, in gen_reindexer
+      return Reindexer(cur_var, new_var)
+    File "/mnt/nas0/user/polina.shevyakova/single_cell_pipeline/.venv/lib/python3.10/site-packages/anndata/_core/merge.py", line 521, in __init__
+      new_pos = new_idx.get_indexer(old_idx)
+    File "/mnt/nas0/user/polina.shevyakova/single_cell_pipeline/.venv/lib/python3.10/site-packages/pandas/core/indexes/base.py", line 3892, in get_indexer
+      raise InvalidIndexError(self._requires_unique_msg)
+  pandas.errors.InvalidIndexError: Reindexing only valid with uniquely valued Index objects
+
+Work dir:
+  /mnt/nas0/user/polina.shevyakova/single_cell_pipeline/work/5c/8653e80229ade711d22bbc2fbbbf87
+
+Tip: you can try to figure out what's wrong by changing to the process work dir and showing the script file named `.command.sh`
+Aug-07 12:30:38.476 [main] DEBUG nextflow.Session - Session await > all processes finished
+Aug-07 12:30:38.481 [Task monitor] DEBUG nextflow.Session - Session aborted -- Cause: Process `MERGE (merge)` terminated with an error exit status (1)
+Aug-07 12:30:38.554 [main] DEBUG nextflow.Session - Session await > all barriers passed
+Aug-07 12:30:38.517 [Task monitor] DEBUG n.processor.TaskPollingMonitor - <<< barrier arrives (monitor: slurm) - terminating tasks monitor poll loop
+Aug-07 12:30:38.565 [main] DEBUG n.trace.WorkflowStatsObserver - Workflow completed > WorkflowStats[succeededCount=2; failedCount=1; ignoredCount=0; cachedCount=2; pendingCount=0; submittedCount=0; runningCount=0; retriesCount=0; abortedCount=0; succeedDuration=19m 33s; failedDuration=10ms; cachedDuration=2m 5s;loadCpus=0; loadMemory=0; peakRunning=2; peakCpus=8; peakMemory=32 GB; ]
+Aug-07 12:30:38.566 [main] DEBUG nextflow.trace.TraceFileObserver - Workflow completed -- saving trace file
+Aug-07 12:30:38.568 [main] DEBUG nextflow.trace.ReportObserver - Workflow completed -- rendering execution report
+Aug-07 12:30:39.769 [main] DEBUG nextflow.trace.TimelineObserver - Workflow completed -- rendering execution timeline
+Aug-07 12:30:39.997 [main] DEBUG nextflow.cache.CacheDB - Closing CacheDB done
+Aug-07 12:30:40.068 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye

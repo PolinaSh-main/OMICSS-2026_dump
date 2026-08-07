@@ -1,0 +1,15 @@
+Traceback (most recent call last):
+  File "/mnt/nas0/user/polina.shevyakova/single_cell_pipeline/.venv/lib/python3.10/site-packages/scanpy/tools/_leiden.py", line 136, in leiden
+    import leidenalg
+ModuleNotFoundError: No module named 'leidenalg'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/mnt/nas0/user/polina.shevyakova/single_cell_pipeline/scripts/run_umap.py", line 67, in <module>
+    main()
+  File "/mnt/nas0/user/polina.shevyakova/single_cell_pipeline/scripts/run_umap.py", line 55, in main
+    sc.tl.leiden(
+  File "/mnt/nas0/user/polina.shevyakova/single_cell_pipeline/.venv/lib/python3.10/site-packages/scanpy/tools/_leiden.py", line 142, in leiden
+    raise ImportError(msg) from e
+ImportError: Please install the leiden algorithm: `conda install -c conda-forge leidenalg` or `pip3 install leidenalg`.

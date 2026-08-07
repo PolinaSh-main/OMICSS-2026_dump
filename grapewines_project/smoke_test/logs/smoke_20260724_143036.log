@@ -1,0 +1,28 @@
+=== Smoke filtering started: Fri Jul 24 02:30:36 PM UTC 2026 ===
+Job ID: 4110
+Input:  /mnt/nas0/user/polina.shevyakova/grapewines_project/smoke_test/smoke_input.vcf.gz
+
+
+VCFtools - v0.1.13
+(C) Adam Auton and Anthony Marcketta 2009
+
+Parameters as interpreted:
+	--gzvcf /mnt/nas0/user/polina.shevyakova/grapewines_project/smoke_test/smoke_input.vcf.gz
+	--recode-INFO-all
+	--maf 0.005
+	--max-alleles 2
+	--min-alleles 2
+	--max-missing 0.6
+	--out cauc_smoke_filtered
+	--recode
+	--remove-filtered-all
+
+Using zlib version: 1.2.11
+After filtering, kept 412 out of 412 Individuals
+Outputting VCF file...
+After filtering, kept 71243 out of a possible 74870 Sites
+Run Time = 75.00 seconds
+
+Variants after filtering: 71243
+Output: /mnt/nas0/user/polina.shevyakova/grapewines_project/smoke_test/cauc_smoke_filtered.recode.vcf
+=== Smoke filtering finished: Fri Jul 24 02:31:52 PM UTC 2026 ===

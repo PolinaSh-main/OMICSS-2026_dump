@@ -1,0 +1,160 @@
+Jul-28 11:38:15.607 [main] DEBUG nextflow.cli.Launcher - $> nextflow run main.nf
+Jul-28 11:38:16.046 [main] INFO  nextflow.cli.CmdRun - N E X T F L O W  ~  version 23.10.0
+Jul-28 11:38:16.178 [main] DEBUG nextflow.plugin.PluginsFacade - Setting up plugin manager > mode=prod; embedded=false; plugins-dir=/mnt/home/polina.shevyakova/.nextflow/plugins; core-plugins: nf-amazon@2.1.4,nf-azure@1.3.2,nf-cloudcache@0.3.0,nf-codecommit@0.1.5,nf-console@1.0.6,nf-ga4gh@1.1.0,nf-google@1.8.3,nf-tower@1.6.3,nf-wave@1.0.0
+Jul-28 11:38:16.304 [main] INFO  o.pf4j.DefaultPluginStatusProvider - Enabled plugins: []
+Jul-28 11:38:16.306 [main] INFO  o.pf4j.DefaultPluginStatusProvider - Disabled plugins: []
+Jul-28 11:38:16.311 [main] INFO  org.pf4j.DefaultPluginManager - PF4J version 3.4.1 in 'deployment' mode
+Jul-28 11:38:16.328 [main] INFO  org.pf4j.AbstractPluginManager - No plugins
+Jul-28 11:38:16.364 [main] DEBUG nextflow.config.ConfigBuilder - Found config local: /mnt/nas0/user/polina.shevyakova/tmf_project/variant_calling/nextflow.config
+Jul-28 11:38:16.366 [main] DEBUG nextflow.config.ConfigBuilder - Parsing config file: /mnt/nas0/user/polina.shevyakova/tmf_project/variant_calling/nextflow.config
+Jul-28 11:38:16.468 [main] DEBUG nextflow.config.ConfigBuilder - Applying config profile: `standard`
+Jul-28 11:38:19.750 [main] DEBUG nextflow.cli.CmdRun - Applied DSL=2 from script declararion
+Jul-28 11:38:19.848 [main] INFO  nextflow.cli.CmdRun - Launching `main.nf` [amazing_bhabha] DSL2 - revision: 67b8f2fe32
+Jul-28 11:38:19.849 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins default=[]
+Jul-28 11:38:19.850 [main] DEBUG nextflow.plugin.PluginsFacade - Plugins resolved requirement=[]
+Jul-28 11:38:19.939 [main] DEBUG n.secret.LocalSecretsProvider - Secrets store: /mnt/home/polina.shevyakova/.nextflow/secrets/store.json
+Jul-28 11:38:19.944 [main] DEBUG nextflow.secret.SecretsLoader - Discovered secrets providers: [nextflow.secret.LocalSecretsProvider@3d7fb838] - activable => nextflow.secret.LocalSecretsProvider@3d7fb838
+Jul-28 11:38:20.326 [main] DEBUG nextflow.Session - Session UUID: 5f89050b-77fb-4adf-8c9d-391db8175186
+Jul-28 11:38:20.326 [main] DEBUG nextflow.Session - Run name: amazing_bhabha
+Jul-28 11:38:20.327 [main] DEBUG nextflow.Session - Executor pool size: 2
+Jul-28 11:38:20.408 [main] DEBUG nextflow.file.FilePorter - File porter settings maxRetries=3; maxTransfers=50; pollTimeout=null
+Jul-28 11:38:20.457 [main] DEBUG nextflow.util.ThreadPoolBuilder - Creating thread pool 'FileTransfer' minSize=10; maxSize=10; workQueue=LinkedBlockingQueue[10000]; allowCoreThreadTimeout=false
+Jul-28 11:38:20.700 [main] DEBUG nextflow.cli.CmdRun - 
+  Version: 23.10.0 build 5889
+  Created: 15-10-2023 15:07 UTC 
+  System: Linux 6.5.0-14-generic
+  Runtime: Groovy 3.0.19 on OpenJDK 64-Bit Server VM 19.0.2+7-Ubuntu-0ubuntu322.04
+  Encoding: UTF-8 (UTF-8)
+  Process: 2365790@ssh-01.local.abi.am [172.20.200.17]
+  CPUs: 1 - Mem: 1 GB (199.4 MB) - Swap: 0 (0)
+Jul-28 11:38:21.006 [main] DEBUG nextflow.Session - Work-dir: /mnt/nas0/user/polina.shevyakova/tmf_project/variant_calling/work [nfs]
+Jul-28 11:38:21.014 [main] DEBUG nextflow.Session - Script base path does not exist or is not a directory: /mnt/nas0/user/polina.shevyakova/tmf_project/variant_calling/bin
+Jul-28 11:38:21.103 [main] DEBUG nextflow.executor.ExecutorFactory - Extension executors providers=[]
+Jul-28 11:38:21.159 [main] DEBUG nextflow.Session - Observer factory: DefaultObserverFactory
+Jul-28 11:38:21.446 [main] DEBUG nextflow.cache.CacheFactory - Using Nextflow cache factory: nextflow.cache.DefaultCacheFactory
+Jul-28 11:38:21.737 [main] DEBUG nextflow.util.CustomThreadPool - Creating default thread pool > poolSize: 2; maxThreads: 1000
+Jul-28 11:38:22.109 [main] DEBUG nextflow.Session - Session start
+Jul-28 11:38:22.116 [main] DEBUG nextflow.trace.TraceFileObserver - Workflow started -- trace file: /mnt/nas0/user/polina.shevyakova/tmf_project/variant_calling/trace-20260728-41901176.txt
+Jul-28 11:38:24.724 [main] DEBUG nextflow.script.ScriptRunner - > Launching execution
+Jul-28 11:38:25.448 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:SORT_BAM` matches process SORT_BAM
+Jul-28 11:38:25.510 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: slurm
+Jul-28 11:38:25.510 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'slurm'
+Jul-28 11:38:25.543 [main] DEBUG nextflow.executor.Executor - [warm up] executor > slurm
+Jul-28 11:38:25.569 [main] DEBUG n.processor.TaskPollingMonitor - Creating task monitor for executor 'slurm' > capacity: 100; pollInterval: 5s; dumpInterval: 5m 
+Jul-28 11:38:25.600 [main] DEBUG n.processor.TaskPollingMonitor - >>> barrier register (monitor: slurm)
+Jul-28 11:38:25.607 [main] DEBUG n.executor.AbstractGridExecutor - Creating executor 'slurm' > queue-stat-interval: 1m
+Jul-28 11:38:25.920 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:MARK_DUPLICATES` matches process MARK_DUPLICATES
+Jul-28 11:38:25.922 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: slurm
+Jul-28 11:38:25.922 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'slurm'
+Jul-28 11:38:25.971 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:HAPLOTYPECALLER` matches process HAPLOTYPECALLER
+Jul-28 11:38:26.008 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: slurm
+Jul-28 11:38:26.009 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'slurm'
+Jul-28 11:38:26.065 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:COMBINE_GVCFS` matches process COMBINE_GVCFS
+Jul-28 11:38:26.100 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: slurm
+Jul-28 11:38:26.100 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'slurm'
+Jul-28 11:38:26.117 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:GENOTYPE_GVCFS` matches process GENOTYPE_GVCFS
+Jul-28 11:38:26.117 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: slurm
+Jul-28 11:38:26.117 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'slurm'
+Jul-28 11:38:26.120 [main] DEBUG nextflow.script.ProcessConfig - Config settings `withName:FILTER_VARIANTS` matches process FILTER_VARIANTS
+Jul-28 11:38:26.120 [main] DEBUG nextflow.executor.ExecutorFactory - << taskConfig executor: slurm
+Jul-28 11:38:26.120 [main] DEBUG nextflow.executor.ExecutorFactory - >> processorType: 'slurm'
+Jul-28 11:38:26.122 [main] DEBUG nextflow.Session - Workflow process names [dsl2]: GENOTYPE_GVCFS, SORT_BAM, HAPLOTYPECALLER, FILTER_VARIANTS, MARK_DUPLICATES, COMBINE_GVCFS
+Jul-28 11:38:26.137 [main] DEBUG nextflow.Session - Igniting dataflow network (8)
+Jul-28 11:38:26.140 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > SORT_BAM
+Jul-28 11:38:26.153 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > MARK_DUPLICATES
+Jul-28 11:38:26.155 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > HAPLOTYPECALLER
+Jul-28 11:38:26.155 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > COMBINE_GVCFS
+Jul-28 11:38:26.198 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > GENOTYPE_GVCFS
+Jul-28 11:38:26.198 [main] DEBUG nextflow.processor.TaskProcessor - Starting process > FILTER_VARIANTS
+Jul-28 11:38:26.198 [main] DEBUG nextflow.script.ScriptRunner - Parsed script files:
+  Script_08ab8ea22603b3d7: /mnt/nas0/user/polina.shevyakova/tmf_project/variant_calling/main.nf
+Jul-28 11:38:26.198 [main] DEBUG nextflow.script.ScriptRunner - > Awaiting termination 
+Jul-28 11:38:26.198 [main] DEBUG nextflow.Session - Session await
+Jul-28 11:38:27.043 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process SORT_BAM (wes78) > jobId: 4302; workDir: /mnt/nas0/user/polina.shevyakova/tmf_project/variant_calling/work/33/f31eab1418cd7a742f04abeac7aa13
+Jul-28 11:38:27.044 [Task submitter] INFO  nextflow.Session - [33/f31eab] Submitted process > SORT_BAM (wes78)
+Jul-28 11:38:27.164 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process SORT_BAM (wes46) > jobId: 4303; workDir: /mnt/nas0/user/polina.shevyakova/tmf_project/variant_calling/work/1f/1a17a392e5385271ecc06735dcddc5
+Jul-28 11:38:27.165 [Task submitter] INFO  nextflow.Session - [1f/1a17a3] Submitted process > SORT_BAM (wes46)
+Jul-28 11:39:25.618 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[jobId: 4302; id: 2; name: SORT_BAM (wes78); status: COMPLETED; exit: 0; error: -; workDir: /mnt/nas0/user/polina.shevyakova/tmf_project/variant_calling/work/33/f31eab1418cd7a742f04abeac7aa13 started: 1785238735616; exited: 2026-07-28T11:38:57.574306Z; ]
+Jul-28 11:39:25.947 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process MARK_DUPLICATES (wes78) > jobId: 4309; workDir: /mnt/nas0/user/polina.shevyakova/tmf_project/variant_calling/work/ee/183e8bf9b66318c184447b11df2ec9
+Jul-28 11:39:25.948 [Task submitter] INFO  nextflow.Session - [ee/183e8b] Submitted process > MARK_DUPLICATES (wes78)
+Jul-28 11:39:25.958 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[jobId: 4303; id: 1; name: SORT_BAM (wes46); status: COMPLETED; exit: 0; error: -; workDir: /mnt/nas0/user/polina.shevyakova/tmf_project/variant_calling/work/1f/1a17a392e5385271ecc06735dcddc5 started: 1785238735620; exited: 2026-07-28T11:38:58.216288Z; ]
+Jul-28 11:39:26.141 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process MARK_DUPLICATES (wes46) > jobId: 4310; workDir: /mnt/nas0/user/polina.shevyakova/tmf_project/variant_calling/work/9a/debc7d5fd4aafb6973977860eb0b80
+Jul-28 11:39:26.142 [Task submitter] INFO  nextflow.Session - [9a/debc7d] Submitted process > MARK_DUPLICATES (wes46)
+Jul-28 11:40:30.625 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[jobId: 4309; id: 3; name: MARK_DUPLICATES (wes78); status: COMPLETED; exit: 0; error: -; workDir: /mnt/nas0/user/polina.shevyakova/tmf_project/variant_calling/work/ee/183e8bf9b66318c184447b11df2ec9 started: 1785238800621; exited: 2026-07-28T11:40:01.075972Z; ]
+Jul-28 11:40:30.644 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[jobId: 4310; id: 4; name: MARK_DUPLICATES (wes46); status: COMPLETED; exit: 0; error: -; workDir: /mnt/nas0/user/polina.shevyakova/tmf_project/variant_calling/work/9a/debc7d5fd4aafb6973977860eb0b80 started: 1785238800623; exited: 2026-07-28T11:40:02.11457Z; ]
+Jul-28 11:40:30.756 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process HAPLOTYPECALLER (wes78) > jobId: 4314; workDir: /mnt/nas0/user/polina.shevyakova/tmf_project/variant_calling/work/73/2325ad19ed6ee7cdd17269dd6cd54e
+Jul-28 11:40:30.756 [Task submitter] INFO  nextflow.Session - [73/2325ad] Submitted process > HAPLOTYPECALLER (wes78)
+Jul-28 11:40:30.937 [Task submitter] DEBUG nextflow.executor.GridTaskHandler - [SLURM] submitted process HAPLOTYPECALLER (wes46) > jobId: 4315; workDir: /mnt/nas0/user/polina.shevyakova/tmf_project/variant_calling/work/75/ed71760d46f5df6a07ef34e06b7c18
+Jul-28 11:40:30.937 [Task submitter] INFO  nextflow.Session - [75/ed7176] Submitted process > HAPLOTYPECALLER (wes46)
+Jul-28 11:41:00.626 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[jobId: 4314; id: 5; name: HAPLOTYPECALLER (wes78); status: COMPLETED; exit: 2; error: -; workDir: /mnt/nas0/user/polina.shevyakova/tmf_project/variant_calling/work/73/2325ad19ed6ee7cdd17269dd6cd54e started: 1785238850625; exited: 2026-07-28T11:40:56.284794Z; ]
+Jul-28 11:41:00.635 [Task monitor] DEBUG nextflow.processor.TaskProcessor - Handling unexpected condition for
+  task: name=HAPLOTYPECALLER (wes78); work-dir=/mnt/nas0/user/polina.shevyakova/tmf_project/variant_calling/work/73/2325ad19ed6ee7cdd17269dd6cd54e
+  error [nextflow.exception.ProcessFailedException]: Process `HAPLOTYPECALLER (wes78)` terminated with an error exit status (2)
+Jul-28 11:41:00.767 [Task monitor] ERROR nextflow.processor.TaskProcessor - Error executing process > 'HAPLOTYPECALLER (wes78)'
+
+Caused by:
+  Process `HAPLOTYPECALLER (wes78)` terminated with an error exit status (2)
+
+Command executed:
+
+  mkdir -p /mnt/nas0/user/polina.shevyakova/tmf_project/variant_calling/results/amazing_bhabha/logs
+  
+  (
+      echo "PROCESS: HAPLOTYPECALLER"
+      echo "SAMPLE: wes78"
+      date
+  
+      /mnt/nas1/proj/omicss26/soft/gatk-4.2.6.1/gatk --version
+  
+      bash /mnt/nas0/user/polina.shevyakova/tmf_project/variant_calling/scripts/haplotypecaller.sh             wes78_dedup.bam             wes78.g.vcf.gz             hg38.fa             /mnt/nas1/proj/omicss26/soft/gatk-4.2.6.1/gatk             wes78.g.vcf.gz
+  
+  ) > /mnt/nas0/user/polina.shevyakova/tmf_project/variant_calling/results/amazing_bhabha/logs/wes78_haplotypecaller.log 2>&1
+
+Command exit status:
+  2
+
+Command output:
+  (empty)
+
+Command wrapper:
+  HOST: thin-01.local.abi.am
+  SLURM_JOB_ID: 4314
+  DATE: Tue Jul 28 11:40:49 AM UTC 2026
+
+Work dir:
+  /mnt/nas0/user/polina.shevyakova/tmf_project/variant_calling/work/73/2325ad19ed6ee7cdd17269dd6cd54e
+
+Tip: you can try to figure out what's wrong by changing to the process work dir and showing the script file named `.command.sh`
+Jul-28 11:41:00.852 [Task monitor] DEBUG nextflow.Session - Session aborted -- Cause: Process `HAPLOTYPECALLER (wes78)` terminated with an error exit status (2)
+Jul-28 11:41:00.957 [Task monitor] DEBUG nextflow.Session - The following nodes are still active:
+[process] COMBINE_GVCFS
+  status=ACTIVE
+  port 0: (value) OPEN  ; channel: gvcfs
+  port 1: (value) bound ; channel: ref
+  port 2: (cntrl) -     ; channel: $
+
+[process] GENOTYPE_GVCFS
+  status=ACTIVE
+  port 0: (value) OPEN  ; channel: combined
+  port 1: (value) bound ; channel: ref
+  port 2: (cntrl) -     ; channel: $
+
+[process] FILTER_VARIANTS
+  status=ACTIVE
+  port 0: (value) OPEN  ; channel: vcf
+  port 1: (value) bound ; channel: ref
+  port 2: (cntrl) -     ; channel: $
+
+Jul-28 11:41:01.000 [main] DEBUG nextflow.Session - Session await > all processes finished
+Jul-28 11:41:01.000 [main] DEBUG nextflow.Session - Session await > all barriers passed
+Jul-28 11:41:01.022 [Task monitor] DEBUG n.processor.TaskPollingMonitor - Task completed > TaskHandler[jobId: 4315; id: 6; name: HAPLOTYPECALLER (wes46); status: COMPLETED; exit: 2; error: -; workDir: /mnt/nas0/user/polina.shevyakova/tmf_project/variant_calling/work/75/ed71760d46f5df6a07ef34e06b7c18 started: 1785238850628; exited: 2026-07-28T11:40:56.218929Z; ]
+Jul-28 11:41:01.022 [Task monitor] DEBUG nextflow.processor.TaskProcessor - Handling unexpected condition for
+  task: name=HAPLOTYPECALLER (wes46); work-dir=/mnt/nas0/user/polina.shevyakova/tmf_project/variant_calling/work/75/ed71760d46f5df6a07ef34e06b7c18
+  error [nextflow.exception.ProcessFailedException]: Process `HAPLOTYPECALLER (wes46)` terminated with an error exit status (2)
+Jul-28 11:41:01.048 [Task monitor] DEBUG n.processor.TaskPollingMonitor - <<< barrier arrives (monitor: slurm) - terminating tasks monitor poll loop
+Jul-28 11:41:01.065 [main] DEBUG n.trace.WorkflowStatsObserver - Workflow completed > WorkflowStats[succeededCount=4; failedCount=2; ignoredCount=0; cachedCount=0; pendingCount=0; submittedCount=0; runningCount=0; retriesCount=0; abortedCount=0; succeedDuration=40.9s; failedDuration=40.8s; cachedDuration=0ms;loadCpus=0; loadMemory=0; peakRunning=2; peakCpus=4; peakMemory=16 GB; ]
+Jul-28 11:41:01.065 [main] DEBUG nextflow.trace.TraceFileObserver - Workflow completed -- saving trace file
+Jul-28 11:41:01.108 [main] DEBUG nextflow.trace.ReportObserver - Workflow completed -- rendering execution report
+Jul-28 11:41:03.766 [main] DEBUG nextflow.trace.TimelineObserver - Workflow completed -- rendering execution timeline
+Jul-28 11:41:04.105 [main] DEBUG nextflow.cache.CacheDB - Closing CacheDB done
+Jul-28 11:41:04.161 [main] DEBUG nextflow.script.ScriptRunner - > Execution complete -- Goodbye

@@ -1,0 +1,4 @@
+[M::bwa_idx_load_from_disk] read 0 ALT contigs
+[M::process] read 305294 sequences (38279002 bp)...
+[E::bns_fetch_seq] begin=4775745586, mid=4775745587, end=3209286105, len=1566459481, seq=0x7f6f9aa1b010, rid=454, far_beg=3209248865, far_end=3209286105
+bwa: bntseq.c:450: bns_fetch_seq: Assertion `seq && *end - *beg == len' failed.

@@ -1,0 +1,10 @@
+2026-08-07 11:43:09	5.3s	astonishing_fourier	OK	b9c7b3633251bb91931be14ad392c0a8	c716290b-e9f4-44c4-94d4-361f23ae312e	nextflow run main.nf -preview
+2026-08-07 11:43:44	-	voluminous_brattain	-	b9c7b3633251bb91931be14ad392c0a8	6aaadf08-43dc-4a5a-abad-fffda3af4851	nextflow run main.nf
+2026-08-07 11:44:37	40.1s	cheesy_hypatia	ERR	b9c7b3633251bb91931be14ad392c0a8	ab13c799-a4da-456a-aedd-e313b5ff6987	nextflow run main.nf
+2026-08-07 12:05:10	40.1s	extravagant_keller	ERR	b9c7b3633251bb91931be14ad392c0a8	848bb322-8567-49fb-8a5b-bc117eaafb39	nextflow run main.nf
+2026-08-07 12:08:58	4m 20s	soggy_venter	ERR	b9c7b3633251bb91931be14ad392c0a8	7b59da9c-7c93-4cd0-a55c-f5c9077ecbcb	nextflow run main.nf
+2026-08-07 12:23:57	7.2s	stoic_mendel	ERR	1ff5bac28be002e986c2f39ddab7329a	7b59da9c-7c93-4cd0-a55c-f5c9077ecbcb	nextflow run main.nf -resume
+2026-08-07 12:25:46	52.5s	angry_kalman	ERR	0e2f028c8c86c1c3eac17ec4c20bcf02	7b59da9c-7c93-4cd0-a55c-f5c9077ecbcb	nextflow run main.nf -resume
+2026-08-07 12:27:25	3m 15s	extravagant_woese	ERR	dcdfcb806e9c8b561ae9a8f117fb3a16	7b59da9c-7c93-4cd0-a55c-f5c9077ecbcb	nextflow run main.nf -resume
+2026-08-07 12:36:57	1m 14s	serene_bartik	ERR	dcdfcb806e9c8b561ae9a8f117fb3a16	7b59da9c-7c93-4cd0-a55c-f5c9077ecbcb	nextflow run main.nf -resume
+2026-08-07 12:39:01	1m 58s	tiny_coulomb	OK	dcdfcb806e9c8b561ae9a8f117fb3a16	7b59da9c-7c93-4cd0-a55c-f5c9077ecbcb	nextflow run main.nf -resume

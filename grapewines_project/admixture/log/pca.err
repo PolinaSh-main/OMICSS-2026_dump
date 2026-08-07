@@ -1,0 +1,41 @@
+python3: can't open file '/mnt/nas0/user/polina.shevyakova/grapewines_project/admixture/pca_plots.py': [Errno 2] No such file or directory
+Traceback (most recent call last):
+  File "/mnt/nas0/user/polina.shevyakova/grapewines_project/admixture/scripts/pca_plot.py", line 188, in <module>
+    main()
+  File "/mnt/nas0/user/polina.shevyakova/grapewines_project/admixture/scripts/pca_plot.py", line 32, in main
+    pcs = pd.read_csv(
+  File "/usr/local/lib/python3.10/dist-packages/pandas/io/parsers/readers.py", line 1026, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/io/parsers/readers.py", line 620, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/io/parsers/readers.py", line 1620, in __init__
+    self._engine = self._make_engine(f, self.engine)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/io/parsers/readers.py", line 1880, in _make_engine
+    self.handles = get_handle(
+  File "/usr/local/lib/python3.10/dist-packages/pandas/io/common.py", line 873, in get_handle
+    handle = open(
+FileNotFoundError: [Errno 2] No such file or directory: '/mnt/nas0/user/polina.shevyakova/grapewines_project/admixture/pca_results/cauc_pca.eigenvec'
+Traceback (most recent call last):
+  File "/mnt/nas0/user/polina.shevyakova/grapewines_project/admixture/scripts/pca_plot.py", line 188, in <module>
+    main()
+  File "/mnt/nas0/user/polina.shevyakova/grapewines_project/admixture/scripts/pca_plot.py", line 157, in main
+    plt.plot(
+  File "/usr/lib/python3/dist-packages/matplotlib/pyplot.py", line 2757, in plot
+    return gca().plot(
+  File "/usr/lib/python3/dist-packages/matplotlib/axes/_axes.py", line 1632, in plot
+    lines = [*self._get_lines(*args, data=data, **kwargs)]
+  File "/usr/lib/python3/dist-packages/matplotlib/axes/_base.py", line 312, in __call__
+    yield from self._plot_args(this, kwargs)
+  File "/usr/lib/python3/dist-packages/matplotlib/axes/_base.py", line 488, in _plot_args
+    y = _check_1d(xy[1])
+  File "/usr/lib/python3/dist-packages/matplotlib/cbook/__init__.py", line 1327, in _check_1d
+    ndim = x[:, None].ndim
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 1144, in __getitem__
+    return self._get_with(key)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 1154, in _get_with
+    return self._get_values_tuple(key)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/series.py", line 1194, in _get_values_tuple
+    disallow_ndim_indexing(result)
+  File "/usr/local/lib/python3.10/dist-packages/pandas/core/indexers/utils.py", line 341, in disallow_ndim_indexing
+    raise ValueError(
+ValueError: Multi-dimensional indexing (e.g. `obj[:, None]`) is no longer supported. Convert to a numpy array before indexing instead.

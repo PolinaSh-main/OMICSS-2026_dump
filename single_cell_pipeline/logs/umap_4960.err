@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/mnt/nas0/user/polina.shevyakova/single_cell_pipeline/scripts/umap.py", line 67, in <module>
+    main()
+  File "/mnt/nas0/user/polina.shevyakova/single_cell_pipeline/scripts/umap.py", line 38, in main
+    sc.pp.neighbors(
+  File "/mnt/nas0/user/polina.shevyakova/single_cell_pipeline/.venv/lib/python3.10/site-packages/scanpy/neighbors/__init__.py", line 194, in neighbors
+    neighbors.compute_neighbors(
+  File "/mnt/nas0/user/polina.shevyakova/single_cell_pipeline/.venv/lib/python3.10/site-packages/scanpy/neighbors/__init__.py", line 602, in compute_neighbors
+    self._connectivities = _connectivity.umap(
+  File "/mnt/nas0/user/polina.shevyakova/single_cell_pipeline/.venv/lib/python3.10/site-packages/scanpy/neighbors/_connectivity.py", line 124, in umap
+    from umap.umap_ import fuzzy_simplicial_set
+ModuleNotFoundError: No module named 'umap.umap_'; 'umap' is not a package

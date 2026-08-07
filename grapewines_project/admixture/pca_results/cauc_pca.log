@@ -1,0 +1,31 @@
+PLINK v1.90b7.1 64-bit (18 Oct 2023)
+Options in effect:
+  --bfile /mnt/nas0/user/polina.shevyakova/grapewines_project/admixture/data_filtered/cauc_filtered.final
+  --out /mnt/nas0/user/polina.shevyakova/grapewines_project/admixture/pca_results/cauc_pca
+  --pca 20
+
+Hostname: thin-01.local.abi.am
+Working directory: /mnt/nas0/user/polina.shevyakova/grapewines_project/admixture/scripts
+Start time: Tue Aug  4 10:35:56 2026
+
+Random number seed: 1785839756
+386739 MB RAM detected; reserving 193369 MB for main workspace.
+814885 variants loaded from .bim file.
+412 people (0 males, 0 females, 412 ambiguous) loaded from .fam.
+Ambiguous sex IDs written to
+/mnt/nas0/user/polina.shevyakova/grapewines_project/admixture/pca_results/cauc_pca.nosex
+.
+Using up to 2 threads (change this with --threads).
+Before main variant filters, 412 founders and 0 nonfounders present.
+Calculating allele frequencies... done.
+Total genotyping rate is in [0.9999995, 1).
+814885 variants and 412 people pass filters and QC.
+Note: No phenotypes present.
+Relationship matrix calculation complete.
+--pca: Results saved to
+/mnt/nas0/user/polina.shevyakova/grapewines_project/admixture/pca_results/cauc_pca.eigenval
+and
+/mnt/nas0/user/polina.shevyakova/grapewines_project/admixture/pca_results/cauc_pca.eigenvec
+.
+
+End time: Tue Aug  4 10:36:09 2026
