@@ -27,3 +27,10 @@ grapewines_project/admixture/results/cauc_filtered.final.10.P
 grapewines_project/admixture/results/cauc_filtered.final.9.P
 grapewines_project/smoke_test/smoke_input.vcf.gz
 grapewines_project/smoke_test/cauc_smoke_filtered.recode.vcf
+**/work/
+**/results/
+*.bam
+*.bai
+*.vcf
+*.vcf.gz
+*.tbi

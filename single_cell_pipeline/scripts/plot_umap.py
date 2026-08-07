@@ -6,11 +6,11 @@ import scanpy as sc
 
 
 adata = sc.read_h5ad(
-    "results/umap/umap.h5ad"
+    "../results/umap/umap.h5ad"
 )
 
 
-out = Path("results/figures")
+out = Path("../results/figures")
 out.mkdir(
     parents=True,
     exist_ok=True

@@ -1,7 +1,7 @@
 import scanpy as sc
 
 adata = sc.read_h5ad(
-    "results/harmony/harmony.h5ad"
+    "../results/harmony/harmony.h5ad"
 )
 
 print(adata)
