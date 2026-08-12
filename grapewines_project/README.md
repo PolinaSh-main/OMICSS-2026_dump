@@ -21,12 +21,14 @@ grapewines_project/
 │   ├── 01_admixture/         CV curve, sample orderings, barplot grid
 │   ├── 02_pca/               PLINK PCA + scatter plots per metadata column
 │   ├── 03_fst/               pairwise FST between ADMIXTURE groups
-│   └── 04_manhattan_annotation/  windowed FST -> outlier windows -> genes
+│   ├── 04_manhattan_annotation/  windowed FST -> outlier windows -> genes
+│   └── 05_tree/              neighbour-joining tree from 1-IBS distances
 └── results/                  published outputs (small ones are versioned)
     ├── admixture/{cv,orders,orderings,barplots}
     ├── pca/{global,by_metadata}
     ├── fst/K<K>/
-    └── manhattan/<comparison>/
+    ├── manhattan/<comparison>/
+    └── tree/
 ```
 
 Every pipeline is launched from its own directory, so `projectDir` resolves
@@ -64,6 +66,8 @@ pipeline directory. Override it with `--project_root` if needed.
       |
 04_manhattan_annotation
                 per-SNP FST -> 50 kb windows -> top 1% -> genes in those windows
+
+05_tree         independent of all of the above: NJ tree on 1-IBS distances
 ```
 
 ## Tooling
