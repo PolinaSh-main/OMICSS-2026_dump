@@ -109,11 +109,12 @@ simply that a bifurcating tree cannot represent a reticulate history.
 ## Running it overnight without staying logged in
 
 `dnaml` takes six hours or so. `scripts/finish_after_dnaml.sbatch` does
-everything after it — bootstrap, validation, annotation, figures — and is
+everything after it â€” bootstrap, validation, annotation, figures â€” and is
 submitted with a scheduler dependency, so SLURM starts it by itself:
 
 ```
-sbatch --dependency=afterany:<dnaml job id>        pipelines/05_tree/scripts/finish_after_dnaml.sbatch
+sbatch --dependency=afterany:<dnaml job id> \
+       pipelines/05_tree/scripts/finish_after_dnaml.sbatch
 ```
 
 `afterany`, not `afterok`, deliberately: `snphylo.vcf.sh` runs an R
