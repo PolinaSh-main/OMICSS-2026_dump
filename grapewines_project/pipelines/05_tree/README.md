@@ -1,106 +1,107 @@
-# 05_tree — neighbour-joining tree
+# 05_tree — rooted maximum-likelihood phylogeny
+
+Genome-wide SNP tree of the 412 Caucasian accessions with **ZZ01**
+(*Vitis rotundifolia*) as an external outgroup, built with SNPhylo and
+annotated with the K = 7 ADMIXTURE result.
 
 ```
-PLINK bed/bim/fam
-     -> LD pruning (r2 < 0.2)
-     -> 1-IBS distance matrix + genotype export
-     -> NJ tree, bootstrapped, midpoint rooted
-     -> circular figures coloured by metadata
-```
-
-A third, independent view of the same structure that ADMIXTURE and PCA
-describe. ADMIXTURE assumes K ancestral populations; PCA assumes the
-structure is linear; NJ assumes neither, so agreement between the three
-is worth more than any of them alone.
-
-## Run
-
-```bash
 cd pipelines/05_tree
-
 nextflow run .
-
-# colour by ADMIXTURE group instead of metadata
-nextflow run . \
-    --color_by assignment \
-    --groups ../../results/fst/K7/sample_lists/sample_q_values_K7.tsv
-
-# quick look, no bootstrap
-nextflow run . --bootstrap 0
 ```
 
-## Parameters
+The maximum-likelihood stage takes hours. To start from a tree that has
+already been built:
 
-| Parameter | Default | Meaning |
-|---|---|---|
-| `--bfile` | shared course PLINK set | prefix, without `.bed/.bim/.fam` |
-| `--chr_set` | 19 | grapevine chromosome count |
-| `--ld_r2` | 0.2 | LD pruning threshold |
-| `--bootstrap` | 100 | replicates; 0 to skip |
-| `--root` | `midpoint` | `midpoint`, `outgroup`, `none` |
-| `--outgroup` | — | sample ID, when `--root outgroup` |
-| `--color_by` | 3 metadata columns | comma-separated; `assignment` uses the ADMIXTURE group |
-| `--groups` | — | `sample_q_values_K<K>.tsv`, for `assignment` |
-| `--layout` | `circular` | `circular` or `rectangular` |
-| `--scale` | `linear,cladogram` | comma-separated; one figure each |
-| `--show_labels` | false | tip names; unreadable above ~80 samples |
+```
+nextflow run . \
+    --ml_tree /path/to/cauc_rooted.ml.tree \
+    --phylip  /path/to/cauc_rooted.phylip.txt
+```
 
-## Output
+## Steps
 
-In `results/tree/`:
-
-| File | What |
+| process | what it does |
 |---|---|
-| `tree.nwk` | Newick, bootstrap support on internal nodes |
-| `distance_matrix.tsv` | the 1-IBS matrix |
-| `tree_tips.tsv` | tip order |
-| `plots/tree_<column>.pdf` / `.png` | branch lengths to scale |
-| `plots/tree_<column>_cladogram.pdf` / `.png` | topology only |
+| `PREFLIGHT` | 413 samples, ZZ01 exactly once, 119 195 variants, no duplicate names |
+| `SNPHYLO_ML` | LD pruning and SNP sequence via SNPRelate, then PHYLIP `dnaml` rooted on ZZ01 |
+| `BOOTSTRAP` | 100 replicates with `phangorn::bootstrap.pml`, NNI optimisation |
+| `VALIDATE` | both trees non-empty, 413 unique tips, ZZ01 present, support labels exist |
+| `ANNOTATE` | tip table (K group / Admixed / Outgroup, max Q) and group descriptions |
+| `PLOT` | fan and rectangular figures, PDF and PNG |
 
-## Why LD pruning first
+## Fixed settings
 
-Linked SNPs carry the same signal several times. Left in, they stretch
-branch lengths in whichever regions happen to be dense, and — worse —
-make bootstrap support look far better than it is, because a resample
-that picks one SNP of a linked block effectively picks all of them. The
-pruning step is what makes the support values mean anything.
+MAF ≥ 0.10, missing rate ≤ 0.10, LD 0.10, chromosomes 1–19, outgroup
+ZZ01, 100 bootstrap replicates, low-depth screen skipped (`-r`). These
+come from the task and are not to be changed without the mentor
+agreeing; an approved alternative is a separate, labelled sensitivity
+run — see `05b_nj_tree` for one such.
 
-## Why the linear tree looks like a starburst
+## Four things that are easy to get wrong here
 
-Each sample has its own long private branch, because an individual
-carries a lot of variation nobody else does. The splits *between* groups
-are short by comparison. So on a true-to-scale drawing every tip sits at
-roughly the same radius and the interesting structure is squeezed into a
-small disc in the middle.
+**The SNPhylo path in the task brief is not readable.**
+`/mnt/nas0/proj/vine/user_projects/armaria/snphylo_prog/` sits under a
+directory owned by group `vine`. This pipeline uses the copy inside the
+course project, `phylogeny/software/snphylo/`, which is the one the
+group's earlier runs used and whose `snphylo.vcf.sh` has `BASE_DIR`
+hard-coded to that location.
 
-That figure is honest and should go in the appendix. The cladogram is
-the one to read the topology from — its title says branch lengths are
-not to scale, and it must stay saying that.
+**LD 0.10 is not a stylistic choice.** SNPhylo refuses to build a tree
+from an alignment longer than 50 000 sites. The group's earlier attempt
+used 0.18, kept 55 275 sites and died on exactly that check. At 0.10
+this input keeps **12 848**.
 
-## Rooting
+**SNPhylo's own bootstrap script oversubscribes the node.**
+`determine_bs_tree.R` calls `bootstrap.pml(..., multicore = TRUE)`
+without `mc.cores`, so phangorn falls back to `detectCores()` — 64 on
+these machines, whatever SLURM allocated. A job asking for 5 CPUs forks
+64 workers, each with its own copy of the alignment. That is how the
+earlier run was killed. `bin/bootstrap_tree.R` passes the count
+explicitly.
 
-There is no outgroup in this dataset; every sample is *Vitis vinifera*.
-The tree is therefore **midpoint rooted**, which places the root halfway
-along the longest tip-to-tip path. That is a drawing convention chosen
-so the fan has a centre — it is not a claim about which lineage is
-ancestral. Do not describe any clade as "basal" on the strength of it.
+**K numbers are not group names.** ADMIXTURE orders its columns
+arbitrarily, so `K3` means whatever this particular run made it mean.
+The legend text is derived from the metadata in `annotate_tips.py`, not
+copied from any table of K numbers belonging to a different run. On this
+run the groups come out as:
 
-## Distances, and why they are computed twice
+| group | n | what it is |
+|---|---|---|
+| K1 | 15 | Armenian wild, group 1 |
+| K2 | 22 | Georgian cultivated |
+| K3 | 13 | Armenian–Azerbaijani cultivated, group 1 |
+| K4 | 12 | Armenian–Azerbaijani cultivated, group 2 |
+| K5 | 32 | Turkish wild |
+| K6 | 49 | Turkish cultivated |
+| K7 | 17 | Armenian wild, group 2 |
+| Admixed | 252 | max Q below 0.75 |
 
-PLINK produces the `1-IBS` matrix, and `build_tree.py` computes the same
-matrix itself from the genotypes. The two are compared, and the pipeline
-stops if they differ by more than 1e-4.
+**252 of 412 accessions — 61% — fall below the threshold.** They stay on
+the tree in grey, and where they sit is worth reading, but only 160
+samples carry a group colour.
 
-This is not redundancy for its own sake: the bootstrap has to rebuild
-distances from resampled loci, which PLINK will not do, so that
-estimator has to exist in Python anyway. Checking it against PLINK on
-the full data is what makes it trustworthy.
+## Figures
 
-## Reading the support values
+`tree_fan.*` shows all 413 accessions at once; tip labels are off,
+because 413 names around a circle hide the pattern the figure exists to
+show. `tree_rectangular.*` labels every tip, keeps branch lengths, and
+prints bootstrap values of 70 or more.
 
-Most internal nodes will have low support, and that is the correct
-answer, not a bug. With 412 individuals, the majority of nodes describe
-which of two nearly identical vines happens to pair with which — there
-is no signal there to support. What matters is the support on the deep
-splits that separate the groups. Quote those, and say plainly that the
-within-group topology is unresolved.
+The fan compresses the root stem. Rooting halves the long ZZ01 branch
+and puts one half under each side, which pushes every ingroup tip
+outwards by the same large constant and leaves the accessions in a thin
+ring around an empty disc. Both root branches are cut back so the
+ingroup fills the plot; distances *within* the ingroup are untouched,
+and the caption says the branch is shortened. The rectangular figure
+does not do this — it is the one that keeps every length honest.
+
+## Reading the result
+
+The root sits outside the Caucasian accessions and orients the tree from
+the deepest ingroup split towards more recent ones. Bootstrap is how
+often a clade survives resampling of the sites, not the probability that
+it is true: 70 and above is worth interpreting, 90 and above is strong,
+below 70 should be discussed as uncertain. Where a K group forms one
+clade, the phylogeny supports the ADMIXTURE structure; mixed colours
+within a clade can mean admixture, recent gene flow, close kinship — or
+simply that a bifurcating tree cannot represent a reticulate history.

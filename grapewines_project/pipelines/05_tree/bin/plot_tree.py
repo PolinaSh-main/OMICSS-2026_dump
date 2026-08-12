@@ -1,26 +1,28 @@
 #!/usr/bin/env python3
 """
-Draw a Newick tree, with tips coloured by metadata.
+Draw the rooted, bootstrapped tree, coloured by the K = 7 assignment.
 
-With 412 samples a rectangular phylogram would be about a metre tall, so
-the default layout is circular. Rectangular is available for subsets.
+Two figures, because they answer different questions:
 
-Tip labels are off by default: 412 names around a circle are unreadable
-and hide the structure the figure is meant to show. The colour of each
-tip, and the legend, carry the information instead.
+    fan          all 413 accessions at once, to see whether the K groups
+                 form coherent clades. No tip labels: 413 names around a
+                 circle hide the pattern the figure exists to show.
 
-Input:
-    tree.nwk
-    metadata CSV, and/or sample_q_values_K<K>.tsv from 03_fst
+    rectangular  every tip labelled and every branch length honest, for
+                 looking up individual accessions. Tall on purpose.
+
+The tree is re-rooted on the outgroup here as well, even though SNPhylo
+was given -o. It is a cheap safeguard, and phangorn's bootstrap step
+returns whatever rooting its own tree object happened to carry.
 
 Output:
-    tree_<colour column>.pdf / .png
+    tree_<layout>.pdf
+    tree_<layout>.png
 """
 
 from __future__ import annotations
 
 import argparse
-import re
 import sys
 from pathlib import Path
 
@@ -33,432 +35,56 @@ import numpy as np
 import pandas as pd
 from matplotlib.lines import Line2D
 
+import newick
+
 
 #
-# The project palette, so a K group is the same colour in the tree as in
-# the ADMIXTURE barplots and the FST figures.
+# The palette the task asks for, and the one the ADMIXTURE barplots
+# already use: blue, orange, green, yellow, red, purple, cyan.
 #
 
-CUSTOM_PALETTE = [
-    "#00699A",
-    "#FD702B",
-    "#06402B",
-    "#FDC700",
-    "#AE0039",
-    "#6A005C",
-    "#08BDBD",
-    "#F21B3F",
-]
+K_COLOURS = {
+    "K1": "#00699A",
+    "K2": "#FD702B",
+    "K3": "#06402B",
+    "K4": "#FDC700",
+    "K5": "#AE0039",
+    "K6": "#6A005C",
+    "K7": "#08BDBD",
+}
 
-FALLBACK_PALETTE = [
-    "#4E6E80", "#B07D62", "#7A9E7E", "#C4A24C",
-    "#8C5F73", "#5B6C9E", "#A0522D", "#6B8E23",
-    "#9DB4C0", "#D08770",
-]
+ADMIXED_COLOUR = "#9E9E9E"
 
-UNKNOWN_COLOUR = "#CFCFCF"
+OUTGROUP_COLOUR = "#000000"
 
+BRANCH_COLOUR = "#666666"
 
-ID_COLUMN_CANDIDATES = [
-    "Column 1", "IID", "ID", "id", "sample", "Sample", "tip"
-]
-
-
-# --------------------------------------------------------------------- #
-#  Newick
-# --------------------------------------------------------------------- #
-
-class Node:
-
-    __slots__ = ("name", "length", "support", "children", "x", "y")
-
-    def __init__(self):
-        self.name = ""
-        self.length = 0.0
-        self.support = None
-        self.children = []
-        self.x = 0.0
-        self.y = 0.0
-
-
-TOKEN = re.compile(r"[(),;]|[^(),;:]+|:[^(),;]+")
-
-
-def parse_newick(text: str) -> Node:
-    """
-    Small recursive-descent parser. Handles branch lengths and the
-    numeric internal labels that build_tree.py writes as support.
-    """
-
-    text = text.strip()
-
-    position = 0
-
-    def parse_node():
-
-        nonlocal position
-
-        node = Node()
-
-        if text[position] == "(":
-
-            position += 1
-
-            while True:
-
-                node.children.append(parse_node())
-
-                if text[position] == ",":
-                    position += 1
-                    continue
-
-                if text[position] == ")":
-                    position += 1
-                    break
-
-                raise ValueError(
-                    f"Unexpected '{text[position]}' at offset {position}"
-                )
-
-        # Label: a tip name, or a support value on an internal node.
-        start = position
-
-        while position < len(text) and text[position] not in "(),:;":
-            position += 1
-
-        label = text[start:position].strip()
-
-        if node.children and label:
-
-            try:
-                node.support = float(label)
-            except ValueError:
-                node.name = label
-
-        else:
-            node.name = label
-
-        if position < len(text) and text[position] == ":":
-
-            position += 1
-
-            start = position
-
-            while position < len(text) and text[position] not in "(),;":
-                position += 1
-
-            node.length = float(text[start:position])
-
-        return node
-
-    root = parse_node()
-
-    return root
-
-
-def tips_of(node: Node) -> list[Node]:
-
-    if not node.children:
-        return [node]
-
-    found = []
-
-    for child in node.children:
-        found.extend(tips_of(child))
-
-    return found
-
-
-def all_nodes(node: Node) -> list[Node]:
-
-    found = [node]
-
-    for child in node.children:
-        found.extend(all_nodes(child))
-
-    return found
-
-
-# --------------------------------------------------------------------- #
-#  Layout
-# --------------------------------------------------------------------- #
-
-def assign_coordinates(root: Node, scale: str = "linear"):
-    """
-    x is the horizontal position, y spreads the tips evenly and puts
-    each internal node at the mean of its children.
-
-    scale="linear"
-        x is the true distance from the root. Faithful, but on an
-        individual-level NJ tree the private branch of each sample is
-        far longer than the splits between groups, so everything
-        interesting collapses towards the centre.
-
-    scale="cladogram"
-        x is the node's level, with every tip pushed to the same depth.
-        Branch lengths are discarded and only the topology remains.
-    """
-
-    sys.setrecursionlimit(100_000)
-
-    counter = {"next": 0}
-
-    def spread(node):
-
-        if not node.children:
-
-            node.y = counter["next"]
-
-            counter["next"] += 1
-
-            return node.y
-
-        positions = [spread(child) for child in node.children]
-
-        node.y = float(np.mean(positions))
-
-        return node.y
-
-    spread(root)
-
-
-    if scale == "cladogram":
-
-        def height_of(node):
-
-            if not node.children:
-                node.x = 0.0
-                return 0
-
-            height = 1 + max(height_of(child) for child in node.children)
-
-            node.x = float(height)
-
-            return height
-
-        total = height_of(root)
-
-        for node in all_nodes(root):
-            node.x = total - node.x
-
-    else:
-
-        def depth_of(node, depth):
-
-            node.x = depth + node.length
-
-            for child in node.children:
-                depth_of(child, node.x)
-
-        depth_of(root, 0.0)
-
-    return counter["next"]
-
-
-def draw_rectangular(root, n_tips, colours, labels, show_labels, title, x_label=True):
-
-    height = max(4.0, 0.14 * n_tips)
-
-    figure, axes = plt.subplots(figsize=(10, height))
-
-    for node in all_nodes(root):
-
-        for child in node.children:
-
-            # Elbow: vertical at the parent's x, then horizontal out.
-            axes.plot(
-                [node.x, node.x],
-                [node.y, child.y],
-                color="#666666",
-                linewidth=0.6
-            )
-
-            axes.plot(
-                [node.x, child.x],
-                [child.y, child.y],
-                color="#666666",
-                linewidth=0.6
-            )
-
-    tips = tips_of(root)
-
-    axes.scatter(
-        [tip.x for tip in tips],
-        [tip.y for tip in tips],
-        s=12,
-        c=[colours[tip.name] for tip in tips],
-        zorder=3,
-        linewidths=0
-    )
-
-    if show_labels:
-
-        span = max(tip.x for tip in tips)
-
-        for tip in tips:
-
-            axes.text(
-                tip.x + span * 0.005,
-                tip.y,
-                tip.name,
-                fontsize=5,
-                va="center"
-            )
-
-    axes.set_yticks([])
-
-    axes.set_xlabel(
-        "Genetic distance (1 - IBS)"
-        if x_label else "Topology only, branch lengths discarded"
-    )
-
-    axes.set_title(title, fontsize=11)
-
-    for side in ("top", "right", "left"):
-        axes.spines[side].set_visible(False)
-
-    return figure, axes
-
-
-def draw_circular(root, n_tips, colours, labels, show_labels, title, x_label=True):
-
-    figure, axes = plt.subplots(figsize=(11, 11))
-
-    # A wedge is left open so the tree reads as a fan rather than a
-    # closed ring, which makes the root direction obvious.
-    span = 2 * np.pi * 0.97
-
-    def angle_of(node):
-        return node.y / max(n_tips - 1, 1) * span
-
-    def to_xy(node):
-
-        theta = angle_of(node)
-
-        return node.x * np.cos(theta), node.x * np.sin(theta)
-
-
-    for node in all_nodes(root):
-
-        if not node.children:
-            continue
-
-        # Arc joining the children, drawn at the parent's radius.
-        child_angles = [angle_of(child) for child in node.children]
-
-        arc = np.linspace(min(child_angles), max(child_angles), 40)
-
-        axes.plot(
-            node.x * np.cos(arc),
-            node.x * np.sin(arc),
-            color="#666666",
-            linewidth=0.5
-        )
-
-        for child in node.children:
-
-            theta = angle_of(child)
-
-            axes.plot(
-                [node.x * np.cos(theta), child.x * np.cos(theta)],
-                [node.x * np.sin(theta), child.x * np.sin(theta)],
-                color="#666666",
-                linewidth=0.5
-            )
-
-
-    tips = tips_of(root)
-
-    positions = np.array([to_xy(tip) for tip in tips])
-
-    axes.scatter(
-        positions[:, 0],
-        positions[:, 1],
-        s=14,
-        c=[colours[tip.name] for tip in tips],
-        zorder=3,
-        linewidths=0
-    )
-
-    if show_labels:
-
-        radius = max(tip.x for tip in tips)
-
-        for tip in tips:
-
-            theta = angle_of(tip)
-
-            degrees = np.degrees(theta)
-
-            axes.text(
-                (tip.x + radius * 0.02) * np.cos(theta),
-                (tip.x + radius * 0.02) * np.sin(theta),
-                tip.name,
-                fontsize=4,
-                rotation=degrees if -90 < degrees < 90 else degrees + 180,
-                rotation_mode="anchor",
-                ha="left" if -90 < degrees < 90 else "right",
-                va="center"
-            )
-
-    axes.set_aspect("equal")
-
-    axes.axis("off")
-
-    axes.set_title(title, fontsize=12)
-
-    return figure, axes
-
-
-# --------------------------------------------------------------------- #
 
 def parse_args():
 
     parser = argparse.ArgumentParser(
-        description="Draw a Newick tree coloured by metadata"
+        description="Draw the rooted bootstrap tree"
     )
 
     parser.add_argument("--tree", required=True, type=Path)
 
-    parser.add_argument(
-        "--metadata",
-        type=Path,
-        default=None,
-        help="Sample metadata CSV"
-    )
+    parser.add_argument("--annotation", required=True, type=Path)
 
-    parser.add_argument(
-        "--groups",
-        type=Path,
-        default=None,
-        help="sample_q_values_K<K>.tsv from 03_fst, to colour by "
-             "ADMIXTURE group"
-    )
-
-    parser.add_argument(
-        "--color-by",
-        default="Geographic origin by country",
-        help="Metadata column, or 'assignment' for the ADMIXTURE group"
-    )
+    parser.add_argument("--labels", type=Path, default=None)
 
     parser.add_argument(
         "--layout",
-        choices=["circular", "rectangular"],
-        default="circular"
+        choices=["fan", "rectangular"],
+        default="fan",
     )
 
-    parser.add_argument(
-        "--scale",
-        choices=["linear", "cladogram"],
-        default="linear",
-        help="linear keeps branch lengths; cladogram drops them and "
-             "shows the topology only"
-    )
+    parser.add_argument("--outgroup", default="ZZ01")
 
     parser.add_argument(
-        "--show-labels",
-        action="store_true",
-        help="Draw tip names; unreadable above about 80 samples"
+        "--min-support",
+        type=float,
+        default=70.0,
+        help="Bootstrap values below this are not drawn",
     )
 
     parser.add_argument("--outdir", required=True, type=Path)
@@ -466,68 +92,318 @@ def parse_args():
     return parser.parse_args()
 
 
-def find_id_column(table: pd.DataFrame) -> str:
+def normalise(name: str) -> str:
 
-    for column in ID_COLUMN_CANDIDATES:
-        if column in table.columns:
-            return column
+    first, sep, second = name.partition("_")
 
-    raise ValueError(
-        f"No sample ID column; available: {list(table.columns)}"
-    )
+    return first if sep and first == second else name
 
 
-def build_colour_map(tips, annotation, column):
+# --------------------------------------------------------------------- #
+#  Layout
+# --------------------------------------------------------------------- #
+
+def assign_coordinates(root: newick.Node) -> int:
     """
-    Returns (tip -> colour, level -> colour) with a stable level order.
+    y spreads the tips evenly, x is the distance from the root.
     """
 
-    values = {
-        tip: str(annotation.get(tip, "")).strip()
-        for tip in tips
-    }
+    sys.setrecursionlimit(200_000)
 
-    levels = sorted(
-        {
-            value for value in values.values()
-            if value and value.upper() not in ("NA", "NAN")
-        }
-    )
+    counter = {"next": 0}
 
-    #
-    # ADMIXTURE groups keep the project palette in their own order, so
-    # K3 in the tree is the K3 colour everywhere else.
-    #
+    def spread(node):
 
-    if all(re.fullmatch(r"K\d+", level) for level in levels) and levels:
+        if node.is_tip:
 
-        levels = sorted(levels, key=lambda s: int(s[1:]))
+            node.y = float(counter["next"])
 
-        palette = CUSTOM_PALETTE
+            counter["next"] += 1
 
-    else:
+            return node.y
 
-        palette = (
-            CUSTOM_PALETTE
-            if len(levels) <= len(CUSTOM_PALETTE)
-            else FALLBACK_PALETTE
+        node.y = float(
+            np.mean([spread(child) for child in node.children])
         )
 
-    legend = {
-        level: palette[i % len(palette)]
-        for i, level in enumerate(levels)
-    }
+        return node.y
 
-    colours = {
-        tip: legend.get(value, UNKNOWN_COLOUR)
-        for tip, value in values.items()
-    }
+    spread(root)
 
-    if any(colour == UNKNOWN_COLOUR for colour in colours.values()):
-        legend["no data"] = UNKNOWN_COLOUR
+    def depth(node, so_far):
 
-    return colours, legend
+        node.x = so_far + node.length
 
+        for child in node.children:
+            depth(child, node.x)
+
+    depth(root, 0.0)
+
+    return counter["next"]
+
+
+def draw_rectangular(root, n_tips, colours, args):
+
+    height = max(6.0, 0.16 * n_tips)
+
+    figure, axes = plt.subplots(figsize=(11, height))
+
+    for node in newick.all_nodes(root):
+
+        for child in node.children:
+
+            axes.plot(
+                [node.x, node.x], [node.y, child.y],
+                color=BRANCH_COLOUR, linewidth=0.5, solid_capstyle="round",
+            )
+
+            axes.plot(
+                [node.x, child.x], [child.y, child.y],
+                color=BRANCH_COLOUR, linewidth=0.5, solid_capstyle="round",
+            )
+
+    tips = newick.tips(root)
+
+    span = max(tip.x for tip in tips)
+
+    axes.scatter(
+        [tip.x for tip in tips],
+        [tip.y for tip in tips],
+        s=10,
+        c=[colours[normalise(tip.name)] for tip in tips],
+        zorder=3,
+        linewidths=0,
+    )
+
+    for tip in tips:
+
+        axes.text(
+            tip.x + span * 0.004,
+            tip.y,
+            tip.name,
+            fontsize=3.6,
+            va="center",
+            color=colours[normalise(tip.name)],
+        )
+
+    #
+    # Bootstrap support, only where it is worth reading. Below 70 the
+    # value should not be leaned on, and drawing all 411 of them turns
+    # the figure into noise.
+    #
+
+    drawn = 0
+
+    for node in newick.all_nodes(root):
+
+        if node.is_tip or node.support is None:
+            continue
+
+        if node.support < args.min_support:
+            continue
+
+        axes.text(
+            node.x - span * 0.003,
+            node.y,
+            f"{node.support:.0f}",
+            fontsize=3.2,
+            ha="right",
+            va="bottom",
+            color="#333333",
+        )
+
+        drawn += 1
+
+    print(f"{drawn} bootstrap values at or above {args.min_support:.0f} drawn")
+
+    axes.set_yticks([])
+
+    axes.set_xlabel("Substitutions per site (maximum likelihood)")
+
+    axes.set_title(
+        "Rooted ML phylogeny of 412 Caucasian accessions + ZZ01\n"
+        f"tips coloured by K = 7 ancestry; bootstrap shown where "
+        f">= {args.min_support:.0f} of 100",
+        fontsize=11,
+    )
+
+    for side in ("top", "right", "left"):
+        axes.spines[side].set_visible(False)
+
+    return figure, axes
+
+
+def compress_root_stem(root, outgroup: str, keep: float = 0.25):
+    """
+    ZZ01 is a different species, so the branch separating it from the
+    Caucasian accessions is long -- here it is longer than the whole
+    ingroup is deep.
+
+    Rooting halves that branch and puts one half under each side, so the
+    cost is not that ZZ01 sits far out: it is that every ingroup tip is
+    pushed outwards by the same large constant. Drawn to scale the 412
+    accessions end up in a thin ring at the rim with an empty disc in
+    the middle, and none of the structure is legible.
+
+    Both root branches are therefore cut back to `keep` times the depth
+    of the ingroup itself, and the whole ingroup slides inwards with
+    them. Relative distances *within* the ingroup, which is what the
+    figure is read for, are untouched. Returns True when this happened
+    so the caption can say so -- a shortened branch that is not labelled
+    as shortened is a lie about the distances.
+    """
+
+    if len(root.children) != 2:
+        return False
+
+    outgroup_side = None
+    ingroup_side = None
+
+    for child in root.children:
+
+        names = {normalise(name) for name in newick.tip_names(child)}
+
+        if names == {outgroup}:
+            outgroup_side = child
+
+        else:
+            ingroup_side = child
+
+    if outgroup_side is None or ingroup_side is None:
+        return False
+
+    base = ingroup_side.x
+
+    ingroup_nodes = newick.all_nodes(ingroup_side)
+
+    spread = max(node.x for node in ingroup_nodes) - base
+
+    if spread <= 0 or base <= spread * 0.5:
+        return False
+
+    delta = base - spread * keep
+
+    for node in ingroup_nodes:
+        node.x -= delta
+
+    for node in newick.all_nodes(outgroup_side):
+        node.x -= delta
+
+    return True
+
+
+def draw_fan(root, n_tips, colours, args):
+
+    figure, axes = plt.subplots(figsize=(12, 12))
+
+    # A wedge left open so the root direction is visible.
+    span = 2 * np.pi * 0.96
+
+    def angle(node):
+        return node.y / max(n_tips - 1, 1) * span
+
+    for node in newick.all_nodes(root):
+
+        if node.is_tip:
+            continue
+
+        child_angles = [angle(child) for child in node.children]
+
+        arc = np.linspace(min(child_angles), max(child_angles), 60)
+
+        axes.plot(
+            node.x * np.cos(arc),
+            node.x * np.sin(arc),
+            color=BRANCH_COLOUR,
+            linewidth=0.4,
+        )
+
+        for child in node.children:
+
+            theta = angle(child)
+
+            axes.plot(
+                [node.x * np.cos(theta), child.x * np.cos(theta)],
+                [node.x * np.sin(theta), child.x * np.sin(theta)],
+                color=BRANCH_COLOUR,
+                linewidth=0.4,
+            )
+
+    tips = newick.tips(root)
+
+    positions = np.array(
+        [[tip.x * np.cos(angle(tip)), tip.x * np.sin(angle(tip))]
+         for tip in tips]
+    )
+
+    axes.scatter(
+        positions[:, 0],
+        positions[:, 1],
+        s=16,
+        c=[colours[normalise(tip.name)] for tip in tips],
+        zorder=3,
+        linewidths=0,
+    )
+
+    #
+    # The outgroup is the whole point of this figure being rooted, so it
+    # gets a marker and a label of its own rather than one dot among 413.
+    #
+
+    radius = max(tip.x for tip in tips)
+
+    for index, tip in enumerate(tips):
+
+        if normalise(tip.name) != args.outgroup:
+            continue
+
+        x, y = positions[index]
+
+        axes.scatter(
+            [x], [y],
+            s=110, marker="*", color=OUTGROUP_COLOUR, zorder=4, linewidths=0,
+        )
+
+        theta = angle(tip)
+
+        axes.annotate(
+            f"{tip.name}  (outgroup)",
+            xy=(x, y),
+            xytext=(
+                (radius * 1.18) * np.cos(theta),
+                (radius * 1.18) * np.sin(theta),
+            ),
+            fontsize=10,
+            fontweight="bold",
+            ha="center",
+            va="center",
+            arrowprops={
+                "arrowstyle": "-",
+                "color": OUTGROUP_COLOUR,
+                "linewidth": 0.8,
+            },
+        )
+
+    axes.set_aspect("equal")
+
+    axes.axis("off")
+
+    subtitle = "tips coloured by K = 7 ancestry (max Q >= 0.75)"
+
+    if getattr(args, "outgroup_shortened", False):
+
+        subtitle += "; the ZZ01 branch is drawn shortened"
+
+    axes.set_title(
+        f"Rooted ML phylogeny of 412 Caucasian accessions, rooted on "
+        f"{args.outgroup}\n{subtitle}",
+        fontsize=13,
+    )
+
+    return figure, axes
+
+
+# --------------------------------------------------------------------- #
 
 def main():
 
@@ -536,118 +412,144 @@ def main():
     args.outdir.mkdir(parents=True, exist_ok=True)
 
 
-    root = parse_newick(args.tree.read_text())
+    tree = newick.parse(args.tree.read_text())
 
-    n_tips = assign_coordinates(root, args.scale)
+    names = [normalise(name) for name in newick.tip_names(tree)]
 
-    tips = [tip.name for tip in tips_of(root)]
-
-    print(f"{n_tips} tips")
-
-
-    #
-    # Where the colouring comes from.
-    #
-
-    annotation = {}
-
-    if args.color_by == "assignment":
-
-        if args.groups is None:
-            raise ValueError(
-                "--color-by assignment needs --groups"
-            )
-
-        table = pd.read_csv(args.groups, sep="\t", dtype={"IID": str})
-
-        annotation = dict(zip(table["IID"], table["assignment"]))
-
-    elif args.metadata is not None:
-
-        table = pd.read_csv(args.metadata)
-
-        id_column = find_id_column(table)
-
-        if args.color_by not in table.columns:
-            raise ValueError(
-                f"Column '{args.color_by}' is not in the metadata. "
-                f"Available: {list(table.columns)}"
-            )
-
-        annotation = dict(
-            zip(
-                table[id_column].astype(str),
-                table[args.color_by]
-            )
-        )
-
-    matched = sum(1 for tip in tips if tip in annotation)
-
-    print(f"{matched} of {len(tips)} tips matched to '{args.color_by}'")
-
-    if matched == 0:
+    if args.outgroup not in names:
         raise ValueError(
-            "No tip name matches the annotation table; check that the "
-            ".fam IDs and the metadata IDs are the same"
+            f"'{args.outgroup}' is not a tip of {args.tree.name}; refusing "
+            f"to draw an unrooted tree as a rooted one"
+        )
+
+    tree = newick.reroot_on_tip(tree, args.outgroup)
+
+    n_tips = assign_coordinates(tree)
+
+    print(f"{n_tips} tips, rooted on {args.outgroup}")
+
+
+    annotation = pd.read_csv(args.annotation, sep="\t", dtype={"tip": str})
+
+    category = dict(zip(annotation["tip"], annotation["category"]))
+
+    missing = [name for name in names if name not in category]
+
+    if missing:
+        raise ValueError(
+            f"{len(missing)} tips have no annotation: "
+            f"{', '.join(missing[:10])}"
         )
 
 
-    colours, legend = build_colour_map(tips, annotation, args.color_by)
+    def colour_of(name: str) -> str:
+
+        value = category[name]
+
+        if value == "Outgroup":
+            return OUTGROUP_COLOUR
+
+        if value == "Admixed":
+            return ADMIXED_COLOUR
+
+        return K_COLOURS.get(value, ADMIXED_COLOUR)
+
+    colours = {name: colour_of(name) for name in names}
 
 
-    title = (
-        f"Neighbour-joining tree, coloured by {args.color_by}"
-        + ("  (cladogram: branch lengths not to scale)"
-           if args.scale == "cladogram" else "")
+    #
+    # Legend text. The K groups are described from the metadata, not
+    # from a fixed table of K numbers: the column order of a .Q file is
+    # arbitrary, so K3 means whatever this particular run made it mean.
+    #
+
+    descriptions = {}
+
+    if args.labels is not None and args.labels.exists():
+
+        labels = pd.read_csv(args.labels, sep="\t")
+
+        descriptions = dict(zip(labels["group"], labels["label"]))
+
+        counts = dict(zip(labels["group"], labels["n"]))
+
+    else:
+
+        counts = annotation["category"].value_counts().to_dict()
+
+
+    def legend_text(group: str) -> str:
+
+        n = counts.get(group, 0)
+
+        description = descriptions.get(group, "")
+
+        return f"{group} - {description}  (n = {n})" if description \
+            else f"{group}  (n = {n})"
+
+    entries = [
+        (group, K_COLOURS[group])
+        for group in sorted(K_COLOURS)
+        if (annotation["category"] == group).any()
+    ]
+
+    entries.append(("Admixed", ADMIXED_COLOUR))
+
+    entries.append(("Outgroup", OUTGROUP_COLOUR))
+
+
+    #
+    # Only the fan gets the outgroup branch shortened. The rectangular
+    # figure is the one that has to keep branch lengths honest, and it
+    # has room to be as tall as the distances require.
+    #
+
+    args.outgroup_shortened = (
+        compress_root_stem(tree, args.outgroup)
+        if args.layout == "fan" else False
     )
 
-    draw = (
-        draw_circular
-        if args.layout == "circular"
-        else draw_rectangular
-    )
+    if args.outgroup_shortened:
+        print("root stem compressed for the fan layout")
 
-    figure, axes = draw(
-        root,
-        n_tips,
-        colours,
-        legend,
-        args.show_labels,
-        title,
-        args.scale == "linear"
-    )
+    draw = draw_fan if args.layout == "fan" else draw_rectangular
+
+    figure, axes = draw(tree, n_tips, colours, args)
 
     axes.legend(
         handles=[
             Line2D(
                 [], [],
-                marker="o",
+                marker="*" if group == "Outgroup" else "o",
                 linestyle="",
-                markersize=6,
+                markersize=9 if group == "Outgroup" else 7,
                 color=colour,
-                label=level
+                label=legend_text(group),
             )
-            for level, colour in legend.items()
+            for group, colour in entries
         ],
         loc="upper left",
-        bbox_to_anchor=(1.0, 1.0) if args.layout == "rectangular" else (0.98, 1.0),
+        # Outside the axes in both layouts: the fan fills its square to
+        # the corners often enough that an inset legend lands on tips.
+        bbox_to_anchor=(1.0, 1.0),
         frameon=False,
-        fontsize=8
+        fontsize=8,
+        title="K = 7 ADMIXTURE assignment",
+        title_fontsize=9,
     )
 
     figure.tight_layout()
 
 
-    safe = re.sub(r"[^A-Za-z0-9]+", "_", args.color_by).strip("_")
+    dpi = 300 if args.layout == "fan" else 150
 
-    if args.scale == "cladogram":
-        safe += "_cladogram"
+    pdf_path = args.outdir / f"tree_{args.layout}.pdf"
 
-    pdf_path = args.outdir / f"tree_{safe}.pdf"
-    png_path = args.outdir / f"tree_{safe}.png"
+    png_path = args.outdir / f"tree_{args.layout}.png"
 
     figure.savefig(pdf_path, bbox_inches="tight")
-    figure.savefig(png_path, dpi=200, bbox_inches="tight")
+
+    figure.savefig(png_path, dpi=dpi, bbox_inches="tight")
 
     plt.close(figure)
 

@@ -2,24 +2,27 @@ nextflow.enable.dsl = 2
 
 /*
  * ---------------------------------------------------------------------
- *  Neighbour-joining tree from the filtered SNP set
+ *  Rooted maximum-likelihood phylogeny of the Caucasian grapevine set
  *
- *      PLINK bed/bim/fam  ->  LD pruning
- *                         ->  1-IBS distance + genotype export
- *                         ->  NJ tree, bootstrapped, midpoint rooted
- *                         ->  circular tree coloured by metadata
+ *      413-sample rooted VCF  ->  preflight checks
+ *                            ->  SNPhylo: LD pruning + SNP sequence
+ *                            ->  PHYLIP dnaml, rooted on ZZ01
+ *                            ->  phangorn bootstrap, 100 replicates
+ *                            ->  validation of both trees
+ *                            ->  tip annotation from the K=7 Q matrix
+ *                            ->  fan and rectangular figures
  *
  *  Run:
  *      cd pipelines/05_tree
- *      nextflow run . --bfile /path/to/cauc_filtered.final
+ *      nextflow run .
  *
- *      # colour by ADMIXTURE group instead of country
- *      nextflow run . --color_by assignment \
- *          --groups ../../results/fst/K7/sample_lists/sample_q_values_K7.tsv
+ *      # reuse an ML tree that was produced outside the pipeline
+ *      nextflow run . --ml_tree /path/to/cauc_rooted.ml.tree \
+ *                     --phylip  /path/to/cauc_rooted.phylip.txt
  *
- *  LD pruning first is not optional here. Linked SNPs carry the same
- *  information several times over, which distorts branch lengths and
- *  makes bootstrap support look far better than it is.
+ *  The ML stage is one long single-threaded dnaml run; the bootstrap is
+ *  100 independent replicates. They are separate processes so that the
+ *  second can ask for many cores that the first would only leave idle.
  * ---------------------------------------------------------------------
  */
 
@@ -27,111 +30,9 @@ nextflow.enable.dsl = 2
 params.tree_outdir = "${params.outdir}/tree"
 
 
-process LD_PRUNE {
+process PREFLIGHT {
 
-    tag "r2 < ${params.ld_r2}"
-
-
-    publishDir "${params.tree_outdir}",
-        mode: "copy",
-        pattern: "*.log"
-
-
-    input:
-
-    tuple path(bed), path(bim), path(fam)
-
-
-    output:
-
-    path "pruned.prune.in", emit: keep
-
-    path "*.log"
-
-
-    script:
-
-    def prefix = bed.baseName
-
-    """
-
-    plink \
-        --bfile ${prefix} \
-        --allow-extra-chr 0 \
-        --chr-set ${params.chr_set} \
-        --indep-pairwise ${params.ld_window} ${params.ld_step} ${params.ld_r2} \
-        --out pruned
-
-    """
-
-}
-
-
-process DISTANCE_MATRIX {
-
-    tag "1 - IBS"
-
-
-    publishDir "${params.tree_outdir}",
-        mode: "copy",
-        pattern: "*.log"
-
-
-    input:
-
-    tuple path(bed), path(bim), path(fam)
-
-    path keep
-
-
-    output:
-
-    path "tree_input.traw",      emit: traw
-
-    path "tree_input.mdist",     emit: mdist
-
-    path "tree_input.mdist.id",  emit: ids
-
-    path "*.log"
-
-
-    script:
-
-    def prefix = bed.baseName
-
-    //
-    // Two calls rather than one: PLINK 1.9 does not accept --distance
-    // and --recode in the same invocation.
-    //
-
-    """
-
-    plink \
-        --bfile ${prefix} \
-        --allow-extra-chr 0 \
-        --chr-set ${params.chr_set} \
-        --extract ${keep} \
-        --distance square 1-ibs \
-        --out tree_input
-
-    plink \
-        --bfile ${prefix} \
-        --allow-extra-chr 0 \
-        --chr-set ${params.chr_set} \
-        --extract ${keep} \
-        --recode A-transpose \
-        --out tree_input_geno
-
-    mv tree_input_geno.traw tree_input.traw
-
-    """
-
-}
-
-
-process BUILD_TREE {
-
-    tag "NJ, ${params.bootstrap} bootstrap replicates"
+    tag "413 samples, ZZ01, ${params.expect_variants} variants"
 
 
     publishDir "${params.tree_outdir}",
@@ -140,33 +41,226 @@ process BUILD_TREE {
 
     input:
 
-    path traw
-
-    path mdist
+    path vcf_gz
 
 
     output:
 
-    path "tree.nwk", emit: tree
-
-    path "distance_matrix.tsv"
-
-    path "tree_tips.tsv"
+    path "preflight.txt"
 
 
     script:
 
-    def outgroup = params.outgroup ? "--outgroup ${params.outgroup}" : ""
+    """
+
+    preflight_vcf.py \
+        --vcf ${vcf_gz} \
+        --expect-samples ${params.expect_samples} \
+        --expect-variants ${params.expect_variants} \
+        --outgroup ${params.outgroup} \
+        --out preflight.txt
 
     """
 
-    build_tree.py \
-        --traw ${traw} \
-        --mdist ${mdist} \
-        --bootstrap ${params.bootstrap} \
-        --root ${params.root} \
-        ${outgroup} \
-        --seed ${params.seed} \
+}
+
+
+process SNPHYLO_ML {
+
+    tag "dnaml, outgroup ${params.outgroup}"
+
+
+    publishDir "${params.tree_outdir}/snphylo",
+        mode: "copy"
+
+
+    input:
+
+    path vcf_gz
+
+    path preflight
+
+
+    output:
+
+    path "${params.prefix}.ml.tree",    emit: ml_tree
+
+    path "${params.prefix}.phylip.txt", emit: phylip
+
+    path "${params.prefix}.ml.txt"
+
+    path "${params.prefix}.fasta"
+
+    path "${params.prefix}.id.txt"
+
+    path "run_summary.txt"
+
+
+    script:
+
+    //
+    // SNPhylo insists on an uncompressed VCF. It is decompressed into
+    // the task's own working directory -- never next to the shared
+    // input, which the task brief forbids.
+    //
+
+    """
+
+    gunzip -c ${vcf_gz} > input.vcf
+
+    bash ${params.snphylo} \
+        -v input.vcf \
+        -r \
+        -m ${params.maf} \
+        -M ${params.missing} \
+        -l ${params.ld} \
+        -a ${params.last_autosome} \
+        -o ${params.outgroup} \
+        -t ${task.cpus} \
+        -P ${params.prefix}
+
+    rm -f input.vcf infile
+
+    {
+        echo "input           ${params.vcf_rooted}"
+        echo "snphylo         ${params.snphylo}"
+        echo "maf             >= ${params.maf}"
+        echo "missing rate    <= ${params.missing}"
+        echo "ld threshold    ${params.ld}"
+        echo "chromosomes     1-${params.last_autosome}"
+        echo "outgroup        ${params.outgroup}"
+        echo "low-depth screen skipped (-r)"
+        echo "sites retained  \$(head -1 ${params.prefix}.phylip.txt | awk '{print \$2}')"
+        echo "slurm job       \${SLURM_JOB_ID:-none}"
+    } > run_summary.txt
+
+    """
+
+}
+
+
+process BOOTSTRAP {
+
+    tag "${params.bootstrap} replicates on ${task.cpus} cores"
+
+
+    publishDir "${params.tree_outdir}/snphylo",
+        mode: "copy"
+
+
+    input:
+
+    path ml_tree
+
+    path phylip
+
+
+    output:
+
+    path "${params.prefix}.bs.tree", emit: bs_tree
+
+
+    script:
+
+    //
+    // SNPhylo's own determine_bs_tree.R calls bootstrap.pml() with
+    // multicore=TRUE and no mc.cores, so phangorn falls back to
+    // detectCores() -- 64 on these nodes, whatever SLURM actually
+    // allocated. That oversubscription is what killed the group's
+    // earlier attempt. Here the count is passed in explicitly.
+    //
+
+    """
+
+    export R_LIBS=${params.snphylo_r_libs}
+
+    bootstrap_tree.R \
+        --tree ${ml_tree} \
+        --phylip ${phylip} \
+        --replicates ${params.bootstrap} \
+        --cores ${task.cpus} \
+        --out ${params.prefix}.bs.tree
+
+    """
+
+}
+
+
+process VALIDATE {
+
+    tag "413 tips, ZZ01 present"
+
+
+    publishDir "${params.tree_outdir}",
+        mode: "copy"
+
+
+    input:
+
+    path ml_tree
+
+    path bs_tree
+
+
+    output:
+
+    path "tree_validation.txt"
+
+
+    script:
+
+    """
+
+    validate_tree.py \
+        --ml-tree ${ml_tree} \
+        --bs-tree ${bs_tree} \
+        --expect-tips ${params.expect_samples} \
+        --outgroup ${params.outgroup} \
+        --out tree_validation.txt
+
+    """
+
+}
+
+
+process ANNOTATE {
+
+    tag "K=${params.k}, Q >= ${params.min_q}"
+
+
+    publishDir "${params.tree_outdir}",
+        mode: "copy"
+
+
+    input:
+
+    path bs_tree
+
+    path q_file
+
+    path fam
+
+    path metadata
+
+
+    output:
+
+    path "tip_annotation.tsv", emit: annotation
+
+    path "group_labels.tsv",   emit: labels
+
+
+    script:
+
+    """
+
+    annotate_tips.py \
+        --tree ${bs_tree} \
+        --q ${q_file} \
+        --fam ${fam} \
+        --metadata ${metadata} \
+        --min-q ${params.min_q} \
+        --outgroup ${params.outgroup} \
         --outdir .
 
     """
@@ -174,9 +268,9 @@ process BUILD_TREE {
 }
 
 
-process PLOT_TREE {
+process PLOT {
 
-    tag "${colour_by} / ${scale}"
+    tag "${layout}"
 
 
     publishDir "${params.tree_outdir}/plots",
@@ -185,13 +279,13 @@ process PLOT_TREE {
 
     input:
 
-    tuple val(colour_by), val(scale)
+    val layout
 
-    path tree
+    path bs_tree
 
-    path metadata
+    path annotation
 
-    path groups
+    path labels
 
 
     output:
@@ -203,20 +297,15 @@ process PLOT_TREE {
 
     script:
 
-    def labels = params.show_labels ? "--show-labels" : ""
-
-    def group_file = groups.name != "NO_GROUPS" ? "--groups ${groups}" : ""
-
     """
 
     plot_tree.py \
-        --tree ${tree} \
-        --metadata ${metadata} \
-        ${group_file} \
-        --color-by '${colour_by}' \
-        --layout ${params.layout} \
-        --scale ${scale} \
-        ${labels} \
+        --tree ${bs_tree} \
+        --annotation ${annotation} \
+        --labels ${labels} \
+        --layout ${layout} \
+        --outgroup ${params.outgroup} \
+        --min-support ${params.min_support} \
         --outdir .
 
     """
@@ -226,65 +315,66 @@ process PLOT_TREE {
 
 workflow {
 
-    /*
-     * PLINK wants all three files staged next to each other.
-     */
+    vcf_gz = Channel.value(
+        file(params.vcf_rooted, checkIfExists: true)
+    )
 
-    plink_set = Channel.value(
-        [
-            file("${params.bfile}.bed", checkIfExists: true),
-            file("${params.bfile}.bim", checkIfExists: true),
-            file("${params.bfile}.fam", checkIfExists: true),
-        ]
+    q_file = Channel.value(
+        file(params.q_file, checkIfExists: true)
+    )
+
+    fam = Channel.value(
+        file(params.fam, checkIfExists: true)
     )
 
     metadata = Channel.value(
         file(params.metadata, checkIfExists: true)
     )
 
-    /*
-     * Optional: colouring by ADMIXTURE group needs 03_fst output. A
-     * placeholder keeps the process signature the same when it is not
-     * wanted.
-     */
 
-    groups = Channel.value(
-        params.groups
-            ? file(params.groups, checkIfExists: true)
-            : file("${projectDir}/assets/NO_GROUPS")
-    )
+    PREFLIGHT(vcf_gz)
 
-
-    LD_PRUNE(plink_set)
-
-    DISTANCE_MATRIX(plink_set, LD_PRUNE.out.keep)
-
-    BUILD_TREE(
-        DISTANCE_MATRIX.out.traw,
-        DISTANCE_MATRIX.out.mdist
-    )
 
     /*
-     * One figure per colouring per scale, in parallel.
-     *
-     * Both scales are drawn by default: the linear one is the honest
-     * picture of the distances, the cladogram is the one the topology
-     * is actually readable on.
+     * dnaml on 413 taxa takes hours. When it has already been run --
+     * by hand, or by an earlier attempt of this pipeline -- point
+     * --ml_tree and --phylip at its output and start from the
+     * bootstrap.
      */
 
-    colourings = Channel.fromList(
-        params.color_by.toString().split(",").collect { it.trim() }
+    if (params.ml_tree) {
+
+        ml_tree = Channel.value(file(params.ml_tree, checkIfExists: true))
+
+        phylip = Channel.value(file(params.phylip, checkIfExists: true))
+
+    }
+    else {
+
+        SNPHYLO_ML(vcf_gz, PREFLIGHT.out)
+
+        ml_tree = SNPHYLO_ML.out.ml_tree
+
+        phylip = SNPHYLO_ML.out.phylip
+
+    }
+
+
+    BOOTSTRAP(ml_tree, phylip)
+
+    VALIDATE(ml_tree, BOOTSTRAP.out.bs_tree)
+
+    ANNOTATE(BOOTSTRAP.out.bs_tree, q_file, fam, metadata)
+
+    layouts = Channel.fromList(
+        params.layouts.toString().split(",").collect { it.trim() }
     )
 
-    scales = Channel.fromList(
-        params.scale.toString().split(",").collect { it.trim() }
-    )
-
-    PLOT_TREE(
-        colourings.combine(scales),
-        BUILD_TREE.out.tree,
-        metadata,
-        groups
+    PLOT(
+        layouts,
+        BOOTSTRAP.out.bs_tree,
+        ANNOTATE.out.annotation,
+        ANNOTATE.out.labels
     )
 
 }
@@ -294,10 +384,11 @@ workflow.onComplete {
 
     log.info """
     ----------------------------------------------------------
-    Neighbour-joining tree
-    distance : 1 - IBS on LD-pruned SNPs (r2 < ${params.ld_r2})
+    Rooted ML phylogeny
+    input    : ${params.vcf_rooted}
+    filters  : MAF >= ${params.maf}, missing <= ${params.missing}, LD ${params.ld}
+    outgroup : ${params.outgroup}
     bootstrap: ${params.bootstrap} replicates
-    rooting  : ${params.root}
     results  : ${params.tree_outdir}
     status   : ${workflow.success ? 'OK' : 'FAILED'}
     ----------------------------------------------------------
