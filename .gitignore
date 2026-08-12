@@ -103,6 +103,23 @@ enrichment_project/dataset/
 
 
 # ---------------------------------------------------------------------
+#  Legacy layout, left in place on the server
+#
+#  Before the restructure everything lived under
+#  grapewines_project/admixture/. The tracked files moved to
+#  pipelines/ and results/, but the ADMIXTURE .Q/.P output, the work
+#  directories and the run logs were never in git and are still sitting
+#  in the old tree on the cluster.
+#
+#  Ignoring it keeps `git status` readable and, more to the point,
+#  keeps `git clean -fd` away from ADMIXTURE output that cannot be
+#  recovered from this repository.
+# ---------------------------------------------------------------------
+
+grapewines_project/admixture/
+
+
+# ---------------------------------------------------------------------
 #  Explicitly kept (small, and useful to review in a diff)
 # ---------------------------------------------------------------------
 
