@@ -12,5 +12,8 @@
 *.tsv  text eol=lf
 *.csv  text eol=lf
 
+# ADMIXTURE ancestry proportions, read by PLINK and by the Python steps
+*.Q    text eol=lf
+
 *.png  binary
 *.pdf  binary
