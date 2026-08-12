@@ -283,9 +283,40 @@ workflow {
         file("${params.vcf}.tbi", checkIfExists: true)
     )
 
-    q_file = Channel.value(
-        file(params.q_file, checkIfExists: true)
-    )
+    /*
+     * Checked by hand rather than with checkIfExists, because the bare
+     * "No such file or directory" is a poor answer to the most common
+     * way this pipeline fails: ADMIXTURE has not been run for this K,
+     * or its output is not where --admixture_dir says.
+     */
+
+    def q_path = file(params.q_file)
+
+    if (!q_path.exists()) {
+
+        def available = file(params.admixture_dir).exists()
+            ? file("${params.admixture_dir}/*.Q").collect { it.name }.sort()
+            : []
+
+        error """
+        No ADMIXTURE Q file for K=${params.k}.
+
+          looked for : ${params.q_file}
+          in         : ${params.admixture_dir}
+          found there: ${available ? available.join(', ') : 'nothing, or the directory does not exist'}
+
+        ADMIXTURE writes .Q into the working directory of the job that
+        ran it, so a personal copy may be elsewhere:
+
+          find ~ -name 'cauc_filtered.final.*.Q'
+
+        Or point at the shared copy:
+
+          --admixture_dir /mnt/nas1/proj/omicss26/gp3/admixture/results
+        """.stripIndent()
+    }
+
+    q_file = Channel.value(q_path)
 
 
     ASSIGN_GROUPS(
