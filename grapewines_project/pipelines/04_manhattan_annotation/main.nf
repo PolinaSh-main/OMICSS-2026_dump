@@ -57,12 +57,12 @@ process WINDOW_FST {
 
     """
 
-    window_fst.R \
+    window_fst.py \
         --fst ${fst} \
         --comparison ${comparison} \
         --window ${params.window} \
-        --min_snps ${params.min_snps} \
-        --top_fraction ${params.top_fraction} \
+        --min-snps ${params.min_snps} \
+        --top-fraction ${params.top_fraction} \
         --outdir .
 
     """

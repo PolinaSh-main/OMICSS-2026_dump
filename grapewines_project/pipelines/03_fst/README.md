@@ -70,6 +70,16 @@ available:
 They differ by roughly a third on this data. Say which one a figure
 shows.
 
+## Reading the heatmap
+
+The diagonal is zero by construction and is left blank. The colour ramp
+is stretched across the range of the values that are actually present,
+not from zero — otherwise, when all the pairwise values sit close
+together, every cell comes out the same shade. **The colours are
+relative to this figure.** Every cell carries its number, and the colour
+bar is annotated, so read those against the usual guide (≈0.05 low,
+≈0.15 moderate, >0.25 strong) rather than judging by shade alone.
+
 ## Naming the groups
 
 `describe_groups.py` proposes a name for each component from the

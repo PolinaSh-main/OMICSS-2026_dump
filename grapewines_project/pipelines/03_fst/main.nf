@@ -224,7 +224,7 @@ process PLOT_FST_HEATMAP {
 
     """
 
-    plot_fst_heatmap.R \
+    plot_fst_heatmap.py \
         --summary ${summary} \
         --labels ${labels} \
         --metric ${params.metric} \

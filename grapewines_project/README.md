@@ -66,6 +66,15 @@ pipeline directory. Override it with `--project_root` if needed.
                 per-SNP FST -> 50 kb windows -> top 1% -> genes in those windows
 ```
 
+## Tooling
+
+Everything is Python — pandas, numpy, matplotlib — plus the usual
+command-line tools (vcftools, PLINK, ADMIXTURE) driven by Nextflow. The
+course materials write the FST heatmap and the Manhattan plot in R;
+those are Python here instead, so the project needs one environment
+rather than two and the plotting code can share the palette below with
+the ADMIXTURE figures. The outputs are the same files.
+
 ## Colour palette
 
 Shared between ADMIXTURE barplots, metadata barplots and FST figures so that
