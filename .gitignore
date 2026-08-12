@@ -1,36 +1,120 @@
-tmf_project/variant_calling/bam/wes46.sam
-tmf_project/data/hg38_index/hg38.fa
-tmf_project/data/hg38_index/hg38.fa.bwt
-tmf_project/data/hg38_index/hg38.fa.pac
-single_cell_pipeline/work/27/c4b6d5e6e11bceb0517f8bff9fd04f/doublet_filtered.h5ad
-single_cell_pipeline/work/a4/5bbaa84595c02d37f31fb943a1ec43/qc_filtered.h5ad
-single_cell_pipeline/work/d5/edcf332fac5478a342548bb1623fc7/control_doublet_filtered.h5ad
-single_cell_pipeline/work/2d/a47d335e7784bec4c5fa676aa27a34/merged.h5ad
-single_cell_pipeline/work/d4/de21411a0cfcabef395491bf5bb668/harmony.h5ad
-single_cell_pipeline/work/99/97e6102f6b3fdd504c92181ae6eada/doublet_filtered.h5ad
-single_cell_pipeline/work/4a/4686e5703fcc94af0aa721dcc1aaf3/normalized_pca.h5ad
-single_cell_pipeline/work/3f/0412c127243342ac6d16d118042788/qc_filtered.h5ad
-single_cell_pipeline/work/af/77091376a001f6edf051fbab5185f0/stim_doublet_filtered.h5ad
-single_cell_pipeline/results/normalized/normalized_pca.h5ad
-single_cell_pipeline/results/merged/merged.h5ad
-single_cell_pipeline/results/integration/harmony/harmony.h5ad
-single_cell_pipeline/results/qc/control/qc_filtered.h5ad
-single_cell_pipeline/results/qc/stim/qc_filtered.h5ad
-single_cell_pipeline/results/doublets/stim/doublet_filtered.h5ad
-single_cell_pipeline/results/doublets/stim/stim_doublet_filtered.h5ad
-single_cell_pipeline/results/doublets/control/control_doublet_filtered.h5ad
-single_cell_pipeline/results/doublets/control/doublet_filtered.h5ad
-single_cell_pipeline/.venv/lib/python3.10/site-packages/llvmlite/binding/libllvmlite.so
-grapewines_project/admixture/data_filtered/cauc_filtered.final.bed
-grapewines_project/admixture/results/cauc_filtered.final.8.P
-grapewines_project/admixture/results/cauc_filtered.final.10.P
-grapewines_project/admixture/results/cauc_filtered.final.9.P
-grapewines_project/smoke_test/smoke_input.vcf.gz
-grapewines_project/smoke_test/cauc_smoke_filtered.recode.vcf
-**/work/
-**/results/
+# =====================================================================
+#  OMICSS-2026 — what does NOT belong in git
+#
+#  Rule of thumb: git stores code, configs and small text results.
+#  Everything that a pipeline can regenerate stays on the server only.
+# =====================================================================
+
+
+# ---------------------------------------------------------------------
+#  Nextflow
+# ---------------------------------------------------------------------
+
+work/
+.nextflow/
+.nextflow.log*
+
+# execution reports (regenerated on every run)
+report*.html
+timeline*.html
+trace*.txt
+dag*.html
+
+
+# ---------------------------------------------------------------------
+#  Cluster / job logs
+# ---------------------------------------------------------------------
+
+logs/
+log/
+slurm-*.out
+*.err
+*.out
+
+
+# ---------------------------------------------------------------------
+#  Python
+# ---------------------------------------------------------------------
+
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+
+# R
+.Rhistory
+.RData
+.Rproj.user/
+
+
+# ---------------------------------------------------------------------
+#  Raw / intermediate genomics data
+# ---------------------------------------------------------------------
+
+# reads & alignments
+*.fastq
+*.fastq.gz
+*.fq
+*.fq.gz
+*.sam
 *.bam
 *.bai
+*.cram
+
+# variants
 *.vcf
 *.vcf.gz
 *.tbi
+*.gvcf
+*.gvcf.gz
+
+# PLINK binaries (.bim/.bed are huge; .fam is small and kept on purpose)
+*.bed
+*.bim
+*.nosex
+
+# ADMIXTURE allele-frequency matrices (huge; .Q is small and kept)
+*.P
+
+# reference / index files
+*.fa
+*.fa.*
+*.fasta
+*.gff3
+*.gtf
+
+# bulk RNA-seq input tables (course-provided, re-downloadable)
+enrichment_project/dataset/
+*.gmt
+
+# single-cell / expression matrices
+*.h5ad
+*.h5
+*.mtx
+*.mtx.gz
+*.RData
+*.rds
+
+# FST per-SNP output (hundreds of thousands of rows per comparison;
+# the summary tables next to them ARE tracked)
+*.weir.fst
+*.windowed.weir.fst
+
+
+# ---------------------------------------------------------------------
+#  Explicitly kept (small, and useful to review in a diff)
+# ---------------------------------------------------------------------
+
+!*.fam
+!**/cv*.tsv
+!**/order_Q*.tsv
+
+
+# ---------------------------------------------------------------------
+#  OS noise
+# ---------------------------------------------------------------------
+
+.DS_Store
+Thumbs.db
+desktop.ini

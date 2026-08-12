@@ -1,0 +1,16 @@
+# Everything here is executed on a Linux cluster. Keep LF in the working
+# tree too, so a script edited on Windows never reaches the server with
+# CRLF line endings (a `\r` after the shebang makes bash fail with a
+# confusing "bad interpreter" error).
+
+*.sh   text eol=lf
+*.py   text eol=lf
+*.R    text eol=lf
+*.nf   text eol=lf
+*.config text eol=lf
+*.md   text eol=lf
+*.tsv  text eol=lf
+*.csv  text eol=lf
+
+*.png  binary
+*.pdf  binary

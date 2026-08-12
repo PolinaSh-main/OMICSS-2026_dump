@@ -1,3 +1,0 @@
-[M::bwa_idx_load_from_disk] read 0 ALT contigs
-[E::main_mem] fail to open file `/mnt/nas0/user/polina.shevyakova/tmf_project/data/fastq/_chr21_chr16_R1.fastq'.
-[main_samview] fail to read the header from "-".

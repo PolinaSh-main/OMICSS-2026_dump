@@ -1,9 +1,0 @@
-Variety ID
-Genetic background
-Utilization
-Berry skin color
-Flower phenotype
-Geographic origin by region
-Bunch density
-Geographic origin by country
-Muscat taste

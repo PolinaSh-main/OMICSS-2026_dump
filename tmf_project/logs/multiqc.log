@@ -1,9 +1,0 @@
-
-/// MultiQC 🔍 v1.34
-
-     version_check | MultiQC Version v1.35 now available!
-       file_search | Search path: /mnt/nas0/user/polina.shevyakova/tmf_project/results/fastqc
-            fastqc | Found 3 reports
-     write_results | Data        : /mnt/nas0/user/polina.shevyakova/tmf_project/results/multiqc/multiqc_data
-     write_results | Report      : /mnt/nas0/user/polina.shevyakova/tmf_project/results/multiqc/multiqc_report.html
-           multiqc | MultiQC complete

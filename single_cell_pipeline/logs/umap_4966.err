@@ -1,4 +1,0 @@
-/mnt/nas0/user/polina.shevyakova/single_cell_pipeline/scripts/run_umap.py:55: FutureWarning: In the future, the default backend for leiden will be igraph instead of leidenalg.
-
- To achieve the future defaults please pass: flavor="igraph" and n_iterations=2.  directed must also be False to work with igraph's implementation.
-  sc.tl.leiden(

@@ -1,5 +1,0 @@
-[M::bwa_idx_load_from_disk] read 0 ALT contigs
-[M::process] read 251992 sequences (29303639 bp)...
-[E::bns_fetch_seq] begin=4775745681, mid=4775745682, end=3209286105, len=1566459576, seq=0x7fd33aeca010, rid=454, far_beg=3209248865, far_end=3209286105
-bwa: bntseq.c:450: bns_fetch_seq: Assertion `seq && *end - *beg == len' failed.
-[2026-07-28T09:06:36.303] error: *** JOB 4160 ON thin-01 CANCELLED AT 2026-07-28T09:06:36 DUE to SIGNAL Terminated ***
