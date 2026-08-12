@@ -105,3 +105,21 @@ below 70 should be discussed as uncertain. Where a K group forms one
 clade, the phylogeny supports the ADMIXTURE structure; mixed colours
 within a clade can mean admixture, recent gene flow, close kinship â€” or
 simply that a bifurcating tree cannot represent a reticulate history.
+
+## Running it overnight without staying logged in
+
+`dnaml` takes six hours or so. `scripts/finish_after_dnaml.sbatch` does
+everything after it — bootstrap, validation, annotation, figures — and is
+submitted with a scheduler dependency, so SLURM starts it by itself:
+
+```
+sbatch --dependency=afterany:<dnaml job id>        pipelines/05_tree/scripts/finish_after_dnaml.sbatch
+```
+
+`afterany`, not `afterok`, deliberately: `snphylo.vcf.sh` runs an R
+plotting step *after* it has written the ML tree, so it can exit
+non-zero with a perfectly good tree on disk. The script checks the tree
+files rather than trusting the exit code.
+
+It calls the same `bin/` scripts as the pipeline. `nextflow run .
+--ml_tree ... --phylip ...` reproduces the same results.
