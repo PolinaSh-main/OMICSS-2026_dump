@@ -424,6 +424,9 @@ def main():
 
     tree = newick.reroot_on_tip(tree, args.outgroup)
 
+    if newick.rescale_support(tree):
+        print("support values were proportions; rescaled to percent")
+
     n_tips = assign_coordinates(tree)
 
     print(f"{n_tips} tips, rooted on {args.outgroup}")

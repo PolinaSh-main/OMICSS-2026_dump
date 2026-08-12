@@ -75,6 +75,32 @@ bs_tree <- plotBS(fit$tree, replicate_trees, type = "none")
 options(warn = 0)
 invisible(grDevices::dev.off())
 
+# phangorn 2.12 returns these as proportions in [0, 1]. Every convention
+# for reading a tree -- and the "support >= 70" the task asks for -- is
+# in percent, so rescale before writing rather than leaving a file whose
+# numbers mean something different from what they look like.
+
+support <- suppressWarnings(as.numeric(bs_tree$node.label))
+
+finite <- support[is.finite(support)]
+
+if (length(finite) > 0 && max(finite) <= 1) {
+
+    support <- support * 100
+
+    cat("node labels were proportions; rescaled to percent\n")
+}
+
+bs_tree$node.label <- ifelse(
+    is.finite(support),
+    format(round(support), trim = TRUE, scientific = FALSE),
+    ""
+)
+
 write.tree(bs_tree, file = opt$out)
 
 cat(sprintf("wrote %s\n", opt$out))
+
+cat(sprintf("support >= 70: %d of %d internal nodes\n",
+            sum(finite * (if (max(finite) <= 1) 100 else 1) >= 70),
+            length(finite)))

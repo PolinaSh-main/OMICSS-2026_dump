@@ -157,6 +157,37 @@ def tip_names(root: Node) -> list[str]:
     return [tip.name for tip in tips(root)]
 
 
+def rescale_support(root: Node) -> bool:
+    """
+    Put bootstrap support on the 0-100 scale.
+
+    phangorn 2.12 writes proportions, older conventions and the "support
+    >= 70" everyone quotes are percentages. A tree whose values are all
+    at or below 1 is proportions -- read as percentages it would say
+    every clade is unsupported, and the figure would simply come out
+    blank with no error anywhere. bootstrap_tree.R already converts;
+    this catches a tree that came from somewhere else.
+
+    Returns True if anything was rescaled.
+    """
+
+    values = [
+        node.support
+        for node in all_nodes(root)
+        if not node.is_tip and node.support is not None
+    ]
+
+    if not values or max(values) > 1.0:
+        return False
+
+    for node in all_nodes(root):
+
+        if node.support is not None:
+            node.support *= 100.0
+
+    return True
+
+
 # --------------------------------------------------------------------- #
 #  Re-rooting
 # --------------------------------------------------------------------- #

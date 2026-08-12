@@ -54,6 +54,16 @@ def inspect(path: Path, expect: int, outgroup: str):
 
     tree = newick.parse(path.read_text())
 
+    if newick.rescale_support(tree):
+
+        results.append(
+            (
+                f"{path.name}: support scale",
+                "ok",
+                "written as proportions, read as percent",
+            )
+        )
+
     names = newick.tip_names(tree)
 
     results.append(
