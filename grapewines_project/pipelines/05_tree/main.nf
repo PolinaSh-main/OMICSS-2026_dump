@@ -342,7 +342,22 @@ workflow {
      * bootstrap.
      */
 
-    if (params.ml_tree) {
+    if (params.ml_tree || params.phylip) {
+
+        if (!params.ml_tree || !params.phylip) {
+
+            error """
+            --ml_tree and --phylip go together.
+
+            The bootstrap needs both the starting topology and the
+            alignment it was inferred from; a tree resampled against a
+            different alignment is wrong in a way nothing downstream
+            would catch.
+
+              --ml_tree ${params.ml_tree ?: '(not given)'}
+              --phylip  ${params.phylip ?: '(not given)'}
+            """.stripIndent()
+        }
 
         ml_tree = Channel.value(file(params.ml_tree, checkIfExists: true))
 
