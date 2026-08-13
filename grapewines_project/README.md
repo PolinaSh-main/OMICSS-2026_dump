@@ -23,6 +23,7 @@ grapewines_project/
 │   ├── 03_fst/               pairwise FST between ADMIXTURE groups
 │   ├── 04_manhattan_annotation/  windowed FST -> outlier windows -> genes
 │   └── 05_tree/              neighbour-joining tree from 1-IBS distances
+├── presentation/             slide sources, rebuilt from this repo
 └── results/                  published outputs (small ones are versioned)
     ├── admixture/{cv,orders,orderings,barplots}
     ├── pca/{global,by_metadata,association}
@@ -112,6 +113,11 @@ component *n* is the same colour everywhere:
       --metadata ../../reference/cauc_grape_metadata.csv \
       --outdir   ../../results/pca/association
   ```
+- `presentation/build_pipeline_slide.py` builds `pipeline_overview.pptx`,
+  one 16:9 slide of the whole analysis. Every number on it is traceable —
+  the `PROVENANCE` block at the end of the script says which file each
+  one came from. Edit the script and re-run it rather than editing the
+  `.pptx`, or the two will disagree. Needs `python-pptx`.
 - `01_admixture` was moved from `admixture/` into `pipelines/01_admixture/`
   and its config was made relocatable; the results in `results/admixture/`
   come from the run performed before that move.
