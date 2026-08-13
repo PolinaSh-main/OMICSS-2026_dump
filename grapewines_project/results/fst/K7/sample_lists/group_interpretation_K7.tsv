@@ -1,8 +1,8 @@
 group	n_samples	main_country	main_country_fraction	second_country	wild_or_cultivated	domestication_fraction	homogeneous	proposed_name	evidence
-K1	15	ARMENIA	1.0		wild	1.0	yes	Armenian wild group 1	100% of samples from ARMENIA; 100% wild
-K2	22	GEORGIA	1.0		cultivated	1.0	yes	Georgian cultivated group	100% of samples from GEORGIA; 100% cultivated
-K3	13	ARMENIA	0.462	AZERBAIJAN	cultivated	1.0	no	Armenian-Azerbaijani cultivated group 1	mixed origin, top countries ARMENIA (46%) and AZERBAIJAN (38%); 100% cultivated
-K4	12	ARMENIA	0.583	AZERBAIJAN	cultivated	0.833	no	Armenian-Azerbaijani cultivated group 2	mixed origin, top countries ARMENIA (58%) and AZERBAIJAN (42%); 83% cultivated
-K5	32	TURKEY	1.0		wild	1.0	yes	Turkish wild group	100% of samples from TURKEY; 100% wild
-K6	49	TURKEY	0.735	ARMENIA	cultivated	1.0	yes	Turkish cultivated group	73% of samples from TURKEY; 100% cultivated
-K7	17	ARMENIA	1.0		wild	1.0	yes	Armenian wild group 2	100% of samples from ARMENIA; 100% wild
+K1	15	ARMENIA	1.0		wild	1.0	yes	ARMENIA wild	100% of samples from ARMENIA; 100% wild
+K2	22	GEORGIA	1.0		cultivated	1.0	yes	GEORGIA cultivated	100% of samples from GEORGIA; 100% cultivated
+K3	13	ARMENIA	0.462	AZERBAIJAN	cultivated	1.0	no	ARMENIA-dominated cultivated (heterogeneous)	mixed origin, top countries ARMENIA (46%) and AZERBAIJAN (38%); 100% cultivated
+K4	12	ARMENIA	0.583	AZERBAIJAN	cultivated	0.833	no	ARMENIA-dominated cultivated (heterogeneous)	mixed origin, top countries ARMENIA (58%) and AZERBAIJAN (42%); 83% cultivated
+K5	32	TURKEY	1.0		wild	1.0	yes	TURKEY wild	100% of samples from TURKEY; 100% wild
+K6	49	TURKEY	0.735	ARMENIA	cultivated	1.0	no	TURKEY-dominated cultivated (heterogeneous)	mixed origin, top countries TURKEY (73%) and ARMENIA (22%); 100% cultivated
+K7	17	ARMENIA	1.0		wild	1.0	yes	ARMENIA wild	100% of samples from ARMENIA; 100% wild

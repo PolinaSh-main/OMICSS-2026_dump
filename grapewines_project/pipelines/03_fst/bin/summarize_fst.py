@@ -95,6 +95,24 @@ def summarise_one(path: Path) -> dict:
         "n_sites": int(len(fst)),
         "n_sites_used": int(len(usable)),
         "mean_fst": float(usable.mean()) if len(usable) else np.nan,
+        #
+        # Weir and Cockerham FST goes negative wherever the within-group
+        # variance happens to exceed the between-group variance, which
+        # at a single site is noise around zero rather than a real
+        # quantity. Two conventions are in use: average the estimates as
+        # they come (mean_fst -- this is also what vcftools prints in
+        # its own log), or set the negatives to zero first
+        # (mean_fst_nonneg). The second is always the larger of the two,
+        # by about 3-4% on this data, because it truncates one tail of
+        # the noise and not the other.
+        #
+        # Both are reported so that a figure can say which it used, and
+        # so that two figures built on different conventions cannot
+        # quietly disagree in a slide deck.
+        #
+        "mean_fst_nonneg": (
+            float(usable.clip(lower=0).mean()) if len(usable) else np.nan
+        ),
         "median_fst": float(usable.median()) if len(usable) else np.nan,
         "max_fst": float(usable.max()) if len(usable) else np.nan,
         "weighted_fst": np.nan,

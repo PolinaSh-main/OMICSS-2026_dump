@@ -1,8 +1,8 @@
 group	label
-K1	K1 - Armenian wild group 1
-K2	K2 - Georgian cultivated group
-K3	K3 - Armenian-Azerbaijani cultivated group 1
-K4	K4 - Armenian-Azerbaijani cultivated group 2
-K5	K5 - Turkish wild group
-K6	K6 - Turkish cultivated group
-K7	K7 - Armenian wild group 2
+K1	K1 - ARMENIA wild
+K2	K2 - GEORGIA cultivated
+K3	K3 - ARMENIA-dominated cultivated (heterogeneous)
+K4	K4 - ARMENIA-dominated cultivated (heterogeneous)
+K5	K5 - TURKEY wild
+K6	K6 - TURKEY-dominated cultivated (heterogeneous)
+K7	K7 - ARMENIA wild
