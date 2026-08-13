@@ -1,0 +1,47 @@
+window	n_pairs	max_fst	snps	n_genes	genes
+2:5250000	9	0.331	47	62	---NA--- | 14 kDa proline-rich protein DC2.15 | 23.6 kDa heat shock protein, mitochondrial
+1:11100000	8	0.443	47	13	SNF1-related protein kinase regulatory subunit gamma-1-like isoform X2 | alpha-amylase 3, chloroplastic | dehydrogenase subunit 6
+2:5150000	8	0.331	40	62	---NA--- | 14 kDa proline-rich protein DC2.15 | 23.6 kDa heat shock protein, mitochondrial
+6:6500000	7	0.449	20	8	---NA--- | E3 ubiquitin-protein ligase MARCH7 | RNA polymerases I and III subunit RPAC2
+17:8800000	7	0.402	23	2	3'-hydroxylase | DExH-box ATP-dependent RNA helicase DExH14 isoform X1
+8:10400000	7	0.332	47	44	---NA--- | ATPase 1-like isoform X2 | B3 domain-containing transcription repressor VAL2 isoform X1
+1:12700000	7	0.294	43	14	KH domain-containing protein At4g18375 isoform X1 | anaphase-promoting complex subunit 2 | cell division cycle and apoptosis regulator protein 1
+1:11150000	6	0.443	102	13	SNF1-related protein kinase regulatory subunit gamma-1-like isoform X2 | alpha-amylase 3, chloroplastic | dehydrogenase subunit 6
+2:4550000	6	0.35	20	48	---NA--- | 4-epimerase 3 | 8-hydroxylase
+3:5250000	6	0.341	25	9	B3 domain-containing protein At3g19184 isoform X1 | B3 domain-containing protein Os01g0234100 | autophagy-related protein 2 isoform X2
+11:3250000	6	0.338	48	26	bisphosphate carboxylase/oxygenase activase, chloroplastic | histone acetyltransferase KAT6B | indole-3-pyruvate monooxygenase YUCCA2 isoform X1
+8:10450000	6	0.332	50	44	---NA--- | ATPase 1-like isoform X2 | B3 domain-containing transcription repressor VAL2 isoform X1
+9:1200000	6	0.332	38	8	---NA--- | 40S ribosomal protein S3-3 | protein ELF4-LIKE 4
+2:5200000	6	0.331	98	62	---NA--- | 14 kDa proline-rich protein DC2.15 | 23.6 kDa heat shock protein, mitochondrial
+1:13450000	6	0.322	53	3	I rhamnosyltransferase 1 | serine/threonine-protein kinase STY8 isoform X1 | transmembrane emp24 domain-containing protein p24delta9 isoform X2
+1:10900000	6	0.321	23	6	---NA--- | homeobox-leucine zipper protein HAT5 | putative pentatricopeptide repeat-containing protein At5g40405
+11:5050000	6	0.321	76	17	---NA--- | BRCA1-associated protein isoform X2 | GTPase-activating protein GYP7-like
+1:12900000	6	0.287	53	12	anaphase-promoting complex subunit 2 | cell division cycle and apoptosis regulator protein 1 | cytochrome P450 704B1
+17:7300000	6	0.282	27	61	---NA--- | 40S ribosomal protein S9-2 | ABC transporter A family member 2 isoform X2
+6:18050000	6	0.278	30	6	(+)-neomenthol dehydrogenase-like | protein NUCLEAR FUSION DEFECTIVE 4 | protein NUCLEAR FUSION DEFECTIVE 4-like
+7:25950000	5	0.445	28	37	---NA--- | 60S ribosomal protein L30 | ACTIVITY OF BC1 COMPLEX KINASE 8, chloroplastic
+1:11200000	5	0.443	65	13	SNF1-related protein kinase regulatory subunit gamma-1-like isoform X2 | alpha-amylase 3, chloroplastic | dehydrogenase subunit 6
+1:11250000	5	0.443	48	13	SNF1-related protein kinase regulatory subunit gamma-1-like isoform X2 | alpha-amylase 3, chloroplastic | dehydrogenase subunit 6
+14:11200000	5	0.427	41	7	---NA--- | 2,4-dienoyl-CoA reductase | ankyrin repeat domain-containing protein 13C-B
+14:11250000	5	0.427	79	14	---NA--- | 2,4-dienoyl-CoA reductase | BoGH3B-like
+7:24300000	5	0.415	34	24	CONSERVED IN THE GREEN LINEAGE AND DIATOMS 27, chloroplastic isoform X | E3 ubiquitin-protein ligase SP1 | F-box-like/WD repeat-containing protein TBL1XR1 isoform X1
+11:10500000	5	0.394	35	5	GPI mannosyltransferase 3 isoform X1 | HD domain-containing protein 2 | VAN3-binding protein
+3:6250000	5	0.385	37	5	RNA pseudouridine synthase 4, mitochondrial isoform X1 | UDP-glycosyltransferase 84B1 | protein CK203_032056
+14:8800000	5	0.385	24	16	AT-hook motif nuclear-localized protein 19 | bridge enzyme-like 26 | ethylene-responsive transcription factor 1B
+14:11550000	5	0.377	28	2	peroxisome biogenesis protein 12 | uncharacterized protein LOC104881493
+13:27750000	5	0.372	45	28	E3 ubiquitin-protein ligase RNF185 | Tf2-12 polyprotein | callose synthase 1 isoform X1
+16:7900000	5	0.37	49	6	U-box domain-containing protein 35 isoform X1 | acid phosphatase 1 | protein VITISV_003443
+6:21150000	5	0.362	37	4	protein CK203_085333 | secoisolariciresinol dehydrogenase-like isoform X1 | uncharacterized calcium-binding protein At1g02270
+12:17900000	5	0.347	82	4	of fatty acids protein 3-like | probable plastid-lipid-associated protein 4, chloroplastic isoform X2 | thaumatin-like protein
+6:20700000	5	0.332	21	11	40S ribosomal protein S14 | DNA mismatch repair protein MSH3 | WD repeat-containing protein RUP2-like
+17:9650000	5	0.332	33	5	 WAT1-related protein At4g15540-like | RICE SALT sensitive 3 | RING-H2 finger protein ATL48
+11:3800000	5	0.316	34	5	ABC transporter G family member 32 | protein PGR | serine/threonine protein phosphatase 2A 57 kDa regulatory subunit B' i
+9:3050000	5	0.313	43	9	auxin-responsive protein IAA18 | cytochrome B5-like protein | hexokinase-2
+14:10550000	5	0.309	36	3	pentatricopeptide repeat-containing protein At1g08610 | pentatricopeptide repeat-containing protein At3g04760, chloroplastic i | protein prenyltransferase alpha subunit repeat-containing protein 1 is
+16:22100000	5	0.303	39	16	CDPK-related kinase 3 isoform X1 | GRF1-interacting factor 2 | auxin-responsive protein SAUR32
+17:6700000	5	0.298	20	43	---NA--- | 5'-hydroxyl-kinase NOL9 | 5-formyltetrahydrofolate cyclo-ligase, mitochondrial
+4:150000	5	0.29	32	17	MDIS1-interacting receptor like kinase 1-like | acid permease 1 | amino acid permease 6 isoform X2
+8:10600000	5	0.287	30	44	---NA--- | ATPase 1-like isoform X2 | B3 domain-containing transcription repressor VAL2 isoform X1
+17:6500000	5	0.285	33	47	---NA--- | 5'-hydroxyl-kinase NOL9 | 5-formyltetrahydrofolate cyclo-ligase, mitochondrial
+17:7500000	5	0.282	39	51	---NA--- | 40S ribosomal protein S9-2 | GDSL esterase/lipase At1g74460
+3:950000	5	0.271	50	34	auxin-induced protein 15A | auxin-induced protein 15A-like | auxin-induced protein X15
