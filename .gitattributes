@@ -12,6 +12,11 @@
 *.tsv  text eol=lf
 *.csv  text eol=lf
 
+# Sample lists fed to vcftools --weir-fst-pop, and PHYLIP/Newick trees
+*.txt  text eol=lf
+*.tree text eol=lf
+*.nwk  text eol=lf
+
 # ADMIXTURE ancestry proportions, read by PLINK and by the Python steps
 *.Q    text eol=lf
 
