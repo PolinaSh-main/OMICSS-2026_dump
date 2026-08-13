@@ -87,6 +87,13 @@ def parse_args():
         help="Bootstrap values below this are not drawn",
     )
 
+    parser.add_argument(
+        "--drop-admixed",
+        action="store_true",
+        help="Prune tips below the Q threshold, leaving the seven "
+             "groups and the outgroup only",
+    )
+
     parser.add_argument("--outdir", required=True, type=Path)
 
     return parser.parse_args()
@@ -97,6 +104,25 @@ def normalise(name: str) -> str:
     first, sep, second = name.partition("_")
 
     return first if sep and first == second else name
+
+
+def caption_subject(n_tips: int, args) -> str:
+    """
+    What the figure is actually showing -- which is not always all 413
+    accessions, so the title has to say which.
+    """
+
+    if args.drop_admixed:
+
+        return (
+            f"Rooted ML phylogeny, {n_tips - 1} assigned accessions "
+            f"+ {args.outgroup} (admixed samples pruned)"
+        )
+
+    return (
+        f"Rooted ML phylogeny of {n_tips - 1} Caucasian accessions "
+        f"+ {args.outgroup}"
+    )
 
 
 # --------------------------------------------------------------------- #
@@ -221,9 +247,13 @@ def draw_rectangular(root, n_tips, colours, args):
     axes.set_xlabel("Substitutions per site (maximum likelihood)")
 
     axes.set_title(
-        "Rooted ML phylogeny of 412 Caucasian accessions + ZZ01\n"
+        f"{caption_subject(n_tips, args)}\n"
         f"tips coloured by K = 7 ancestry; bootstrap shown where "
-        f">= {args.min_support:.0f} of 100",
+        f">= {args.min_support:.0f} of 100"
+        + (
+            "; support is from the full 413-tip tree"
+            if args.drop_admixed else ""
+        ),
         fontsize=11,
     )
 
@@ -395,8 +425,8 @@ def draw_fan(root, n_tips, colours, args):
         subtitle += "; the ZZ01 branch is drawn shortened"
 
     axes.set_title(
-        f"Rooted ML phylogeny of 412 Caucasian accessions, rooted on "
-        f"{args.outgroup}\n{subtitle}",
+        f"{caption_subject(n_tips, args)}, rooted on {args.outgroup}\n"
+        f"{subtitle}",
         fontsize=13,
     )
 
@@ -427,10 +457,6 @@ def main():
     if newick.rescale_support(tree):
         print("support values were proportions; rescaled to percent")
 
-    n_tips = assign_coordinates(tree)
-
-    print(f"{n_tips} tips, rooted on {args.outgroup}")
-
 
     annotation = pd.read_csv(args.annotation, sep="\t", dtype={"tip": str})
 
@@ -443,6 +469,34 @@ def main():
             f"{len(missing)} tips have no annotation: "
             f"{', '.join(missing[:10])}"
         )
+
+
+    #
+    # Optionally reduce the figure to the seven assigned groups plus the
+    # outgroup. Pruning after re-rooting, so the root stays on ZZ01.
+    #
+    # The support values are not recomputed: the bootstrap ran on all
+    # 413 tips, so every number still describes a split of the full
+    # tree. The caption says so.
+    #
+
+    if args.drop_admixed:
+
+        drop = {
+            name for name in names
+            if category.get(name) == "Admixed"
+        }
+
+        tree = newick.prune_tips(tree, drop)
+
+        names = [normalise(name) for name in newick.tip_names(tree)]
+
+        print(f"dropped {len(drop)} admixed tips, {len(names)} left")
+
+
+    n_tips = assign_coordinates(tree)
+
+    print(f"{n_tips} tips, rooted on {args.outgroup}")
 
 
     def colour_of(name: str) -> str:
@@ -490,15 +544,23 @@ def main():
         return f"{group} - {description}  (n = {n})" if description \
             else f"{group}  (n = {n})"
 
+    #
+    # Only categories that are actually on the figure.
+    #
+
+    drawn = {category[name] for name in names}
+
     entries = [
         (group, K_COLOURS[group])
         for group in sorted(K_COLOURS)
-        if (annotation["category"] == group).any()
+        if group in drawn
     ]
 
-    entries.append(("Admixed", ADMIXED_COLOUR))
+    if "Admixed" in drawn:
+        entries.append(("Admixed", ADMIXED_COLOUR))
 
-    entries.append(("Outgroup", OUTGROUP_COLOUR))
+    if "Outgroup" in drawn:
+        entries.append(("Outgroup", OUTGROUP_COLOUR))
 
 
     #
@@ -546,9 +608,11 @@ def main():
 
     dpi = 300 if args.layout == "fan" else 150
 
-    pdf_path = args.outdir / f"tree_{args.layout}.pdf"
+    suffix = "_groups_only" if args.drop_admixed else ""
 
-    png_path = args.outdir / f"tree_{args.layout}.png"
+    pdf_path = args.outdir / f"tree_{args.layout}{suffix}.pdf"
+
+    png_path = args.outdir / f"tree_{args.layout}{suffix}.png"
 
     figure.savefig(pdf_path, bbox_inches="tight")
 

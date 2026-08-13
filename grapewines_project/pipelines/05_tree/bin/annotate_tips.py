@@ -87,9 +87,23 @@ def find_id_column(table: pd.DataFrame) -> str:
     )
 
 
+#
+# A group is named after a single country only when effectively all of
+# its samples come from there; below that the label says "-dominated"
+# and "(heterogeneous)". Same rule and same wording as
+# 03_fst/bin/describe_groups.py, so the tree legend and the FST heatmap
+# axes read identically.
+#
+
+HOMOGENEOUS_FRACTION = 0.95
+
+
 def describe(members: pd.DataFrame) -> tuple[str, str, str]:
     """
     (dominant country, wild or cultivated, a readable label).
+
+        ARMENIA wild
+        TURKEY-dominated cultivated (heterogeneous)
     """
 
     if members.empty:
@@ -97,15 +111,14 @@ def describe(members: pd.DataFrame) -> tuple[str, str, str]:
 
     countries = members["Geographic origin by country"].dropna()
 
-    country = (
-        countries.value_counts().idxmax().title()
-        if not countries.empty else "unknown"
-    )
+    if countries.empty:
+        return "unknown", "", "unknown"
 
-    share = (
-        countries.value_counts(normalize=True).iloc[0]
-        if not countries.empty else 0.0
-    )
+    counts = countries.value_counts()
+
+    country = counts.idxmax().upper()
+
+    share = counts.iloc[0] / counts.sum()
 
     background = members["Genetic background"].fillna("").str.lower()
 
@@ -115,17 +128,11 @@ def describe(members: pd.DataFrame) -> tuple[str, str, str]:
 
     kind = "wild" if wild > cultivated else "cultivated"
 
-    #
-    # A group drawn from two countries in comparable numbers is named
-    # after both; anything below two thirds is not "the Armenian group".
-    #
-    if share < 0.66 and len(countries.value_counts()) > 1:
-
-        second = countries.value_counts().index[1].title()
-
-        country = f"{country}-{second}"
-
-    label = f"{country} {kind}"
+    label = (
+        f"{country} {kind}"
+        if share >= HOMOGENEOUS_FRACTION
+        else f"{country}-dominated {kind} (heterogeneous)"
+    )
 
     return country, kind, label
 
@@ -302,27 +309,12 @@ def main():
         )
 
     #
-    # Two K groups can describe to the same words -- there really are
-    # two distinct Armenian wild groups here, and a legend with the same
-    # text twice is useless. Number them in K order.
+    # Two K groups can come out with the same words -- there really are
+    # two all-Armenian wild groups here. They are deliberately not
+    # numbered apart: every legend entry already carries its K index, and
+    # a "group 1"/"group 2" suffix would suggest an ordering the data
+    # does not support.
     #
-
-    seen: dict[str, int] = {}
-
-    for row in label_rows:
-
-        if row["label"]:
-            seen[row["label"]] = seen.get(row["label"], 0) + 1
-
-    running: dict[str, int] = {}
-
-    for row in label_rows:
-
-        if row["label"] and seen[row["label"]] > 1:
-
-            running[row["label"]] = running.get(row["label"], 0) + 1
-
-            row["label"] = f"{row['label']} group {running[row['label']]}"
 
     label_rows.append(
         {

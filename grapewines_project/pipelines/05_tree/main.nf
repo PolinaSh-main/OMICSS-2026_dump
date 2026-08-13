@@ -306,7 +306,7 @@ process ANNOTATE {
 
 process PLOT {
 
-    tag "${layout}"
+    tag "${layout}, ${tip_set}"
 
 
     publishDir "${params.tree_outdir}/plots",
@@ -315,7 +315,7 @@ process PLOT {
 
     input:
 
-    val layout
+    tuple val(layout), val(tip_set)
 
     path bs_tree
 
@@ -333,6 +333,16 @@ process PLOT {
 
     script:
 
+    //
+    // "groups_only" prunes the admixed tips, leaving the seven assigned
+    // groups and the outgroup. Both versions are drawn: the task brief
+    // asks for the admixed samples to stay visible, because where they
+    // fall is informative, while the group figures the mentor asked for
+    // are easier to read without 252 grey dots.
+    //
+
+    def prune = tip_set == "groups_only" ? "--drop-admixed" : ""
+
     """
 
     plot_tree.py \
@@ -342,6 +352,7 @@ process PLOT {
         --layout ${layout} \
         --outgroup ${params.outgroup} \
         --min-support ${params.min_support} \
+        ${prune} \
         --outdir .
 
     """
@@ -421,8 +432,12 @@ workflow {
         params.layouts.toString().split(",").collect { it.trim() }
     )
 
+    tip_sets = Channel.fromList(
+        params.tip_sets.toString().split(",").collect { it.trim() }
+    )
+
     PLOT(
-        layouts,
+        layouts.combine(tip_sets),
         BOOTSTRAP.out.bs_tree,
         ANNOTATE.out.annotation,
         ANNOTATE.out.labels

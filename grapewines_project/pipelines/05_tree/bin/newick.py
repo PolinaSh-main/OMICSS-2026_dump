@@ -237,6 +237,64 @@ def _undirected(root: Node):
     return adjacency
 
 
+def prune_tips(root: Node, drop: set[str]) -> Node:
+    """
+    Drop the named tips and return a new tree.
+
+    An internal node left with a single child no longer marks a split,
+    so it is removed and its branch length added to that child. The
+    child keeps its own support value.
+
+    Note what this does *not* do: it does not recompute support. The
+    bootstrap was run on the full tree, so every number on the pruned
+    tree still refers to a split of the complete set of tips. That is
+    usually what you want -- the support was estimated from all the
+    data -- but it has to be said out loud on any figure that shows a
+    subset.
+    """
+
+    sys.setrecursionlimit(200_000)
+
+    def rebuild(node: Node):
+
+        if node.is_tip:
+
+            if node.name in drop:
+                return None
+
+            return Node(node.name, node.length, node.support)
+
+        kept = [rebuild(child) for child in node.children]
+
+        kept = [child for child in kept if child is not None]
+
+        if not kept:
+            return None
+
+        if len(kept) == 1:
+
+            only = kept[0]
+
+            only.length += node.length
+
+            return only
+
+        copy = Node(node.name, node.length, node.support)
+
+        copy.children = kept
+
+        return copy
+
+    pruned = rebuild(root)
+
+    if pruned is None or pruned.is_tip:
+        raise ValueError(
+            f"Pruning {len(drop)} tips left nothing to draw"
+        )
+
+    return pruned
+
+
 def reroot_on_tip(root: Node, outgroup: str) -> Node:
     """
     Returns a new tree rooted on the branch leading to `outgroup`, with

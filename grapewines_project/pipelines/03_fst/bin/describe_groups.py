@@ -54,11 +54,13 @@ ID_COLUMN_CANDIDATES = [
 
 
 #
-# A group is called after a single country only if that country is at
-# least this common in it; otherwise two countries go into the name.
+# A group is named after a single country only when effectively all of
+# its samples come from there; otherwise it is "<COUNTRY>-dominated ...
+# (heterogeneous)". At K=7 this puts K1, K2, K5 and K7 (all at 100%) in
+# the first form and K3, K4 and K6 (46%, 58%, 73%) in the second, which
+# is the wording used on the group figures.
 #
-
-DOMINANT_FRACTION = 0.60
+HOMOGENEOUS_FRACTION = 0.95
 
 
 def parse_args():
@@ -154,66 +156,32 @@ def top_levels(series: pd.Series, drop_na: bool = True):
     ]
 
 
-def title_country(country: str) -> str:
-    """
-    ARMENIA -> Armenian. Good enough for the four countries in this
-    dataset; anything unexpected is passed through capitalised.
-    """
-
-    adjectives = {
-        "ARMENIA": "Armenian",
-        "GEORGIA": "Georgian",
-        "TURKEY": "Turkish",
-        "AZERBAIJAN": "Azerbaijani",
-        "TURKMENISTAN": "Turkmen",
-    }
-
-    return adjectives.get(
-        country.upper(),
-        country.capitalize()
-    )
-
-
 def propose_name(country_levels, domestication_levels) -> tuple[str, str]:
     """
     Returns (name, evidence).
+
+    The wording follows the convention the mentor set for the group
+    figures:
+
+        ARMENIA wild
+        TURKEY-dominated cultivated (heterogeneous)
+
+    A group is named after one country only when effectively all of its
+    samples come from there. Below that it is "<COUNTRY>-dominated ...
+    (heterogeneous)", which says both where the group sits and that the
+    label is a summary rather than a fact about every member.
+
+    Two groups can end up with the same words -- there really are two
+    all-Armenian wild groups here. They are not numbered apart: the K
+    index is already in front of the label everywhere it is used, and
+    inventing "group 1"/"group 2" would imply an ordering the data does
+    not support.
     """
 
     if not country_levels:
         return "unassigned group", "no country metadata"
 
     country, n_country, frac_country = country_levels[0]
-
-    if frac_country >= DOMINANT_FRACTION:
-
-        where = title_country(country)
-
-        country_evidence = (
-            f"{frac_country:.0%} of samples from {country}"
-        )
-
-    else:
-
-        second = (
-            country_levels[1][0]
-            if len(country_levels) > 1
-            else None
-        )
-
-        where = (
-            f"{title_country(country)}-{title_country(second)}"
-            if second
-            else title_country(country)
-        )
-
-        country_evidence = (
-            f"mixed origin, top countries {country} "
-            f"({frac_country:.0%})"
-            + (
-                f" and {second} ({country_levels[1][2]:.0%})"
-                if second else ""
-            )
-        )
 
     if domestication_levels:
 
@@ -227,35 +195,34 @@ def propose_name(country_levels, domestication_levels) -> tuple[str, str]:
 
         status_evidence = "no domestication metadata"
 
-    name = f"{where} {status} group"
+    if frac_country >= HOMOGENEOUS_FRACTION:
+
+        name = f"{country.upper()} {status}"
+
+        country_evidence = (
+            f"{frac_country:.0%} of samples from {country}"
+        )
+
+    else:
+
+        second = (
+            country_levels[1][0]
+            if len(country_levels) > 1
+            else None
+        )
+
+        name = f"{country.upper()}-dominated {status} (heterogeneous)"
+
+        country_evidence = (
+            f"mixed origin, top countries {country} "
+            f"({frac_country:.0%})"
+            + (
+                f" and {second} ({country_levels[1][2]:.0%})"
+                if second else ""
+            )
+        )
 
     return name, f"{country_evidence}; {status_evidence}"
-
-
-def disambiguate(names: list[str]) -> list[str]:
-    """
-    Two ADMIXTURE components can land on the same biological label --
-    the instructors' own example has two Armenian wild groups. Number
-    them instead of emitting duplicates.
-    """
-
-    counts = pd.Series(names).value_counts()
-
-    seen: dict[str, int] = {}
-
-    out = []
-
-    for name in names:
-
-        if counts[name] == 1:
-            out.append(name)
-            continue
-
-        seen[name] = seen.get(name, 0) + 1
-
-        out.append(f"{name} {seen[name]}")
-
-    return out
 
 
 def main():
@@ -387,7 +354,7 @@ def main():
                 ),
                 "homogeneous": (
                     "yes"
-                    if countries and countries[0][2] >= DOMINANT_FRACTION
+                    if countries and countries[0][2] >= HOMOGENEOUS_FRACTION
                     else "no"
                 ),
                 "proposed_name": name,
@@ -399,10 +366,6 @@ def main():
     composition = pd.DataFrame(composition_rows)
 
     interpretation = pd.DataFrame(interpretation_rows)
-
-    interpretation["proposed_name"] = disambiguate(
-        interpretation["proposed_name"].tolist()
-    )
 
 
     composition.to_csv(
