@@ -148,13 +148,36 @@ process PAIRWISE_FST {
 
     def group_b = pop_b.name.replace("_samples.txt", "")
 
+    def comparison = "${group_a}_vs_${group_b}"
+
+    //
+    // vcftools 0.1.13 -- the build on this cluster -- prints its summary
+    // to stderr and writes no .log file, whatever its own documentation
+    // says. Declaring "*.log" as an output without capturing it makes
+    // Nextflow fail every task with MissingFileException *after*
+    // vcftools has exited 0 and written a perfectly good .weir.fst, so
+    // nothing is published and the whole run is marked FAILED.
+    //
+    // The summary is worth keeping: summarize_fst.py reads the mean and
+    // weighted estimates from it and checks them against what it
+    // computes from the per-SNP table. Newer builds do write the file
+    // themselves, so it is only filled in when missing.
+    //
+
     """
 
     vcftools \
         --gzvcf ${vcf} \
         --weir-fst-pop ${pop_a} \
         --weir-fst-pop ${pop_b} \
-        --out ${group_a}_vs_${group_b}
+        --out ${comparison} \
+        2> ${comparison}.stderr.txt
+
+    cat ${comparison}.stderr.txt >&2
+
+    if [ ! -s ${comparison}.log ]; then
+        cp ${comparison}.stderr.txt ${comparison}.log
+    fi
 
     """
 

@@ -103,12 +103,26 @@ process SNPHYLO_ML {
     // the task's own working directory -- never next to the shared
     // input, which the task brief forbids.
     //
+    // snphylo.vcf.sh is copied in rather than run from the shared tree.
+    // bash reads a script incrementally as it executes it, and this one
+    // is open for the six hours dnaml takes; on the project NFS mount
+    // the handle went stale partway through and bash died with
+    //
+    //     snphylo.vcf.sh: error reading input file: Stale file handle
+    //
+    // seconds after dnaml had finished, discarding the tree. A local
+    // copy is not on NFS and cannot go stale.
+    //
 
     """
 
+    cp ${params.snphylo} ./snphylo.sh
+
     gunzip -c ${vcf_gz} > input.vcf
 
-    bash ${params.snphylo} \
+    status=0
+
+    bash ./snphylo.sh \
         -v input.vcf \
         -r \
         -m ${params.maf} \
@@ -117,9 +131,30 @@ process SNPHYLO_ML {
         -a ${params.last_autosome} \
         -o ${params.outgroup} \
         -t ${task.cpus} \
-        -P ${params.prefix}
+        -P ${params.prefix} || status=\$?
 
-    rm -f input.vcf infile
+    #
+    # dnaml writes "outfile" and "outtree"; snphylo.vcf.sh renames them
+    # as its last act, after an R plotting step that is allowed to fail.
+    # Recover them here so a cosmetic failure at the end does not throw
+    # away six hours of inference.
+    #
+
+    if [ ! -s ${params.prefix}.ml.tree ] && [ -s outtree ]; then
+        echo "recovering the tree from PHYLIP's outtree" >&2
+        mv outtree ${params.prefix}.ml.tree
+    fi
+
+    if [ ! -s ${params.prefix}.ml.txt ] && [ -s outfile ]; then
+        mv outfile ${params.prefix}.ml.txt
+    fi
+
+    if [ ! -s ${params.prefix}.ml.tree ]; then
+        echo "snphylo exited \$status and left no tree" >&2
+        exit 1
+    fi
+
+    rm -f input.vcf infile snphylo.sh
 
     {
         echo "input           ${params.vcf_rooted}"
@@ -132,6 +167,7 @@ process SNPHYLO_ML {
         echo "low-depth screen skipped (-r)"
         echo "sites retained  \$(head -1 ${params.prefix}.phylip.txt | awk '{print \$2}')"
         echo "slurm job       \${SLURM_JOB_ID:-none}"
+        echo "snphylo exit    \$status"
     } > run_summary.txt
 
     """
