@@ -1,0 +1,10 @@
+region_rank	region_id	chrom	region_start	region_end	n_snps	mean_window_fst	max_window_fst	gene_id	gene_name	distance_to_region_bp	description	theme	note
+1	2:5150000-5300000	2	5150000	5300000	98	0.290649	0.331396	Vitvi02g01446	Vitvi02g01446	0	XP_002270632.1 23.6 kDa heat shock protein, mitochondrial	stress response	annotation points to stress response; overlaps the high-FST region
+1	2:5150000-5300000	2	5150000	5300000	98	0.290649	0.331396	Vitvi02g01447	Vitvi02g01447	0	XP_002270596.1 small heat shock protein, chloroplastic	stress response	annotation points to stress response; overlaps the high-FST region
+2	4:1050000-1200000	4	1050000	1200000	146	0.274170	0.325497	Vitvi04g00111	Vitvi04g00111	0	XP_002279283.1 putative GATA transcription factor 22	development	annotation points to development; overlaps the high-FST region
+2	4:1050000-1200000	4	1050000	1200000	146	0.274170	0.325497	Vitvi04g00115	Vitvi04g00115	0	XP_002279831.1 protein REVERSION-TO-ETHYLENE SENSITIVITY1 isoform X2	hormone signalling	annotation points to hormone signalling; overlaps the high-FST region
+3	1:11100000-11300000	1	11100000	11300000	254	0.273868	0.317402	Vitvi01g00934	Vitvi01g00934	0	XP_034697533.1AP2-like ethylene-responsive transcription factor At1g16060 isoform X2	hormone signalling	annotation points to hormone signalling; overlaps the high-FST region
+3	1:11100000-11300000	1	11100000	11300000	254	0.273868	0.317402	Vitvi01g00940	Vitvi01g00940	0	XP_010652374.1 probable WRKY transcription factor 72 isoform X1	development	annotation points to development; overlaps the high-FST region
+4	17:8800000-8850000	17	8800000	8850000	34	0.304041	0.304041	Vitvi17g00700	Vitvi17g00700	0	ALP48438.1flavonoid 3'-hydroxylase		overlaps the high-FST region
+4	17:8800000-8850000	17	8800000	8850000	34	0.304041	0.304041	Vitvi17g00701	Vitvi17g00701	0	XP_002284129.1 DExH-box ATP-dependent RNA helicase DExH14 isoform X1		overlaps the high-FST region
+5	14:27950000-28050000	14	27950000	28050000	97	0.269566	0.299852	Vitvi14g01740	Vitvi14g01740	0	XP_003633829.2 transcription factor MYB98	berry metabolism	annotation points to berry metabolism; overlaps the high-FST region

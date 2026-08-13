@@ -1,0 +1,8 @@
+region_rank	region_id	chrom	region_start	region_end	n_snps	mean_window_fst	max_window_fst	gene_id	gene_name	distance_to_region_bp	description	theme	note
+1	14:7100000-7500000	14	7100000	7500000	267	0.200316	0.268384	Vitvi14g00477	Vitvi14g00477	0	XP_010659880.1 transcription factor UNE12	development	annotation points to development; overlaps the high-FST region
+1	14:7100000-7500000	14	7100000	7500000	267	0.200316	0.268384	Vitvi14g00483	Vitvi14g00483	0	XP_002279955.1 auxin-induced protein 22D	hormone signalling	annotation points to hormone signalling; overlaps the high-FST region
+2	14:13350000-13400000	14	13350000	13400000	23	0.245090	0.245090	Vitvi14g00790	Vitvi14g00790	0	XP_002267656.1 condensin complex subunit 3		overlaps the high-FST region
+3	11:1000000-1050000	11	1000000	1050000	26	0.222326	0.222326	Vitvi11g00092	Vitvi11g00092	0	XP_010656126.2 growth-regulating factor 1 isoform X2	development	annotation points to development; overlaps the high-FST region
+3	11:1000000-1050000	11	1000000	1050000	26	0.222326	0.222326	Vitvi11g00097	Vitvi11g00097	0	XP_003633091.1 transcription factor TT2	development	annotation points to development; overlaps the high-FST region
+4	5:12050000-12100000	5	12050000	12100000	41	0.214902	0.214902	Vitvi05g02021	Vitvi05g02021	0	XP_010650232.1 probable E3 ubiquitin-protein ligase RHC2A		overlaps the high-FST region
+5	10:18450000-18500000	10	18450000	18500000	167	0.213615	0.213615	Vitvi10g01247	Vitvi10g01247	0	XP_034698892.1protein ROOT HAIR DEFECTIVE 3 homolog 2 isoform X1		overlaps the high-FST region

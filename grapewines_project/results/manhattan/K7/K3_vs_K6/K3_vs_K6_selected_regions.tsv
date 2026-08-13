@@ -1,0 +1,8 @@
+region_rank	region_id	chrom	region_start	region_end	n_snps	mean_window_fst	max_window_fst	gene_id	gene_name	distance_to_region_bp	description	theme	note
+1	4:150000-200000	4	150000	200000	32	0.286714	0.286714	Vitvi04g00013	Vitvi04g00013	0	XP_002277798.1 auxin-responsive protein IAA2	hormone signalling	annotation points to hormone signalling; overlaps the high-FST region
+2	14:12550000-12600000	14	12550000	12600000	38	0.255953	0.255953	Vitvi14g00746	Vitvi14g00746	0	XP_010660166.1 ribosome production factor 1 isoform X1		overlaps the high-FST region
+3	7:15050000-15100000	7	15050000	15100000	54	0.255543	0.255543	Vitvi07g04295	Vitvi07g04295	0	XP_010652626.1 ubiquinone biosynthesis O-methyltransferase, mitochondrial		overlaps the high-FST region
+3	7:15050000-15100000	7	15050000	15100000	54	0.255543	0.255543	Vitvi07g02776	Vitvi07g02776	0	XP_002271938.1 small ubiquitin-related modifier 1		overlaps the high-FST region
+4	7:15650000-15700000	7	15650000	15700000	85	0.250019	0.250019	Vitvi07g01086	Vitvi07g01086	0	XP_010646211.1 gibberellin-regulated protein 12	hormone signalling	annotation points to hormone signalling; overlaps the high-FST region
+5	9:17750000-18000000	9	17750000	18000000	190	0.216703	0.249973	Vitvi09g04464	Vitvi09g04464	0	XP_002265564.1 phosphatidyl-N-methylethanolamine N-methyltransferase isoform X1		overlaps the high-FST region
+5	9:17750000-18000000	9	17750000	18000000	190	0.216703	0.249973	Vitvi09g01126	Vitvi09g01126	0	XP_002264393.2 photosynthetic NDH subunit of subcomplex B 1, chloroplastic		overlaps the high-FST region

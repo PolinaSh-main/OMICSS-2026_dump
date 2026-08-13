@@ -1,0 +1,73 @@
+group	variable	level	n_samples	fraction
+K1	Geographic origin by country	ARMENIA	15	1.0
+K1	Geographic origin by region	Syunik Province	15	1.0
+K1	Genetic background	V. vinifera ssp. sylvestris	15	1.0
+K1	Utilization	wild	15	1.0
+K1	Berry skin color	noir	15	1.0
+K1	domestication	wild	15	1.0
+K2	Geographic origin by country	GEORGIA	22	1.0
+K2	Genetic background	V. vinifera ssp. vinifera	22	1.0
+K2	Utilization	wine	20	0.9091
+K2	Utilization	wine/table	2	0.0909
+K2	domestication	cultivated	22	1.0
+K3	Geographic origin by country	ARMENIA	6	0.4615
+K3	Geographic origin by country	AZERBAIJAN	5	0.3846
+K3	Geographic origin by country	TURKMENISTAN	1	0.0769
+K3	Geographic origin by country	TURKEY	1	0.0769
+K3	Geographic origin by region	Ararat Valley	4	0.8
+K3	Geographic origin by region	Ararat Valley, Aragatsotn	1	0.2
+K3	Genetic background	V. vinifera ssp. vinifera	12	0.9231
+K3	Genetic background	intraspecific cross	1	0.0769
+K3	Utilization	table/raisin	7	0.5385
+K3	Utilization	table	4	0.3077
+K3	Utilization	wine/table	1	0.0769
+K3	Utilization	wine/table/raisin	1	0.0769
+K3	Berry skin color	rose	2	0.4
+K3	Berry skin color	blanc	2	0.4
+K3	Berry skin color	noir	1	0.2
+K3	domestication	cultivated	13	1.0
+K4	Geographic origin by country	ARMENIA	7	0.5833
+K4	Geographic origin by country	AZERBAIJAN	5	0.4167
+K4	Geographic origin by region	Syunik Province	6	0.8571
+K4	Geographic origin by region	Vayots Dzor Province	1	0.1429
+K4	Genetic background	V. vinifera ssp. vinifera	10	0.8333
+K4	Genetic background	V. vinifera ssp. sylvestris	1	0.0833
+K4	Genetic background	admixed	1	0.0833
+K4	Utilization	wild	5	0.4545
+K4	Utilization	wine/table	3	0.2727
+K4	Utilization	wine	2	0.1818
+K4	Utilization	table	1	0.0909
+K4	Berry skin color	noir	6	0.8571
+K4	Berry skin color	rouge	1	0.1429
+K4	domestication	cultivated	10	0.8333
+K4	domestication	wild	2	0.1667
+K5	Geographic origin by country	TURKEY	32	1.0
+K5	Genetic background	V. vinifera ssp. sylvestris	32	1.0
+K5	Utilization	wild	32	1.0
+K5	domestication	wild	32	1.0
+K6	Geographic origin by country	TURKEY	36	0.7347
+K6	Geographic origin by country	ARMENIA	11	0.2245
+K6	Geographic origin by country	AZERBAIJAN	2	0.0408
+K6	Geographic origin by region	Vayots Dzor Province	5	0.4545
+K6	Geographic origin by region	Ararat Valley, Armavir	2	0.1818
+K6	Geographic origin by region	Ararat Valley	2	0.1818
+K6	Geographic origin by region	Ararat Valley, Vayots Dzor	1	0.0909
+K6	Geographic origin by region	Syunik Province	1	0.0909
+K6	Genetic background	V. vinifera ssp. vinifera	48	0.9796
+K6	Genetic background	interspecific cross	1	0.0204
+K6	Utilization	table	19	0.4043
+K6	Utilization	wine/table	16	0.3404
+K6	Utilization	wine	9	0.1915
+K6	Utilization	table/raisin	2	0.0426
+K6	Utilization	raisin	1	0.0213
+K6	Berry skin color	noir	5	0.4545
+K6	Berry skin color	blanc	5	0.4545
+K6	Berry skin color	gris	1	0.0909
+K6	domestication	cultivated	49	1.0
+K7	Geographic origin by country	ARMENIA	17	1.0
+K7	Geographic origin by region	Syunik Province	17	1.0
+K7	Genetic background	V. vinifera ssp. sylvestris	17	1.0
+K7	Utilization	wild	17	1.0
+K7	Berry skin color	noir	13	0.7647
+K7	Berry skin color	no_berry	4	0.2353
+K7	domestication	wild	17	1.0

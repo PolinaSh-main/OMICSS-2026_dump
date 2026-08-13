@@ -1,0 +1,10 @@
+region_rank	region_id	chrom	region_start	region_end	n_snps	mean_window_fst	max_window_fst	gene_id	gene_name	distance_to_region_bp	description	theme	note
+1	7:21850000-21900000	7	21850000	21900000	49	0.228212	0.228212	Vitvi07g03041	Vitvi07g03041	0	RVX23167.1Linamarin synthase 2		overlaps the high-FST region
+1	7:21850000-21900000	7	21850000	21900000	49	0.228212	0.228212	Vitvi07g02560	Vitvi07g02560	0	XP_010646821.1 pentatricopeptide repeat-containing protein At5g66520-like isoform X1		overlaps the high-FST region
+2	13:1200000-1350000	13	1200000	1350000	115	0.200844	0.217125	Vitvi13g00131	Vitvi13g00131	0	XP_010658205.1 wound-induced protein 1	stress response	annotation points to stress response; overlaps the high-FST region
+2	13:1200000-1350000	13	1200000	1350000	115	0.200844	0.217125	Vitvi13g00139	Vitvi13g00139	0	RVW42455.1 Transcription factor bHLH61	development	annotation points to development; overlaps the high-FST region
+3	3:6500000-6550000	3	6500000	6550000	36	0.207777	0.207777	Vitvi03g00577	Vitvi03g00577	0	XP_010647966.1 DNA repair protein REV1 isoform X2		overlaps the high-FST region
+3	3:6500000-6550000	3	6500000	6550000	36	0.207777	0.207777	Vitvi03g04201	Vitvi03g04201	0	RVW61431.1Transcription factor bHLH113		overlaps the high-FST region
+4	9:14100000-14200000	9	14100000	14200000	131	0.188416	0.207032	Vitvi09g01008	Vitvi09g01008	0	XP_034696764.1myb family transcription factor PHL6-like	development	annotation points to development; overlaps the high-FST region
+4	9:14100000-14200000	9	14100000	14200000	131	0.188416	0.207032	Vitvi09g04381	Vitvi09g04381	0	XP_034696430.1F-box/LRR-repeat protein At2g42720-like	disease resistance	annotation points to disease resistance; overlaps the high-FST region
+5	9:18600000-18650000	9	18600000	18650000	77	0.199335	0.199335	Vitvi09g01169	Vitvi09g01169	0	XP_002263272.2 tRNA threonylcarbamoyladenosine dehydratase isoform X1		overlaps the high-FST region

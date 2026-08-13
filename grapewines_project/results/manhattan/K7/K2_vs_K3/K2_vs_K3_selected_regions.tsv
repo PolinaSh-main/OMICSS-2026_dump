@@ -1,0 +1,11 @@
+region_rank	region_id	chrom	region_start	region_end	n_snps	mean_window_fst	max_window_fst	gene_id	gene_name	distance_to_region_bp	description	theme	note
+1	4:6400000-6450000	4	6400000	6450000	31	0.330647	0.330647	Vitvi04g00585	Vitvi04g00585	0	XP_010648745.1 bifunctional purple acid phosphatase 26		overlaps the high-FST region
+1	4:6400000-6450000	4	6400000	6450000	31	0.330647	0.330647	Vitvi04g00586	Vitvi04g00586	0	XP_010648823.1 formin-like protein 18		overlaps the high-FST region
+2	3:9050000-9150000	3	9050000	9150000	73	0.286462	0.325354	Vitvi03g01654	Vitvi03g01654	0	RVX10196.1L-type lectin-domain containing receptor kinase IX.1	hormone signalling	annotation points to hormone signalling; overlaps the high-FST region
+2	3:9050000-9150000	3	9050000	9150000	73	0.286462	0.325354	Vitvi03g00754	Vitvi03g00754	0	RVX10252.1L-type lectin-domain containing receptor kinase IX.1	hormone signalling	annotation points to hormone signalling; overlaps the high-FST region
+3	6:12450000-12550000	6	12450000	12550000	106	0.292527	0.322320	Vitvi06g00996	Vitvi06g00996	0	RVW95062.1Receptor like protein 42		overlaps the high-FST region
+3	6:12450000-12550000	6	12450000	12550000	106	0.292527	0.322320	Vitvi06g00997	Vitvi06g00997	0	XP_019075945.1 double-stranded RNA-binding protein 1-like isoform X3		overlaps the high-FST region
+4	19:5750000-5800000	19	5750000	5800000	34	0.320409	0.320409	Vitvi19g00417	Vitvi19g00417	0	XP_002282472.1 polycomb group protein FIE2		overlaps the high-FST region
+4	19:5750000-5800000	19	5750000	5800000	34	0.320409	0.320409	Vitvi19g00418	Vitvi19g00418	0	XP_010644336.1 pentatricopeptide repeat-containing protein At4g04790, mitochondrial		overlaps the high-FST region
+5	6:13500000-13550000	6	13500000	13550000	45	0.309321	0.309321	Vitvi06g04301	Vitvi06g04301	0	RVW62358.1putative disease resistance protein	disease resistance	annotation points to disease resistance; overlaps the high-FST region
+5	6:13500000-13550000	6	13500000	13550000	45	0.309321	0.309321	Vitvi06g01056	Vitvi06g01056	0	XP_003632256.1 putative disease resistance RPP13-like protein 1	disease resistance	annotation points to disease resistance; overlaps the high-FST region

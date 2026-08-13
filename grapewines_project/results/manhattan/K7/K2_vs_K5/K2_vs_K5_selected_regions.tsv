@@ -1,0 +1,10 @@
+region_rank	region_id	chrom	region_start	region_end	n_snps	mean_window_fst	max_window_fst	gene_id	gene_name	distance_to_region_bp	description	theme	note
+1	2:5050000-5400000	2	5050000	5400000	360	0.247179	0.299644	Vitvi02g01446	Vitvi02g01446	0	XP_002270632.1 23.6 kDa heat shock protein, mitochondrial	stress response	annotation points to stress response; overlaps the high-FST region
+1	2:5050000-5400000	2	5050000	5400000	360	0.247179	0.299644	Vitvi02g01447	Vitvi02g01447	0	XP_002270596.1 small heat shock protein, chloroplastic	stress response	annotation points to stress response; overlaps the high-FST region
+2	17:6700000-6750000	17	6700000	6750000	21	0.297885	0.297885	Vitvi17g00514	Vitvi17g00514	0	XP_010663426.1 HIPL1 protein isoform X1		overlaps the high-FST region
+2	17:6700000-6750000	17	6700000	6750000	21	0.297885	0.297885	Vitvi17g00515	Vitvi17g00515	0	XP_002269071.1 formin-like protein 5		overlaps the high-FST region
+3	6:12500000-12700000	6	12500000	12700000	250	0.237048	0.287596	Vitvi06g04289	Vitvi06g04289	0	XP_002278464.1 probable cyclic nucleotide-gated ion channel 5 isoform X1		overlaps the high-FST region
+3	6:12500000-12700000	6	12500000	12700000	250	0.237048	0.287596	Vitvi06g01004	Vitvi06g01004	0	XP_002276536.1 molybdopterin biosynthesis protein CNX1 isoform X1		overlaps the high-FST region
+4	17:6450000-6550000	17	6450000	6550000	65	0.264483	0.284791	Vitvi17g00495	Vitvi17g00495	0	XP_010663449.1 transcription factor TCP5	development	annotation points to development; overlaps the high-FST region
+5	8:17650000-17750000	8	17650000	17750000	67	0.234375	0.257539	Vitvi08g01493	Vitvi08g01493	0	XP_010654053.1 pleiotropic drug resistance protein 2	disease resistance	annotation points to disease resistance; overlaps the high-FST region
+5	8:17650000-17750000	8	17650000	17750000	67	0.234375	0.257539	Vitvi08g01498	Vitvi08g01498	0	XP_002277233.3 growth-regulating factor 3	development	annotation points to development; overlaps the high-FST region

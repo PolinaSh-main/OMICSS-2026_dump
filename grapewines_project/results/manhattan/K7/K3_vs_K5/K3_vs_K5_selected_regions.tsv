@@ -1,0 +1,10 @@
+region_rank	region_id	chrom	region_start	region_end	n_snps	mean_window_fst	max_window_fst	gene_id	gene_name	distance_to_region_bp	description	theme	note
+1	2:4550000-4600000	2	4550000	4600000	22	0.350161	0.350161	Vitvi02g00486	Vitvi02g00486	0	XP_002267811.1 maspardin		overlaps the high-FST region
+1	2:4550000-4600000	2	4550000	4600000	22	0.350161	0.350161	Vitvi02g00487	Vitvi02g00487	0	AAS75969.1NADH dehydrogenase subunit F		overlaps the high-FST region
+2	8:16800000-16850000	8	16800000	16850000	34	0.334298	0.334298	Vitvi08g01401	Vitvi08g01401	0	XP_034694419.1secoisolariciresinol dehydrogenase-like		overlaps the high-FST region
+2	8:16800000-16850000	8	16800000	16850000	34	0.334298	0.334298	Vitvi08g04296	Vitvi08g04296	0	XP_002275746.2 secoisolariciresinol dehydrogenase-like		overlaps the high-FST region
+3	4:6400000-6450000	4	6400000	6450000	34	0.322553	0.322553	Vitvi04g00585	Vitvi04g00585	0	XP_010648745.1 bifunctional purple acid phosphatase 26		overlaps the high-FST region
+3	4:6400000-6450000	4	6400000	6450000	34	0.322553	0.322553	Vitvi04g00586	Vitvi04g00586	0	XP_010648823.1 formin-like protein 18		overlaps the high-FST region
+4	11:4650000-4750000	11	4650000	4750000	133	0.290589	0.312508	Vitvi11g00467	Vitvi11g00467	0	XP_010656426.1 ethylene-responsive transcription factor WIN1 isoform X2	hormone signalling	annotation points to hormone signalling; overlaps the high-FST region
+5	1:13450000-13500000	1	13450000	13500000	65	0.310828	0.310828	Vitvi01g01057	Vitvi01g01057	0	XP_034683355.1rhamnogalacturonan I rhamnosyltransferase 1		overlaps the high-FST region
+5	1:13450000-13500000	1	13450000	13500000	65	0.310828	0.310828	Vitvi01g01056	Vitvi01g01056	0	XP_002267401.1 transmembrane emp24 domain-containing protein p24delta9 isoform X2		overlaps the high-FST region

@@ -1,0 +1,9 @@
+region_rank	region_id	chrom	region_start	region_end	n_snps	mean_window_fst	max_window_fst	gene_id	gene_name	distance_to_region_bp	description	theme	note
+1	9:450000-500000	9	450000	500000	46	0.354287	0.354287	Vitvi09g01495	Vitvi09g01495	0	XP_019077597.1 auxin-responsive protein SAUR71	hormone signalling	annotation points to hormone signalling; overlaps the high-FST region
+1	9:450000-500000	9	450000	500000	46	0.354287	0.354287	Vitvi09g01496	Vitvi09g01496	0	XP_010654396.1 trihelix transcription factor ASIL2	development	annotation points to development; overlaps the high-FST region
+2	9:1450000-1500000	9	1450000	1500000	43	0.322142	0.322142	Vitvi09g00135	Vitvi09g00135	0	XP_010654485.1 midasin isoform X1		overlaps the high-FST region
+2	9:1450000-1500000	9	1450000	1500000	43	0.322142	0.322142	Vitvi09g00136	Vitvi09g00136	0	XP_002276785.1 60S ribosomal protein L9		overlaps the high-FST region
+3	14:3100000-3150000	14	3100000	3150000	55	0.312057	0.312057	Vitvi14g04092	Vitvi14g04092	9146	RVX18935.1hypothetical protein CK203_007046		9146 bp from the region; no informative annotation in this region -- treat as a placeholder
+4	4:5550000-5600000	4	5550000	5600000	55	0.303308	0.303308	Vitvi04g00524	Vitvi04g00524	0	XP_002282922.1 brassinosteroid-related acyltransferase 1	hormone signalling	annotation points to hormone signalling; overlaps the high-FST region
+5	17:10100000-10350000	17	10100000	10350000	368	0.265384	0.303143	Vitvi17g00805	Vitvi17g00805	0	YP_009669402.1photosystem I P700 apoprotein A2		overlaps the high-FST region
+5	17:10100000-10350000	17	10100000	10350000	368	0.265384	0.303143	Vitvi17g00807	Vitvi17g00807	0	XP_010663184.1 protein KINESIN LIGHT CHAIN-RELATED 3		overlaps the high-FST region

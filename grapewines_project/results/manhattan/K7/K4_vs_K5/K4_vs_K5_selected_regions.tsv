@@ -1,0 +1,9 @@
+region_rank	region_id	chrom	region_start	region_end	n_snps	mean_window_fst	max_window_fst	gene_id	gene_name	distance_to_region_bp	description	theme	note
+1	11:3250000-3300000	11	3250000	3300000	61	0.338035	0.338035	Vitvi11g00344	Vitvi11g00344	0	XP_002281054.1 putative disease resistance RPP13-like protein 3	disease resistance	annotation points to disease resistance; overlaps the high-FST region
+2	8:10400000-10500000	8	10400000	10500000	103	0.291873	0.332262	Vitvi08g00829	Vitvi08g00829	0	XP_010653352.1 stress response protein nst1	stress response	annotation points to stress response; overlaps the high-FST region
+3	17:13000000-13050000	17	13000000	13050000	50	0.331401	0.331401	Vitvi17g04281	Vitvi17g04281	0	RVW82923.1Calcium-transporting ATPase 10, plasma membrane-type		overlaps the high-FST region
+3	17:13000000-13050000	17	13000000	13050000	50	0.331401	0.331401	Vitvi17g01015	Vitvi17g01015	0	XP_034672674.1B3 domain-containing protein Os01g0905400-like		overlaps the high-FST region
+4	1:22450000-22700000	1	22450000	22700000	176	0.290453	0.307011	Vitvi01g04448	Vitvi01g04448	0	XP_034697081.1MADS-box protein FLOWERING LOCUS C-like	development	annotation points to development; overlaps the high-FST region
+4	1:22450000-22700000	1	22450000	22700000	176	0.290453	0.307011	Vitvi01g01677	Vitvi01g01677	0	XP_034679891.1agamous-like MADS-box protein MADS4	development	annotation points to development; overlaps the high-FST region
+5	8:16800000-16850000	8	16800000	16850000	33	0.300668	0.300668	Vitvi08g01401	Vitvi08g01401	0	XP_034694419.1secoisolariciresinol dehydrogenase-like		overlaps the high-FST region
+5	8:16800000-16850000	8	16800000	16850000	33	0.300668	0.300668	Vitvi08g04296	Vitvi08g04296	0	XP_002275746.2 secoisolariciresinol dehydrogenase-like		overlaps the high-FST region

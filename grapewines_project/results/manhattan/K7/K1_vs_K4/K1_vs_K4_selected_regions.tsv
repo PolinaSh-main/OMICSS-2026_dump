@@ -1,0 +1,8 @@
+region_rank	region_id	chrom	region_start	region_end	n_snps	mean_window_fst	max_window_fst	gene_id	gene_name	distance_to_region_bp	description	theme	note
+1	7:25700000-26000000	7	25700000	26000000	130	0.360460	0.444737	Vitvi07g01792	Vitvi07g01792	0	XP_010652831.1 agamous-like MADS-box protein AGL104	development	annotation points to development; overlaps the high-FST region
+1	7:25700000-26000000	7	25700000	26000000	130	0.360460	0.444737	Vitvi07g01807	Vitvi07g01807	0	XP_010652849.1 transcription factor TGA1 isoform X3	development	annotation points to development; overlaps the high-FST region
+2	9:5050000-5100000	9	5050000	5100000	39	0.431990	0.431990	Vitvi09g04146	Vitvi09g04146	0	XP_034695236.1pleiotropic drug resistance protein 1-like	disease resistance	annotation points to disease resistance; overlaps the high-FST region
+3	7:24250000-24400000	7	24250000	24400000	86	0.377402	0.415348	Vitvi07g04686	Vitvi07g04686	0	RVW57498.1Agamous-like MADS-box protein AGL66	development	annotation points to development; overlaps the high-FST region
+4	14:6400000-6500000	14	6400000	6500000	90	0.335139	0.376860	Vitvi14g00433	Vitvi14g00433	0	XP_002272789.2 trihelix transcription factor GTL2	development	annotation points to development; overlaps the high-FST region
+5	9:450000-500000	9	450000	500000	40	0.370296	0.370296	Vitvi09g01495	Vitvi09g01495	0	XP_019077597.1 auxin-responsive protein SAUR71	hormone signalling	annotation points to hormone signalling; overlaps the high-FST region
+5	9:450000-500000	9	450000	500000	40	0.370296	0.370296	Vitvi09g01496	Vitvi09g01496	0	XP_010654396.1 trihelix transcription factor ASIL2	development	annotation points to development; overlaps the high-FST region

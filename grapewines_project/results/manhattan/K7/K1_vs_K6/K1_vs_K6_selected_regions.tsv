@@ -1,0 +1,10 @@
+region_rank	region_id	chrom	region_start	region_end	n_snps	mean_window_fst	max_window_fst	gene_id	gene_name	distance_to_region_bp	description	theme	note
+1	14:6500000-6550000	14	6500000	6550000	52	0.296510	0.296510	Vitvi14g00438	Vitvi14g00438	0	XP_002272890.1 28 kDa ookinete surface antigen isoform X1		overlaps the high-FST region
+1	14:6500000-6550000	14	6500000	6550000	52	0.296510	0.296510	Vitvi14g04176	Vitvi14g04176	0	RVW38109.1putative ribose-5-phosphate isomerase 3, chloroplastic		overlaps the high-FST region
+2	9:1200000-1250000	9	1200000	1250000	50	0.278196	0.278196	Vitvi09g00115	Vitvi09g00115	0	XP_002264851.2 transcription initiation factor TFIID subunit 12b isoform X1		overlaps the high-FST region
+2	9:1200000-1250000	9	1200000	1250000	50	0.278196	0.278196	Vitvi09g00117	Vitvi09g00117	0	XP_002275438.1 protein ELF4-LIKE 4		overlaps the high-FST region
+3	14:6850000-7000000	14	6850000	7000000	63	0.259475	0.270287	Vitvi14g00465	Vitvi14g00465	0	XP_019081404.1 homeobox-leucine zipper protein ANTHOCYANINLESS 2 isoform X2	development	annotation points to development; overlaps the high-FST region
+4	9:2300000-2350000	9	2300000	2350000	56	0.254510	0.254510	Vitvi09g00212	Vitvi09g00212	0	XP_002276282.1 dentin sialophosphoprotein		overlaps the high-FST region
+4	9:2300000-2350000	9	2300000	2350000	56	0.254510	0.254510	Vitvi09g00213	Vitvi09g00213	0	XP_010654556.1 40S ribosomal protein S15a-5		overlaps the high-FST region
+5	13:2550000-2600000	13	2550000	2600000	40	0.249708	0.249708	Vitvi13g01952	Vitvi13g01952	0	CBI31726.3unnamed protein product, partial		overlaps the high-FST region
+5	13:2550000-2600000	13	2550000	2600000	40	0.249708	0.249708	Vitvi13g04071	Vitvi13g04071	0	RVX13587.1F-box protein		overlaps the high-FST region

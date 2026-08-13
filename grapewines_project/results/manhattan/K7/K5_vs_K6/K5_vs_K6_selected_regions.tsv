@@ -1,0 +1,10 @@
+region_rank	region_id	chrom	region_start	region_end	n_snps	mean_window_fst	max_window_fst	gene_id	gene_name	distance_to_region_bp	description	theme	note
+1	14:7450000-7500000	14	7450000	7500000	26	0.271840	0.271840	Vitvi14g00497	Vitvi14g00497	0	XP_002263664.1 ankyrin-1		overlaps the high-FST region
+1	14:7450000-7500000	14	7450000	7500000	26	0.271840	0.271840	Vitvi14g00499	Vitvi14g00499	0	XP_010660140.1 myosin-9 isoform X2		overlaps the high-FST region
+2	1:12900000-12950000	1	12900000	12950000	61	0.271055	0.271055	Vitvi01g01049	Vitvi01g01049	0	XP_002268605.1 mitochondrial uncoupling protein 3		overlaps the high-FST region
+3	17:7150000-7350000	17	7150000	7350000	166	0.219530	0.255508	Vitvi17g00569	Vitvi17g00569	0	XP_002274840.1 transcription factor PRE3	development	annotation points to development; overlaps the high-FST region
+3	17:7150000-7350000	17	7150000	7350000	166	0.219530	0.255508	Vitvi17g00578	Vitvi17g00578	0	XP_010663384.2 transcription factor bHLH47	development	annotation points to development; overlaps the high-FST region
+4	9:2300000-2350000	9	2300000	2350000	56	0.248269	0.248269	Vitvi09g00212	Vitvi09g00212	0	XP_002276282.1 dentin sialophosphoprotein		overlaps the high-FST region
+4	9:2300000-2350000	9	2300000	2350000	56	0.248269	0.248269	Vitvi09g00213	Vitvi09g00213	0	XP_010654556.1 40S ribosomal protein S15a-5		overlaps the high-FST region
+5	2:4350000-4700000	2	4350000	4700000	195	0.209756	0.243260	Vitvi02g00470	Vitvi02g00470	0	XP_002266482.1 RNA polymerase II transcription factor B subunit 5	development	annotation points to development; overlaps the high-FST region
+5	2:4350000-4700000	2	4350000	4700000	195	0.209756	0.243260	Vitvi02g01427	Vitvi02g01427	0	XP_002263860.2 flavonoid 3'-monooxygenase	berry metabolism	annotation points to berry metabolism; overlaps the high-FST region

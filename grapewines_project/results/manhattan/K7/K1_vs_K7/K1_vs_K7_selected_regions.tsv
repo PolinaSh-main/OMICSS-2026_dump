@@ -1,0 +1,10 @@
+region_rank	region_id	chrom	region_start	region_end	n_snps	mean_window_fst	max_window_fst	gene_id	gene_name	distance_to_region_bp	description	theme	note
+1	13:6050000-6150000	13	6050000	6150000	58	0.310080	0.360995	Vitvi13g04179	Vitvi13g04179	0	XP_010658392.1 probable lysine-specific demethylase ELF6 isoform X2		overlaps the high-FST region
+1	13:6050000-6150000	13	6050000	6150000	58	0.310080	0.360995	Vitvi13g00631	Vitvi13g00631	0	XP_002272073.1 probable acetyltransferase NATA1-like		overlaps the high-FST region
+2	1:11100000-11300000	1	11100000	11300000	224	0.282278	0.323543	Vitvi01g00934	Vitvi01g00934	0	XP_034697533.1AP2-like ethylene-responsive transcription factor At1g16060 isoform X2	hormone signalling	annotation points to hormone signalling; overlaps the high-FST region
+2	1:11100000-11300000	1	11100000	11300000	224	0.282278	0.323543	Vitvi01g00940	Vitvi01g00940	0	XP_010652374.1 probable WRKY transcription factor 72 isoform X1	development	annotation points to development; overlaps the high-FST region
+3	1:10900000-10950000	1	10900000	10950000	24	0.312774	0.312774	Vitvi01g00918	Vitvi01g00918	0	XP_002269605.2 homeobox-leucine zipper protein HAT5	development	annotation points to development; overlaps the high-FST region
+4	6:15500000-15550000	6	15500000	15550000	57	0.302225	0.302225	Vitvi06g01167	Vitvi06g01167	0	XP_002265253.2 pentatricopeptide repeat-containing protein At3g24000, mitochondrial		overlaps the high-FST region
+4	6:15500000-15550000	6	15500000	15550000	57	0.302225	0.302225	Vitvi06g01168	Vitvi06g01168	0	XP_010651534.1 splicing factor 3B subunit 6-like protein		overlaps the high-FST region
+5	13:7550000-7700000	13	7550000	7700000	97	0.268595	0.294444	Vitvi13g01242	Vitvi13g01242	0	XP_002263116.1 phosphoglucan phosphatase DSP4, amyloplastic isoform X1		overlaps the high-FST region
+5	13:7550000-7700000	13	7550000	7700000	97	0.268595	0.294444	Vitvi13g01240	Vitvi13g01240	0	XP_002270231.1 lysosomal Pro-X carboxypeptidase		overlaps the high-FST region

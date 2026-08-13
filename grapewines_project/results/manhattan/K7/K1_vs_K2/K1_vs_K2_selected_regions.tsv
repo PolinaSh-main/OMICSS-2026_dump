@@ -1,0 +1,9 @@
+region_rank	region_id	chrom	region_start	region_end	n_snps	mean_window_fst	max_window_fst	gene_id	gene_name	distance_to_region_bp	description	theme	note
+1	9:19800000-19850000	9	19800000	19850000	74	0.338470	0.338470	Vitvi09g01238	Vitvi09g01238	0	XP_002270825.1 ribulose bisphosphate carboxylase/oxygenase activase, chloroplastic		overlaps the high-FST region
+2	3:5250000-5300000	3	5250000	5300000	25	0.332060	0.332060	Vitvi03g00485	Vitvi03g00485	0	XP_002282024.1 presequence protease 2, chloroplastic/mitochondrial		overlaps the high-FST region
+2	3:5250000-5300000	3	5250000	5300000	25	0.332060	0.332060	Vitvi03g01562	Vitvi03g01562	0	XP_002282040.3 cyclin-dependent kinase inhibitor 7 isoform X1		overlaps the high-FST region
+3	17:9650000-9700000	17	9650000	9700000	36	0.331954	0.331954	Vitvi17g00770	Vitvi17g00770	0	RVX18383.1Protein RICE SALT sensitive 3	stress response	annotation points to stress response; overlaps the high-FST region
+4	6:12500000-12550000	6	12500000	12550000	44	0.304636	0.304636	Vitvi06g04289	Vitvi06g04289	0	XP_002278464.1 probable cyclic nucleotide-gated ion channel 5 isoform X1		overlaps the high-FST region
+4	6:12500000-12550000	6	12500000	12550000	44	0.304636	0.304636	Vitvi06g01004	Vitvi06g01004	0	XP_002276536.1 molybdopterin biosynthesis protein CNX1 isoform X1		overlaps the high-FST region
+5	14:5450000-5500000	14	5450000	5500000	50	0.300178	0.300178	Vitvi14g04156	Vitvi14g04156	0	XP_002272850.1 protein TRANSPORT INHIBITOR RESPONSE 1		overlaps the high-FST region
+5	14:5450000-5500000	14	5450000	5500000	50	0.300178	0.300178	Vitvi14g00381	Vitvi14g00381	0	XP_002272927.1 protein HASTY 1		overlaps the high-FST region

@@ -1,0 +1,7 @@
+region_rank	region_id	chrom	region_start	region_end	n_snps	mean_window_fst	max_window_fst	gene_id	gene_name	distance_to_region_bp	description	theme	note
+1	18:26750000-26800000	18	26750000	26800000	27	0.415883	0.415883	Vitvi18g04498	Vitvi18g04498	1560	RVW75058.1Retrovirus-related Pol polyprotein from transposon RE2		1560 bp from the region; no informative annotation in this region -- treat as a placeholder
+2	8:10800000-10850000	8	10800000	10850000	27	0.403490	0.403490	Vitvi08g00863	Vitvi08g00863	0	XP_002267737.3 probable LRR receptor-like serine/threonine-protein kinase IRK	disease resistance	annotation points to disease resistance; overlaps the high-FST region
+3	8:12550000-12750000	8	12550000	12750000	176	0.334859	0.401638	Vitvi08g01001	Vitvi08g01001	0	XP_002276858.1 UDP-glycosyltransferase 86A1	berry metabolism	annotation points to berry metabolism; overlaps the high-FST region
+3	8:12550000-12750000	8	12550000	12750000	176	0.334859	0.401638	Vitvi08g01011	Vitvi08g01011	0	XP_002281963.1 transcription factor TCP11	development	annotation points to development; overlaps the high-FST region
+4	3:1850000-1950000	3	1850000	1950000	59	0.358451	0.387685	Vitvi03g00157	Vitvi03g00157	0	XP_019074035.1 transcription factor ABORTED MICROSPORES isoform X2	development	annotation points to development; overlaps the high-FST region
+5	14:8800000-8850000	14	8800000	8850000	24	0.384688	0.384688	Vitvi14g00564	Vitvi14g00564	0	XP_010660112.1 ethylene-responsive transcription factor 1B	hormone signalling	annotation points to hormone signalling; overlaps the high-FST region

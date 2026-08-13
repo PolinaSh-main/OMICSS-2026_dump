@@ -1,0 +1,9 @@
+region_rank	region_id	chrom	region_start	region_end	n_snps	mean_window_fst	max_window_fst	gene_id	gene_name	distance_to_region_bp	description	theme	note
+1	6:6500000-6550000	6	6500000	6550000	24	0.448613	0.448613	Vitvi06g00565	Vitvi06g00565	0	XP_010650958.1 probable serine/threonine-protein kinase At5g41260		overlaps the high-FST region
+1	6:6500000-6550000	6	6500000	6550000	24	0.448613	0.448613	Vitvi06g04192	Vitvi06g04192	0	XP_010650957.1 mitochondrial import inner membrane translocase subunit TIM10		overlaps the high-FST region
+2	19:3900000-3950000	19	3900000	3950000	46	0.430268	0.430268	Vitvi19g04113	Vitvi19g04113	0	CBI20372.3unnamed protein product, partial		overlaps the high-FST region
+2	19:3900000-3950000	19	3900000	3950000	46	0.430268	0.430268	Vitvi19g04114	Vitvi19g04114	0	XP_019072959.1 B3 domain-containing transcription repressor VAL1 isoform X1		overlaps the high-FST region
+3	14:11200000-11300000	14	11200000	11300000	79	0.382276	0.426647	Vitvi14g00669	Vitvi14g00669	0	XP_034679325.1peroxisomal 2,4-dienoyl-CoA reductase		overlaps the high-FST region
+3	14:11200000-11300000	14	11200000	11300000	79	0.382276	0.426647	Vitvi14g04282	Vitvi14g04282	0	RVW54442.1ATP-dependent zinc metalloprotease FTSH 12, chloroplastic		overlaps the high-FST region
+4	14:12200000-12250000	14	12200000	12250000	23	0.418704	0.418704	Vitvi14g00736	Vitvi14g00736	0	XP_002264025.1 protein PHOSPHATE STARVATION RESPONSE 1 isoform X1		overlaps the high-FST region
+5	4:13850000-13950000	4	13850000	13950000	92	0.382507	0.415077	Vitvi04g00970	Vitvi04g00970	0	XP_010648945.1 protein GPR107		overlaps the high-FST region

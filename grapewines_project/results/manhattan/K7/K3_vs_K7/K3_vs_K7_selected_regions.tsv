@@ -1,0 +1,10 @@
+region_rank	region_id	chrom	region_start	region_end	n_snps	mean_window_fst	max_window_fst	gene_id	gene_name	distance_to_region_bp	description	theme	note
+1	13:6100000-6150000	13	6100000	6150000	28	0.413369	0.413369	Vitvi13g00635	Vitvi13g00635	0	XP_002273620.1 probable acetyltransferase NATA1-like		overlaps the high-FST region
+1	13:6100000-6150000	13	6100000	6150000	28	0.413369	0.413369	Vitvi13g00637	Vitvi13g00637	0	XP_002271753.1 ATPase ASNA1 homolog		overlaps the high-FST region
+2	6:6500000-6550000	6	6500000	6550000	29	0.408736	0.408736	Vitvi06g00565	Vitvi06g00565	0	XP_010650958.1 probable serine/threonine-protein kinase At5g41260		overlaps the high-FST region
+2	6:6500000-6550000	6	6500000	6550000	29	0.408736	0.408736	Vitvi06g04192	Vitvi06g04192	0	XP_010650957.1 mitochondrial import inner membrane translocase subunit TIM10		overlaps the high-FST region
+3	11:10500000-10600000	11	10500000	10600000	109	0.340451	0.393767	Vitvi11g00823	Vitvi11g00823	0	XP_002272377.2 HD domain-containing protein 2		overlaps the high-FST region
+3	11:10500000-10600000	11	10500000	10600000	109	0.340451	0.393767	Vitvi11g00824	Vitvi11g00824	0	XP_002271446.1 GPI mannosyltransferase 3 isoform X1		overlaps the high-FST region
+4	18:21250000-21300000	18	21250000	21300000	33	0.370126	0.370126	Vitvi18g01533	Vitvi18g01533	0	XP_002264197.1 transcription factor DIVARICATA	development	annotation points to development; overlaps the high-FST region
+5	11:10850000-10900000	11	10850000	10900000	28	0.363378	0.363378	Vitvi11g04213	Vitvi11g04213	0	XP_019078583.1PREDICTED: uncharacterized protein LOC100267284		overlaps the high-FST region; no informative annotation in this region -- treat as a placeholder
+5	11:10850000-10900000	11	10850000	10900000	28	0.363378	0.363378	Vitvi11g04214	Vitvi11g04214	0	RVW84738.1hypothetical protein CK203_046707		overlaps the high-FST region; no informative annotation in this region -- treat as a placeholder

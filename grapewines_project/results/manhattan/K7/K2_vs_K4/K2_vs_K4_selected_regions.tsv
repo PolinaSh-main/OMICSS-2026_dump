@@ -1,0 +1,10 @@
+region_rank	region_id	chrom	region_start	region_end	n_snps	mean_window_fst	max_window_fst	gene_id	gene_name	distance_to_region_bp	description	theme	note
+1	10:18450000-18500000	10	18450000	18500000	158	0.295110	0.295110	Vitvi10g01247	Vitvi10g01247	0	XP_034698892.1protein ROOT HAIR DEFECTIVE 3 homolog 2 isoform X1		overlaps the high-FST region
+2	3:9600000-9750000	3	9600000	9750000	149	0.245195	0.280697	Vitvi03g00793	Vitvi03g00793	0	XP_002270505.1 probable protein S-acyltransferase 23		overlaps the high-FST region
+2	3:9600000-9750000	3	9600000	9750000	149	0.245195	0.280697	Vitvi03g00796	Vitvi03g00796	0	XP_030932593.1probable protein S-acyltransferase 14 isoform X1		overlaps the high-FST region
+3	3:5100000-5150000	3	5100000	5150000	36	0.274265	0.274265	Vitvi03g04174	Vitvi03g04174	0	RVW68087.1Respiratory burst oxidase-like protein A		overlaps the high-FST region
+3	3:5100000-5150000	3	5100000	5150000	36	0.274265	0.274265	Vitvi03g00464	Vitvi03g00464	0	XP_002281956.2 CDPK-related kinase 5		overlaps the high-FST region
+4	6:13650000-13700000	6	13650000	13700000	115	0.268939	0.268939	Vitvi06g04305	Vitvi06g04305	0	XP_019076333.1 probable apyrase 6		overlaps the high-FST region
+4	6:13650000-13700000	6	13650000	13700000	115	0.268939	0.268939	Vitvi06g01069	Vitvi06g01069	0	XP_002273133.1 geranylgeranyl diphosphate reductase, chloroplastic		overlaps the high-FST region
+5	15:22050000-22150000	15	22050000	22150000	96	0.245146	0.268585	Vitvi15g04653	Vitvi15g04653	0	XP_010659764.1 transcription factor PIF3 isoform X1	development	annotation points to development; overlaps the high-FST region
+5	15:22050000-22150000	15	22050000	22150000	96	0.245146	0.268585	Vitvi15g04655	Vitvi15g04655	0	XP_002276091.1 transcription factor MYB86	berry metabolism	annotation points to berry metabolism; overlaps the high-FST region

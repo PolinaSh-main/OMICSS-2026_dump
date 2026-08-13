@@ -1,0 +1,9 @@
+group	n_samples	comment
+K1	15	ok
+K2	22	ok
+K3	13	ok
+K4	12	ok
+K5	32	ok
+K6	49	ok
+K7	17	ok
+admixed	252	admixed, excluded from FST

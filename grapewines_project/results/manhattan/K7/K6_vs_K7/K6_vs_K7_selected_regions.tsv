@@ -1,0 +1,10 @@
+region_rank	region_id	chrom	region_start	region_end	n_snps	mean_window_fst	max_window_fst	gene_id	gene_name	distance_to_region_bp	description	theme	note
+1	6:6500000-6550000	6	6500000	6550000	30	0.288985	0.288985	Vitvi06g00565	Vitvi06g00565	0	XP_010650958.1 probable serine/threonine-protein kinase At5g41260		overlaps the high-FST region
+1	6:6500000-6550000	6	6500000	6550000	30	0.288985	0.288985	Vitvi06g04192	Vitvi06g04192	0	XP_010650957.1 mitochondrial import inner membrane translocase subunit TIM10		overlaps the high-FST region
+2	5:23600000-23650000	5	23600000	23650000	26	0.259226	0.259226	Vitvi05g01542	Vitvi05g01542	0	XP_010650623.1 flowering time control protein FPA	development	annotation points to development; overlaps the high-FST region
+3	13:27700000-27850000	13	27700000	27850000	107	0.223529	0.238913	Vitvi13g01823	Vitvi13g01823	0	XP_002268178.1 homeobox-leucine zipper protein HOX11	development	annotation points to development; overlaps the high-FST region
+3	13:27700000-27850000	13	27700000	27850000	107	0.223529	0.238913	Vitvi13g02568	Vitvi13g02568	0	XP_002268398.1 myb family transcription factor PHL5	berry metabolism	annotation points to berry metabolism; overlaps the high-FST region
+4	2:5150000-5300000	2	5150000	5300000	148	0.207745	0.235075	Vitvi02g01446	Vitvi02g01446	0	XP_002270632.1 23.6 kDa heat shock protein, mitochondrial	stress response	annotation points to stress response; overlaps the high-FST region
+4	2:5150000-5300000	2	5150000	5300000	148	0.207745	0.235075	Vitvi02g01447	Vitvi02g01447	0	XP_002270596.1 small heat shock protein, chloroplastic	stress response	annotation points to stress response; overlaps the high-FST region
+5	4:22800000-22850000	4	22800000	22850000	51	0.234624	0.234624	Vitvi04g02237	Vitvi04g02237	0	XP_019075130.1 G-type lectin S-receptor-like serine/threonine-protein kinase LECRK3		overlaps the high-FST region
+5	4:22800000-22850000	4	22800000	22850000	51	0.234624	0.234624	Vitvi04g04495	Vitvi04g04495	0	RVW85290.1G-type lectin S-receptor-like serine/threonine-protein kinase LECRK1		overlaps the high-FST region

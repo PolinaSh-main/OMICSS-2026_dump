@@ -1,0 +1,10 @@
+region_rank	region_id	chrom	region_start	region_end	n_snps	mean_window_fst	max_window_fst	gene_id	gene_name	distance_to_region_bp	description	theme	note
+1	9:19800000-19850000	9	19800000	19850000	73	0.264266	0.264266	Vitvi09g01238	Vitvi09g01238	0	XP_002270825.1 ribulose bisphosphate carboxylase/oxygenase activase, chloroplastic		overlaps the high-FST region
+2	9:14150000-14300000	9	14150000	14300000	332	0.235565	0.262233	Vitvi09g01008	Vitvi09g01008	0	XP_034696764.1myb family transcription factor PHL6-like	development	annotation points to development; overlaps the high-FST region
+2	9:14150000-14300000	9	14150000	14300000	332	0.235565	0.262233	Vitvi09g04381	Vitvi09g04381	0	XP_034696430.1F-box/LRR-repeat protein At2g42720-like	disease resistance	annotation points to disease resistance; overlaps the high-FST region
+3	17:6500000-6850000	17	6500000	6850000	137	0.227767	0.261153	Vitvi17g00507	Vitvi17g00507	0	XP_002267633.1 transcription factor bHLH79	development	annotation points to development; overlaps the high-FST region
+3	17:6500000-6850000	17	6500000	6850000	137	0.227767	0.261153	Vitvi17g00510	Vitvi17g00510	0	XP_010663429.1 transcription factor MYB35	berry metabolism	annotation points to berry metabolism; overlaps the high-FST region
+4	4:2900000-2950000	4	2900000	2950000	31	0.250088	0.250088	Vitvi04g00307	Vitvi04g00307	0	RVW17276.1Aquaporin TIP4-1		overlaps the high-FST region
+4	4:2900000-2950000	4	2900000	2950000	31	0.250088	0.250088	Vitvi04g01849	Vitvi04g01849	0	XP_002283968.1 probable lactoylglutathione lyase, chloroplastic		overlaps the high-FST region
+5	6:20450000-20550000	6	20450000	20550000	156	0.222707	0.244446	Vitvi06g01498	Vitvi06g01498	0	XP_002275292.1 protein transport protein Sec24-like At3g07100		overlaps the high-FST region
+5	6:20450000-20550000	6	20450000	20550000	156	0.222707	0.244446	Vitvi06g01499	Vitvi06g01499	0	XP_010651880.1 asparagine--tRNA ligase, cytoplasmic 1		overlaps the high-FST region
