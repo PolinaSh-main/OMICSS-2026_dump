@@ -1,0 +1,19 @@
+input           /mnt/nas1/proj/omicss26/gp3/phylogeny/rooted/input/cauc_rooted_tree_input.413samples.vcf.gz
+samples         413 (412 Caucasian + ZZ01)
+variants in     119195
+sites retained  12848
+maf             >= 0.10
+missing rate    <= 0.10
+ld threshold    0.10
+chromosomes     1-19
+low-depth screen skipped (-r)
+outgroup        ZZ01
+method          maximum likelihood, PHYLIP dnaml via SNPhylo
+snphylo         /mnt/nas1/proj/omicss26/gp3/phylogeny/software/snphylo/snphylo.vcf.sh
+bootstrap       100 replicates, phangorn::bootstrap.pml, optNni
+slurm jobs      dnaml 5252, rest 5285
+
+ml tree         /mnt/nas0/user/polina.shevyakova/grapewines_project/results/tree/snphylo/cauc_rooted.ml.tree
+bootstrap tree  /mnt/nas0/user/polina.shevyakova/grapewines_project/results/tree/snphylo/cauc_rooted.bs.tree   <- the final tree
+annotation      /mnt/nas0/user/polina.shevyakova/grapewines_project/results/tree/tip_annotation.tsv
+figures         /mnt/nas0/user/polina.shevyakova/grapewines_project/results/tree/plots/

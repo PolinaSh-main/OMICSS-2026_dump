@@ -1,0 +1,10 @@
+group	n	main_country	wild_or_cultivated	label
+K1	15	Armenia	wild	Armenia wild group 1
+K2	22	Georgia	cultivated	Georgia cultivated
+K3	13	Armenia-Azerbaijan	cultivated	Armenia-Azerbaijan cultivated group 1
+K4	12	Armenia-Azerbaijan	cultivated	Armenia-Azerbaijan cultivated group 2
+K5	32	Turkey	wild	Turkey wild
+K6	49	Turkey	cultivated	Turkey cultivated
+K7	17	Armenia	wild	Armenia wild group 2
+Admixed	252			Admixed (max Q < 0.75)
+Outgroup	1			ZZ01 (V. rotundifolia)

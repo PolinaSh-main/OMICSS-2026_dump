@@ -1,0 +1,10 @@
+ok    cauc_rooted.ml.tree exists and is not empty  9751 bytes
+ok    cauc_rooted.ml.tree: tip count               413 (expected 413)
+ok    cauc_rooted.ml.tree: no duplicated labels    none
+ok    cauc_rooted.ml.tree: contains ZZ01           yes
+ok    cauc_rooted.bs.tree exists and is not empty  9948 bytes
+ok    cauc_rooted.bs.tree: tip count               413 (expected 413)
+ok    cauc_rooted.bs.tree: no duplicated labels    none
+ok    cauc_rooted.bs.tree: contains ZZ01           yes
+
+bootstrap: 299 internal nodes carry a value; 99 at or above 70, 60 at or above 90
