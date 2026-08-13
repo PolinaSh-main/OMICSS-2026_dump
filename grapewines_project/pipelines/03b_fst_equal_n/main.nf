@@ -177,6 +177,13 @@ process PAIRWISE_FST {
         cp ${comparison}.stderr.txt ${comparison}.log
     fi
 
+    #
+    # 210 of these tables at ~30 MB each would be 6 GB of work
+    # directory on a 30 GB NFS home, and none of it is read again --
+    # only the mean in the log is. Drop it as soon as the log exists.
+    #
+    rm -f ${comparison}.weir.fst
+
     """
 
 }
@@ -222,6 +229,13 @@ process GROUP_PI {
     awk 'NR > 1 && \$3 != "-nan" { total += \$3; n++ }
          END { if (n > 0) printf "%.8f\\n", total / n; else print "" }' \
         ${scope}_${group}.sites.pi > ${scope}_${group}.pi
+
+    if [ ! -s ${scope}_${group}.pi ]; then
+        echo "no usable per-site pi for ${scope} ${group}" >&2
+        exit 1
+    fi
+
+    rm -f ${scope}_${group}.sites.pi
 
     """
 
