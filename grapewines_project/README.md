@@ -25,7 +25,7 @@ grapewines_project/
 │   └── 05_tree/              neighbour-joining tree from 1-IBS distances
 └── results/                  published outputs (small ones are versioned)
     ├── admixture/{cv,orders,orderings,barplots}
-    ├── pca/{global,by_metadata}
+    ├── pca/{global,by_metadata,association}
     ├── fst/K<K>/
     ├── manhattan/<comparison>/
     └── tree/
@@ -96,6 +96,22 @@ component *n* is the same colour everywhere:
 - `pipelines/02_pca/bin/run_pca_plots.sh` calls `pca_plot.py` without
   `--color-column`, which that script requires — it fails as written. Use
   `run_all_pca_plots.sh`, which passes the column.
+- `pipelines/02_pca/bin/pc_metadata_heatmap.py` asks which metadata
+  variable explains which PC — one-way ANOVA per PC × variable, cells
+  coloured by adjusted R², stars from the BH-adjusted p-value. It is a
+  port of a `heatmap.r` written in RStudio; the R on this cluster has no
+  ggplot2 and no png device, so it could not have run here. The port was
+  checked against R's own `lm`/`anova` on this data and agrees to 1e-10.
+  Defaults are sized for a slide — PC1–PC5 across eight variables, large
+  type; pass `--font-scale 0.6` for a figure that goes in a document.
+
+  ```bash
+  cd pipelines/02_pca
+  python3 bin/pc_metadata_heatmap.py \
+      --eigenvec ../../results/pca/global/cauc_pca.eigenvec \
+      --metadata ../../reference/cauc_grape_metadata.csv \
+      --outdir   ../../results/pca/association
+  ```
 - `01_admixture` was moved from `admixture/` into `pipelines/01_admixture/`
   and its config was made relocatable; the results in `results/admixture/`
   come from the run performed before that move.
