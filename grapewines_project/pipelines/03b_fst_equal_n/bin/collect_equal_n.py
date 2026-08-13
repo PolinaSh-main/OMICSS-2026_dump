@@ -292,11 +292,74 @@ def main():
             print(f"\n    Spearman(group size, pi) on full groups : "
                   f"{rho:+.3f} (p = {p:.3g})")
 
-            print("    a strong positive value means the small groups "
-                  "really are\n    internally uniform, which is the "
-                  "denominator explanation\n    confirmed directly.")
+            print("    Positive means the larger groups carry more "
+                  "diversity, which is\n    what links size to FST. "
+                  "With seven groups this has almost no\n    power on "
+                  "its own -- Q4 below is the test that decides it.")
 
         pi.to_csv(args.outdir / "within_group_pi.tsv", sep="\t", index=False)
+
+        # -----------------------------------------------------------
+        # question 4 -- is FST here just a restatement of Hs?
+        # -----------------------------------------------------------
+        #
+        # FST = 1 - Hs/Ht, where Hs is diversity within the groups and
+        # Ht diversity in the two of them pooled. If Ht turns out to be
+        # the same for every pair, then nothing in the ranking is about
+        # how far apart two groups are -- the whole spread comes from
+        # Hs, i.e. from how uniform the groups are internally.
+        #
+        # Worth checking because a 12% spread in Hs does not look like
+        # it could produce a threefold spread in FST, yet it can: FST is
+        # one minus a ratio close to one, so small moves in Hs are
+        # amplified.
+        #
+
+        pi_full = dict(
+            zip(full_pi["group"], full_pi["pi"])
+        )
+
+        summary["Hs"] = (
+            summary["group_a"].map(pi_full)
+            + summary["group_b"].map(pi_full)
+        ) / 2
+
+        summary["implied_Ht"] = (
+            summary["Hs"] / (1 - summary["equal_n_mean"])
+        )
+
+        hs_rho, hs_p = stats.spearmanr(
+            summary["Hs"], summary["equal_n_mean"]
+        )
+
+        print("\n\nQ4  is the ranking a restatement of within-group "
+              "diversity?\n")
+
+        print(f"    Spearman(Hs of the pair, FST) : {hs_rho:+.3f} "
+              f"(p = {hs_p:.2g})")
+
+        print(f"    Spearman(size of pair,   FST) : {after_rho:+.3f}")
+
+        print(f"\n    implied Ht = Hs / (1 - FST)   : "
+              f"{summary['implied_Ht'].mean():.4f} "
+              f"+/- {summary['implied_Ht'].std():.4f}   "
+              f"({summary['implied_Ht'].min():.4f} to "
+              f"{summary['implied_Ht'].max():.4f})")
+
+        constant_ht = summary["implied_Ht"].mean()
+
+        print("\n    holding Ht at that mean and moving only Hs:")
+
+        for label, value in [
+            ("least diverse pair", summary["Hs"].min()),
+            ("most diverse pair", summary["Hs"].max()),
+        ]:
+            print(f"        {label:20s} Hs = {value:.4f} "
+                  f"-> FST = {1 - value / constant_ht:.4f}")
+
+        print(f"        {'observed':20s}         "
+              f"      -> FST = {summary['equal_n_mean'].min():.4f} "
+              f"to {summary['equal_n_mean'].max():.4f}")
 
     summary.to_csv(
         args.outdir / "fst_equal_n_summary.tsv",

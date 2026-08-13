@@ -1,0 +1,20 @@
+
+VCFtools - v0.1.13
+(C) Adam Auton and Anthony Marcketta 2009
+
+Parameters as interpreted:
+	--gzvcf assigned.vcf.gz
+	--weir-fst-pop rep01_K4_samples.txt
+	--weir-fst-pop rep01_K6_samples.txt
+	--keep rep01_K4_samples.txt
+	--keep rep01_K6_samples.txt
+	--out rep01_K4_vs_K6
+
+Using zlib version: 1.2.11
+Keeping individuals in 'keep' list
+After filtering, kept 24 out of 160 Individuals
+Outputting Weir and Cockerham Fst estimates.
+Weir and Cockerham mean Fst estimate: 0.060857
+Weir and Cockerham weighted Fst estimate: 0.078448
+After filtering, kept 814885 out of a possible 814885 Sites
+Run Time = 34.00 seconds
