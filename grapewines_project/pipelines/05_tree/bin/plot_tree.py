@@ -170,9 +170,9 @@ def assign_coordinates(root: newick.Node) -> int:
 
 def draw_rectangular(root, n_tips, colours, args):
 
-    height = max(6.0, 0.16 * n_tips)
+    height = max(12.0, 0.30 * n_tips)
 
-    figure, axes = plt.subplots(figsize=(11, height))
+    figure, axes = plt.subplots(figsize=(18, height))
 
     for node in newick.all_nodes(root):
 
@@ -180,12 +180,12 @@ def draw_rectangular(root, n_tips, colours, args):
 
             axes.plot(
                 [node.x, node.x], [node.y, child.y],
-                color=BRANCH_COLOUR, linewidth=0.5, solid_capstyle="round",
+                color=BRANCH_COLOUR, linewidth=1.1, solid_capstyle="round",
             )
 
             axes.plot(
                 [node.x, child.x], [child.y, child.y],
-                color=BRANCH_COLOUR, linewidth=0.5, solid_capstyle="round",
+                color=BRANCH_COLOUR, linewidth=1.1, solid_capstyle="round",
             )
 
     tips = newick.tips(root)
@@ -195,7 +195,7 @@ def draw_rectangular(root, n_tips, colours, args):
     axes.scatter(
         [tip.x for tip in tips],
         [tip.y for tip in tips],
-        s=10,
+        s=34,
         c=[colours[normalise(tip.name)] for tip in tips],
         zorder=3,
         linewidths=0,
@@ -207,7 +207,7 @@ def draw_rectangular(root, n_tips, colours, args):
             tip.x + span * 0.004,
             tip.y,
             tip.name,
-            fontsize=3.6,
+            fontsize=8.5,
             va="center",
             color=colours[normalise(tip.name)],
         )
@@ -232,7 +232,7 @@ def draw_rectangular(root, n_tips, colours, args):
             node.x - span * 0.003,
             node.y,
             f"{node.support:.0f}",
-            fontsize=3.2,
+            fontsize=7.5,
             ha="right",
             va="bottom",
             color="#333333",
@@ -244,7 +244,12 @@ def draw_rectangular(root, n_tips, colours, args):
 
     axes.set_yticks([])
 
-    axes.set_xlabel("Substitutions per site (maximum likelihood)")
+    axes.set_xlabel(
+        "Substitutions per site (maximum likelihood)",
+        fontsize=20,
+    )
+
+    axes.tick_params(axis="x", labelsize=16)
 
     axes.set_title(
         f"{caption_subject(n_tips, args)}\n"
@@ -254,7 +259,7 @@ def draw_rectangular(root, n_tips, colours, args):
             "; support is from the full 413-tip tree"
             if args.drop_admixed else ""
         ),
-        fontsize=11,
+        fontsize=24,
     )
 
     for side in ("top", "right", "left"):
@@ -324,7 +329,7 @@ def compress_root_stem(root, outgroup: str, keep: float = 0.25):
 
 def draw_fan(root, n_tips, colours, args):
 
-    figure, axes = plt.subplots(figsize=(12, 12))
+    figure, axes = plt.subplots(figsize=(18, 18))
 
     # A wedge left open so the root direction is visible.
     span = 2 * np.pi * 0.96
@@ -345,7 +350,7 @@ def draw_fan(root, n_tips, colours, args):
             node.x * np.cos(arc),
             node.x * np.sin(arc),
             color=BRANCH_COLOUR,
-            linewidth=0.4,
+            linewidth=0.9,
         )
 
         for child in node.children:
@@ -369,7 +374,7 @@ def draw_fan(root, n_tips, colours, args):
     axes.scatter(
         positions[:, 0],
         positions[:, 1],
-        s=16,
+        s=55,
         c=[colours[normalise(tip.name)] for tip in tips],
         zorder=3,
         linewidths=0,
@@ -391,7 +396,7 @@ def draw_fan(root, n_tips, colours, args):
 
         axes.scatter(
             [x], [y],
-            s=110, marker="*", color=OUTGROUP_COLOUR, zorder=4, linewidths=0,
+            s=380, marker="*", color=OUTGROUP_COLOUR, zorder=4, linewidths=0,
         )
 
         theta = angle(tip)
@@ -403,14 +408,14 @@ def draw_fan(root, n_tips, colours, args):
                 (radius * 1.18) * np.cos(theta),
                 (radius * 1.18) * np.sin(theta),
             ),
-            fontsize=10,
+            fontsize=24,
             fontweight="bold",
             ha="center",
             va="center",
             arrowprops={
                 "arrowstyle": "-",
                 "color": OUTGROUP_COLOUR,
-                "linewidth": 0.8,
+                "linewidth": 1.8,
             },
         )
 
@@ -427,7 +432,7 @@ def draw_fan(root, n_tips, colours, args):
     axes.set_title(
         f"{caption_subject(n_tips, args)}, rooted on {args.outgroup}\n"
         f"{subtitle}",
-        fontsize=13,
+        fontsize=28,
     )
 
     return figure, axes
@@ -587,7 +592,7 @@ def main():
                 [], [],
                 marker="*" if group == "Outgroup" else "o",
                 linestyle="",
-                markersize=9 if group == "Outgroup" else 7,
+                markersize=20 if group == "Outgroup" else 16,
                 color=colour,
                 label=legend_text(group),
             )
@@ -598,9 +603,9 @@ def main():
         # the corners often enough that an inset legend lands on tips.
         bbox_to_anchor=(1.0, 1.0),
         frameon=False,
-        fontsize=8,
+        fontsize=19,
         title="K = 7 ADMIXTURE assignment",
-        title_fontsize=9,
+        title_fontsize=21,
     )
 
     figure.tight_layout()

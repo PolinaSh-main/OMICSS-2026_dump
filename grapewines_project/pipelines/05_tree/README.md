@@ -95,6 +95,46 @@ ingroup fills the plot; distances *within* the ingroup are untouched,
 and the caption says the branch is shortened. The rectangular figure
 does not do this — it is the one that keeps every length honest.
 
+## How well does the tree actually agree with ADMIXTURE?
+
+Read off the fan figure the answer looks like "perfectly" -- seven arcs
+of seven colours. That reading is wrong, and it is wrong in the way a
+figure invites: the grey admixed tips sitting between the coloured ones
+are easy to skip.
+
+Measured instead, on the pruned tree (160 assigned accessions):
+
+| group | members | smallest clade containing them | foreign tips inside |
+|---|---|---|---|
+| K2 GEORGIA cultivated | 22 | **22** | **0** |
+| K1 ARMENIA wild | 15 | 17 | 2 |
+| K4 | 12 | 34 | 22 |
+| K5 TURKEY wild | 32 | 87 | 55 |
+| K7 ARMENIA wild | 17 | 87 | 70 |
+| K6 | 49 | 147 | 98 |
+| K3 | 13 | 160 | 147 |
+
+Only K2 is a clade, and K1 is close. The other five are not, and K3 is
+spread across the whole ingroup. On the *full* 413-tip tree not one of
+the seven is a clade, and the nodes that come closest for K1 and K2
+carry no bootstrap label at all -- those splits were not recovered in
+any of the 100 replicates.
+
+So the honest statement is that the two analyses agree **in part**:
+strongly for the Georgian cultivated group, nearly for one Armenian wild
+group, weakly elsewhere. The groups are clustered far beyond chance --
+22 of 160 tips sitting together with nobody in between does not happen
+by accident -- but clustered is not the same as monophyletic.
+
+The two Armenian wild groups, K1 and K7, sit far apart. That is expected
+rather than surprising: sylvestris is the ancestral state, cultivated
+vinifera was domesticated out of it, so wild lineages should come out
+paraphyletic. "Wild" names a condition, not a clade.
+
+Reproduce the table with the tree and `tip_annotation.tsv`: for each
+group, take the smallest node whose tip set contains every member, and
+count the tips in it that belong to something else.
+
 ## Reading the result
 
 The root sits outside the Caucasian accessions and orients the tree from
