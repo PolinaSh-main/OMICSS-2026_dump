@@ -22,3 +22,9 @@
 
 *.png  binary
 *.pdf  binary
+
+# Generated output, not source -- keep it out of the repository language
+# statistics (4 FastQC reports were making GitHub call this an HTML project).
+*_fastqc.html      linguist-generated=true
+grapewines_project/results/**  linguist-generated=true
+enrichment_project/*.png       linguist-generated=true
