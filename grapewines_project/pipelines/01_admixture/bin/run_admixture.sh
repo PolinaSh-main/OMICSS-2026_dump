@@ -3,17 +3,17 @@
 #SBATCH --cpus-per-task=4
 #SBATCH --partition=thin
 #SBATCH --output=log/slurm_fastp-%x-%j.log
-#SBATCH -o log/admixturegp3.out
-#SBATCH -e log/admixturegp3.err
+#SBATCH -o log/admixture.out
+#SBATCH -e log/admixture.err
 
 #to run:
-#sbatch -D /mnt/nas1/proj/admixture/results/polina_sh/logomicss26/gp3/admixture/results/polina_sh \
-#    /mnt/nas1/proj/omicss26/gp3/admixture/script/admixture_polia.sh
+#sbatch -D /path/to/admixture-run \
+#    /path/to/admixture-run/run_admixture.sh
 
-# Please doubple check the paths before running the script!
-admixture="/mnt/nas1/proj/omicss26/soft/admixture_linux-1.3.0/admixture"
-data="/mnt/nas1/proj/omicss26/gp3/admixture/data_filtered/cauc_filtered.final.bed"
-log_dir="/mnt/nas1/proj/omicss26/gp3/admixture/results/polina_sh/log"
+# Please double check the paths before running the script!
+admixture="/path/to/tools/admixture_linux-1.3.0/admixture"
+data="/path/to/shared-data/admixture/data_filtered/cauc_filtered.final.bed"
+log_dir="/path/to/admixture-run/log"
 
 echo "creating lod directory"
 mkdir -p "$log_dir"

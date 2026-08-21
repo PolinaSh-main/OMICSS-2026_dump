@@ -8,11 +8,11 @@
 
 sample=$1
 
-data_dir='/mnt/nas0/user/polina.shevyakova/tmf_project/variant_calling'
+data_dir='/path/to/workdir/tmf_project/variant_calling'
 
-ref='/mnt/nas1/proj/omicss26/ngs_data_analysis/alignment_samtools/ref_genome/hg38.fa'
+ref='/path/to/shared-data/ngs_data_analysis/alignment_samtools/ref_genome/hg38.fa'
 
-gatk_bin="/mnt/nas1/proj/omicss26/soft/gatk-4.2.6.1/gatk"
+gatk_bin="/path/to/tools/gatk-4.2.6.1/gatk"
 
 ${gatk_bin} SortSam \
   -I ${data_dir}/bam/${sample}_sorted.bam \
@@ -36,10 +36,10 @@ timeout 20m ${gatk_bin} --java-options "-Xmx6g" HaplotypeCaller \
 if [ $? -eq 124 ]; then
     echo "HaplotypeCaller exceeded 20 minutes. Copying precomputed GVCF..."
 
-    cp /mnt/nas1/proj/omicss26/ngs_data_analysis/variant_calling/data/gvcf/${sample}.g.vcf.gz \
+    cp /path/to/shared-data/ngs_data_analysis/variant_calling/data/gvcf/${sample}.g.vcf.gz \
        ${gvcf_out}
 
-    cp /mnt/nas1/proj/omicss26/ngs_data_analysis/variant_calling/data/gvcf/${sample}.g.vcf.gz.tbi \
+    cp /path/to/shared-data/ngs_data_analysis/variant_calling/data/gvcf/${sample}.g.vcf.gz.tbi \
        ${gvcf_out}.tbi 2>/dev/null || true
 fi
 

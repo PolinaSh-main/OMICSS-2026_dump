@@ -19,7 +19,7 @@ nextflow.enable.dsl = 2
  *
  *  At K=7 this is 21 comparisons. They are independent, so each one is
  *  its own SLURM job and they run in parallel rather than in the serial
- *  loop the course scripts use.
+ *  loop the reference scripts use.
  * ---------------------------------------------------------------------
  */
 
@@ -335,7 +335,7 @@ workflow {
 
         Or point at the shared copy:
 
-          --admixture_dir /mnt/nas1/proj/omicss26/gp3/admixture/results
+          --admixture_dir /path/to/shared-data/admixture/results
         """.stripIndent()
     }
 

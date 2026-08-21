@@ -1,6 +1,6 @@
 #SCRIPT FOR SEPERATION OF SNPs AND INDELS
 # NOTE: Run this script from the directory where the "log" directory is located,
-#       Example: /mnt/nas1/proj/omicss26/admixture
+#       Example: /path/to/shared-data/admixture
 #
 # PURPOSE:
 #   This script performs snp filtering.
@@ -25,7 +25,7 @@ fi
 input_file="$1"
 store_plink="$2"
 output_dir="$3"
-plink="/mnt/nas0/proj/vine/user_projects/shengchang/soft/plink/plink"
+plink="plink"
 
 mkdir -p "$store_plink"
 mkdir -p "$output_dir"

@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=tree_finish
-#SBATCH --output=/mnt/nas0/user/polina.shevyakova/tree_rooted/logs/finish_%j.out
-#SBATCH --error=/mnt/nas0/user/polina.shevyakova/tree_rooted/logs/finish_%j.err
+#SBATCH --output=/path/to/workdir/tree_rooted/logs/finish_%j.out
+#SBATCH --error=/path/to/workdir/tree_rooted/logs/finish_%j.err
 #SBATCH --time=1-00:00:00
 #SBATCH --cpus-per-task=32
 #SBATCH --mem=160G
@@ -25,14 +25,14 @@
 
 set -uo pipefail
 
-REPO=/mnt/nas0/user/polina.shevyakova
+REPO=/path/to/workdir
 PROJ=$REPO/grapewines_project
 BIN=$PROJ/pipelines/05_tree/bin
 RUN=$REPO/tree_rooted
 OUT=$PROJ/results/tree
-SNP=/mnt/nas1/proj/omicss26/gp3/phylogeny/software/snphylo
+SNP=/path/to/shared-data/phylogeny/software/snphylo
 
-export PATH=/mnt/software/linux/bin:$PATH
+export PATH=/path/to/tools/bin:$PATH
 export R_LIBS=$SNP/R_LIBS
 
 ML=$RUN/results/cauc_rooted.ml.tree
@@ -116,7 +116,7 @@ done
 step "run summary"
 
 {
-    echo "input           /mnt/nas1/proj/omicss26/gp3/phylogeny/rooted/input/cauc_rooted_tree_input.413samples.vcf.gz"
+    echo "input           /path/to/shared-data/phylogeny/rooted/input/cauc_rooted_tree_input.413samples.vcf.gz"
     echo "samples         413 (412 Caucasian + ZZ01)"
     echo "variants in     119195"
     echo "sites retained  $(head -1 "$PHY" | awk '{print $2}')"

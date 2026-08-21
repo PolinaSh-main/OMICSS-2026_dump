@@ -1,13 +1,13 @@
 #!/bin/bash
-#SBATCH --job-name=gp3_filter
+#SBATCH --job-name=vcf_filter
 #SBATCH --time=48:00:00
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=64G
 
 set -euo pipefail
 
-WORKDIR="/mnt/nas0/user/polina.shevyakova/grapewines_project"
-INPUT_VCF="/mnt/nas1/proj/omicss26/gp3/data/vcf/cauca_grape.subset.vcf.gz"
+WORKDIR="/path/to/workdir/grapewines_project"
+INPUT_VCF="/path/to/shared-data/data/vcf/cauca_grape.subset.vcf.gz"
 LOG="${WORKDIR}/logs/filter_full_$(date +%Y%m%d_%H%M%S).log"
 
 mkdir -p "${WORKDIR}/logs"

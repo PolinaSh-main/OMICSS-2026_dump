@@ -102,7 +102,7 @@ else, and it appears in the top five pairs. Thirteen Armenian and
 Azerbaijani cultivated accessions that are unusually similar to each
 other. The reading is close kinship among a few cultivars, not an
 anciently divergent lineage. That is a claim about K3 that a
-relatedness check (KING, as in the mentors' paper) would settle.
+relatedness check (KING, as in the reference paper) would settle.
 
 ## What this does not fix
 

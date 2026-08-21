@@ -160,7 +160,7 @@ def propose_name(country_levels, domestication_levels) -> tuple[str, str]:
     """
     Returns (name, evidence).
 
-    The wording follows the convention the mentor set for the group
+    The wording follows the naming convention agreed for the group
     figures:
 
         ARMENIA wild

@@ -337,7 +337,7 @@ process PLOT {
     // "groups_only" prunes the admixed tips, leaving the seven assigned
     // groups and the outgroup. Both versions are drawn: the task brief
     // asks for the admixed samples to stay visible, because where they
-    // fall is informative, while the group figures the mentor asked for
+    // fall is informative, while the group figures the brief asked for
     // are easier to read without 252 grey dots.
     //
 

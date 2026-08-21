@@ -15,7 +15,7 @@ It does not say how far apart those clusters are. FST does.
 cd pipelines/03_fst
 
 nextflow run . --k 7                 # all 21 comparisons
-nextflow run . --k 3                 # the instructors' worked example
+nextflow run . --k 3                 # the reference worked example
 nextflow run . --k 7 --pairs K1:K5   # one comparison
 ```
 
@@ -36,7 +36,7 @@ the VCF rather than twenty-one of them in sequence.
 
 ## Output
 
-Written to `results/fst/K<K>/`, in the layout the course instructions ask
+Written to `results/fst/K<K>/`, in the layout the analysis brief asks
 for:
 
 ```
@@ -62,7 +62,7 @@ plots/
 `pairwise_fst_summary_K<K>.tsv` reports both averages vcftools makes
 available:
 
-- `mean_fst` — plain average over SNPs. This is what the course
+- `mean_fst` — plain average over SNPs. This is what the brief
   instructions ask for, and what the heatmap shows by default.
 - `weighted_fst` — the ratio-of-averages estimator. Less swayed by the
   very many near-zero SNPs, and the one usually quoted in papers.
@@ -86,7 +86,7 @@ bar is annotated, so read those against the usual guide (≈0.05 low,
 metadata — dominant country, plus wild or cultivated inferred from
 `Genetic background` (ssp. *sylvestris* = wild, ssp. *vinifera* =
 cultivated) with `Utilization` as a fallback. Two components that land on
-the same label get numbered, as in the instructors' "Armenian wild group
+the same label get numbered, as in the reference's "Armenian wild group
 1 / 2".
 
 The `evidence` column carries the numbers behind each name, and

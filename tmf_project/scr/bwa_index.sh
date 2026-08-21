@@ -8,6 +8,6 @@
 
 mkdir -p logs
 
-cd /mnt/nas0/user/polina.shevyakova/tmf_project/data/hg38_index
+cd /path/to/workdir/tmf_project/data/hg38_index
 
 bwa index hg38.fa

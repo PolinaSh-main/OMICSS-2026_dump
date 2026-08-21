@@ -9,7 +9,7 @@ to a handful of numbers.
 Two averages are reported, because they answer different questions:
 
     mean_fst      unweighted average over SNPs. This is the number the
-                  course instructions ask for.
+                  the analysis brief asks for.
     weighted_fst  the ratio-of-averages estimator vcftools prints in
                   its log. It is less sensitive to the many
                   low-information SNPs and is usually the one quoted in

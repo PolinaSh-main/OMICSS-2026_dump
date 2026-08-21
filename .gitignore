@@ -1,5 +1,5 @@
 # =====================================================================
-#  OMICSS-2026 — what does NOT belong in git
+#  What does NOT belong in git
 #
 #  Rule of thumb: git stores code, configs and small text results.
 #  Everything that a pipeline can regenerate stays on the server only.
@@ -84,7 +84,7 @@ __pycache__/
 *.gff3
 *.gtf
 
-# bulk RNA-seq input tables (course-provided, re-downloadable)
+# bulk RNA-seq input tables (externally provided, re-downloadable)
 enrichment_project/dataset/
 *.gmt
 

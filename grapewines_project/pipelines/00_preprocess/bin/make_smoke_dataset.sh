@@ -3,8 +3,8 @@
 
 set -euo pipefail
 
-WORKDIR="/mnt/nas0/user/polina.shevyakova/grapewines_project"
-INPUT_VCF="/mnt/nas1/proj/omicss26/gp3/data/vcf/cauca_grape.subset.vcf.gz"
+WORKDIR="/path/to/workdir/grapewines_project"
+INPUT_VCF="/path/to/shared-data/data/vcf/cauca_grape.subset.vcf.gz"
 SMOKE_DIR="${WORKDIR}/smoke_test"
 
 mkdir -p "${SMOKE_DIR}"

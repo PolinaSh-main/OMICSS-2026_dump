@@ -2,16 +2,16 @@
 #SBATCH --mem=10gb
 #SBATCH --cpus-per-task=1
 #SBATCH --partition=thin
-#SBATCH -o /mnt/nas0/user/polina.shevyakova/grapewines_project/admixture/log/pca_all.out
-#SBATCH -e /mnt/nas0/user/polina.shevyakova/grapewines_project/admixture/log/pca_all.err
+#SBATCH -o /path/to/workdir/grapewines_project/admixture/log/pca_all.out
+#SBATCH -e /path/to/workdir/grapewines_project/admixture/log/pca_all.err
 
 
-PROJECT="/mnt/nas0/user/polina.shevyakova/grapewines_project/admixture"
+PROJECT="/path/to/workdir/grapewines_project/admixture"
 
 EIGENVEC="$PROJECT/pca_results/cauc_pca.eigenvec"
 EIGENVAL="$PROJECT/pca_results/cauc_pca.eigenval"
 
-METADATA="/mnt/nas1/proj/omicss26/gp3/data/metadata/cauc_grape_metadata.csv"
+METADATA="/path/to/shared-data/data/metadata/cauc_grape_metadata.csv"
 
 OUTBASE="$PROJECT/pca_all_plots"
 
@@ -41,7 +41,7 @@ do
 
     mkdir -p "$OUTBASE/$safe_col"
 
-    python3 "/mnt/nas0/user/polina.shevyakova/grapewines_project/admixture/scripts/pca_plot.py" \
+    python3 "/path/to/workdir/grapewines_project/admixture/scripts/pca_plot.py" \
         --eigenvec "$EIGENVEC" \
         --eigenval "$EIGENVAL" \
         --metadata "$METADATA" \

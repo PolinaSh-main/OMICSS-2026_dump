@@ -1,12 +1,11 @@
-# Grapevine population genomics — OMICSS 2026, GP3
+# Grapevine population genomics
 
 Population structure and differentiation of Caucasian grapevine
 (*Vitis vinifera*) from SNP data: 412 samples, ~815 k biallelic SNPs after
 filtering, 19 chromosomes.
 
-Course instructions live in the
-[OMICSS repo](https://github.com/abi-am/omicss26/tree/main/Group%20projects/GP3).
-This checkout turns them into pipelines that can be re-run.
+Started from a shared dataset and an analysis brief; this repository is the
+part that turns it into pipelines that can be re-run end to end.
 
 ## Layout
 
@@ -48,11 +47,11 @@ pipeline directory. Override it with `--project_root` if needed.
 
 | What | Where | In git? |
 |---|---|---|
-| filtered VCF + index | `/mnt/nas1/proj/omicss26/gp3/data/vcf/cauc_filtered.final.vcf.gz{,.tbi}` | no (shared, read-only) |
+| filtered VCF + index | `/path/to/shared-data/data/vcf/cauc_filtered.final.vcf.gz{,.tbi}` | no (shared, read-only) |
 | PLINK triple | `<...>/data/plink/cauc_filtered.final.{bed,bim,fam}` | `.fam` only |
 | metadata | `reference/cauc_grape_metadata.csv` | yes |
 | ADMIXTURE `.Q` / `.P` / logs | user scratch, see `pipelines/01_admixture/nextflow.config` | no |
-| gene annotation reference | `/mnt/nas1/proj/omicss26/gp3/gene_annotation/reference/PN40024.v4.1.REF.{gff3,b2g.tsv}` | no |
+| gene annotation reference | `/path/to/shared-data/gene_annotation/reference/PN40024.v4.1.REF.{gff3,b2g.tsv}` | no |
 
 ## Analysis order
 
@@ -75,10 +74,10 @@ pipeline directory. Override it with `--project_root` if needed.
 
 Everything is Python — pandas, numpy, matplotlib — plus the usual
 command-line tools (vcftools, PLINK, ADMIXTURE) driven by Nextflow. The
-course materials write the FST heatmap and the Manhattan plot in R;
-those are Python here instead, so the project needs one environment
-rather than two and the plotting code can share the palette below with
-the ADMIXTURE figures. The outputs are the same files.
+FST heatmap and the Manhattan plot were originally R; they are Python
+here instead, so the project needs one environment rather than two and
+the plotting code can share the palette below with the ADMIXTURE
+figures. The outputs are the same files.
 
 ## Colour palette
 
@@ -92,7 +91,7 @@ component *n* is the same colour everywhere:
 ## Notes
 
 - `pipelines/00_preprocess/bin/filter_snp_*.sh` and `vcf_to_plink.sh` are the
-  instructors' original scripts, kept for provenance. They still contain
+  original reference scripts, kept for provenance. They still contain
   absolute paths from the shared project folder.
 - `pipelines/02_pca/bin/run_pca_plots.sh` calls `pca_plot.py` without
   `--color-column`, which that script requires — it fails as written. Use

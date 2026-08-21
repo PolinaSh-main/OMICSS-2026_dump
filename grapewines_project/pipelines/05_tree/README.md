@@ -33,16 +33,16 @@ nextflow run . \
 
 MAF ≥ 0.10, missing rate ≤ 0.10, LD 0.10, chromosomes 1–19, outgroup
 ZZ01, 100 bootstrap replicates, low-depth screen skipped (`-r`). These
-come from the task and are not to be changed without the mentor
+come from the analysis brief and are not to be changed unilaterally
 agreeing; an approved alternative is a separate, labelled sensitivity
 run — see `05b_nj_tree` for one such.
 
 ## Four things that are easy to get wrong here
 
 **The SNPhylo path in the task brief is not readable.**
-`/mnt/nas0/proj/vine/user_projects/armaria/snphylo_prog/` sits under a
+`/path/to/workdir sits under a
 directory owned by group `vine`. This pipeline uses the copy inside the
-course project, `phylogeny/software/snphylo/`, which is the one the
+shared data tree, `phylogeny/software/snphylo/`, which is the one the
 group's earlier runs used and whose `snphylo.vcf.sh` has `BASE_DIR`
 hard-coded to that location.
 

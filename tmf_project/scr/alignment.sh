@@ -9,8 +9,8 @@
 # the sample name is taken from the command line, e.g. sbatch alignment.sh wes46
 sample=$1
 
-data_dir='/mnt/nas0/user/polina.shevyakova/tmf_project/data/fastq'
-ref='/mnt/nas1/proj/omicss26/ngs_data_analysis/alignment_samtools/ref_genome/hg38.fa'
+data_dir='/path/to/workdir/tmf_project/data/fastq'
+ref='/path/to/shared-data/ngs_data_analysis/alignment_samtools/ref_genome/hg38.fa'
 
 READ1="${data_dir}/${sample}_chr21_chr16_R1.fastq"
 READ2="${data_dir}/${sample}_chr21_chr16_R2.fastq"

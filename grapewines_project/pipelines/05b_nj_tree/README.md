@@ -33,7 +33,7 @@ nextflow run . --bootstrap 0
 
 | Parameter | Default | Meaning |
 |---|---|---|
-| `--bfile` | shared course PLINK set | prefix, without `.bed/.bim/.fam` |
+| `--bfile` | shared PLINK set | prefix, without `.bed/.bim/.fam` |
 | `--chr_set` | 19 | grapevine chromosome count |
 | `--ld_r2` | 0.2 | LD pruning threshold |
 | `--bootstrap` | 100 | replicates; 0 to skip |

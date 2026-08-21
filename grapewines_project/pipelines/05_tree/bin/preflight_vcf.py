@@ -146,7 +146,7 @@ def main():
 
         raise SystemExit(
             "\nERROR: preflight failed. Do not substitute another VCF -- "
-            "record the counts above and ask the mentor to resolve the "
+            "record the counts above and resolve the "
             "discrepancy."
         )
 

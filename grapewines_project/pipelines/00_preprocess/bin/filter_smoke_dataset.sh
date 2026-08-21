@@ -1,12 +1,12 @@
 #!/bin/bash
-#SBATCH --job-name=gp3_smoke
+#SBATCH --job-name=vcf_smoke
 #SBATCH --time=00:10:00
 #SBATCH --cpus-per-task=1
 #SBATCH --mem=1G
 
 set -euo pipefail
 
-WORKDIR="/mnt/nas0/user/polina.shevyakova/grapewines_project"
+WORKDIR="/path/to/workdir/grapewines_project"
 SMOKE_DIR="${WORKDIR}/smoke_test"
 LOG="${SMOKE_DIR}/logs/smoke_$(date +%Y%m%d_%H%M%S).log"
 
