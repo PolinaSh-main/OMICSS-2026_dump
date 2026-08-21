@@ -28,3 +28,6 @@
 *_fastqc.html      linguist-generated=true
 grapewines_project/results/**  linguist-generated=true
 enrichment_project/*.png       linguist-generated=true
+# ADMIXTURE .Q ancestry matrices are numeric data; GitHub was guessing HiveQL.
+*.Q                linguist-detectable=false
+*.html             linguist-detectable=false
